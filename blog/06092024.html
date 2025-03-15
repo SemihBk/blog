@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../src/css/style.css" />
+    <script src="/script.js"></script>
+    <title>Mon blog</title>
+  </head>
+  <body>
+    <nav-bar></nav-bar>
+    <main>
+      <aside class="infobar">
+        <h3>Blog</h3>
+        <p>Publié le : 4 novembre 2024</p>
+      </aside>
+      <article>
+        <aside>
+          <h2 class="main-title">Hacker son compte en banque ?</h2>
+          <p>
+            Depuis un mois maintenant, je travaille sur un projet scolaire qui
+            parle de la casse de la banque centrale du Bangladesh. Plus je fais
+            des recherches, et plus je m'aperçois de l'ingéniosité dont les
+            pirates ont fait preuve pour atteindre leurs objectifs.
+          </p>
+
+          <p>
+            Quand on y pense, c'est vrai... Pourquoi se mettre physiquement en
+            danger en échauffaudant un plan avec des armes, des menaces et des
+            moyens de fuite alors qu'aujourd'hui, les choses intéressantes se
+            retrouvent également dans les systèmes informatiques ? On pourrait
+            très bien imaginer prendre moins de risque en restant derrière un
+            pc, et en un coup de commande Linux, vider des comptes en banque,
+            non ?
+          </p>
+
+          <p>
+            Après tout, la plupart des transactions aujourd'hui se font à l'aide
+            de nos téléphones. Si je peux voir le montant de mon compte en
+            banque via une application bancaire, cela veut dire que ce montant
+            est virtuellement stocké quelque part, estimant ce que je possède
+            financièrement.
+          </p>
+
+          <p>Alors, comment tout ceci fonctionne ?</p>
+
+          <p>
+            Pour avoir une idée de réponse, il faut d'abord comprendre comment
+            le système bancaire fonctionne, et comment l'argent se crée. On va
+            d'abord poser des définitions pour bien comprendre de quoi on parle.
+            <strong>Je précise que je ne ferai pas de cours d'économie</strong>,
+            ce n'est pas le but (<em
+              >même si c'est super intéressant, je vais omettre volontairement
+              des détails</em
+            >). L'objectif ici est d'avoir une idée du processus de création de
+            monnaie.
+          </p>
+        </aside>
+
+        <aside>
+          <h3 class="secondary-title">Vocabulaire</h3>
+          <p>
+            <strong>Monnaie fiduciaire :</strong> C'est l'argent liquide, les
+            billets et pièces en circulation dans le monde.
+            <em
+              >(chose assez drôle, fiduciaire signifie "en qui on a confiance",
+              ce qui veut dire qu'on a confiance en la valeur qu'on lui
+              attribue)</em
+            >
+          </p>
+          <p>
+            <strong>Monnaie scripturale :</strong> L'argent numérique que l'on
+            peut retrouver sur nos comptes bancaires.
+            <em
+              >(scripturale signifie écriture, dans ce contexte, c'est la
+              circulation par simple jeu d'écriture (numérique))</em
+            >
+          </p>
+          <p>
+            <strong>Banque centrale :</strong> La banque des banques, la grosse
+            entité qui contrôle tout, la banque ultime en quelque sorte.
+          </p>
+          <p>
+            <strong>Banques commerciales :</strong> Ce sont les banques que l'on
+            voit un peu partout, celles qui nous permettent de posséder un (ou
+            des) compte en banque.
+          </p>
+          <p>
+            <strong>Masse monétaire :</strong> C'est la quantité d'argent qui
+            circule dans l'économie.
+            <em
+              >(fiduciaire + scripturale, la grande majorité de la masse
+              monétaire est dématérialisée)</em
+            >
+          </p>
+          <p>
+            <strong>Taux directeur :</strong> C'est un taux d'intérêt fixé par
+            une banque centrale pour les prêts qu'elle accorde aux banques
+            commerciales qui en ont besoin.
+          </p>
+          <p>
+            <strong>Liquidités :</strong> Ce terme a l'air d'avoir plusieurs
+            définitions en fonction du contexte, mais on va en parler comme des
+            "sommes disponibles".
+            <em
+              >(par exemple, les liquidités d'une banque, ce sont les sommes
+              disponibles dans cette banque)</em
+            >
+          </p>
+        </aside>
+
+        <aside>
+          <h3 class="secondary-title">La banque centrale</h3>
+          <p>
+            C'est <strong>la banque des banques</strong>. C'est l'ultime
+            puissance qui gère la politique monétaire des pays. Elle pose un
+            regard sur l'économie, elle régule les banques commerciales, elle
+            impose des taux directeurs aux banques commerciales (et donc
+            influence le taux des prêts), en bref, c'est
+            <strong>elle qui décide</strong>. Il y a en général une banque
+            centrale par pays (bien que pour l'Europe, c'est la banque centrale
+            européenne (BCE) qui dispose de ce pouvoir (<em
+              >les actionnaires de la BCE se trouvent être les banques centrales
+              de tous les pays européens</em
+            >)). (Voir la
+            <a
+              href="https://fr.wikipedia.org/wiki/Liste_des_banques_centrales"
+              target="_blank"
+              >liste des banques</a
+            >)
+          </p>
+
+          <p>
+            <strong
+              >La banque centrale européenne est une institution publique, elle
+              est indépendante de l'État.</strong
+            >
+            <br />
+            Ce qui signifie que la politique n'a aucun pouvoir d'action sur
+            elle. Elle agit comme
+            <em>défenseure d'une économie saine et stable</em>. Elle doit agir
+            au mieux pour les intérêts des citoyens européens.
+          </p>
+
+          <p>
+            C'est également elle qui crée
+            <strong>la monnaie fiduciaire</strong>. La monnaie fiduciaire est
+            créée pour garantir qu'il y a suffisamment de billets et de pièces
+            disponibles pour les transactions quotidiennes des citoyens et des
+            entreprises. Elle est créée pour répondre aux besoins économiques de
+            la société. La monnaie scripturale peut influencer la création de
+            monnaie fiduciaire (la création d'argent via les prêts augmente la
+            masse monétaire, qui augmente à son tour la probabilité de retrait
+            d'argent).
+          </p>
+        </aside>
+        <aside>
+          <h3 class="secondary-title">Les banques commerciales</h3>
+          <p>
+            Ce sont
+            <strong
+              >les banques qui offrent des services aux particuliers et aux
+              entreprises</strong
+            >. Ce sont celles qui traitent les transactions financières, les
+            dépôts, les retraits, l'épargne, en gros, celles que M. et Mme tout
+            le monde utilisent.
+          </p>
+
+          <p>
+            Les banques commerciales
+            <strong
+              >créent la monnaie scripturale par le biais des crédits</strong
+            >. Lors d'une demande de prêt, si la banque accepte, elle
+            <em>crée</em> la monnaie par
+            <strong>une écriture comptable et informatique</strong>, on appelle
+            ça la <em><u>création monétaire</u></em
+            >. Lorsque le prêt est remboursé, l'argent est <em>détruit</em>, on
+            appelle ça la <em><u>destruction monétaire</u></em
+            >.
+          </p>
+
+          <p>
+            On ne va pas entrer dans le détail de l'écriture comptable (je
+            passerai la création de l'actif dans les livres comptables et autres
+            termes comptabilité), mais ce qu'il faut savoir, c'est que
+            l'écriture comptable et informatique n'est pas humainement vérifiée.
+
+            <strong
+              >Elle est généralement saisie automatiquement lorsqu'un prêt est
+              accordé</strong
+            >.
+          </p>
+
+          <p>
+            Il y a bien des contrôles humains qui se font (audits internes et
+            externes) afin de s'assurer que toutes les transactions sont
+            correctement enregistrées. Mais le processus qui permet la
+            <em>création monétaire</em> est automatisé.
+          </p>
+
+          <p>
+            Il faut aussi comprendre que
+            <strong
+              >la monnaie scripturale ne dépend <u>uniquement</u> que des
+              crédits accordés aux particuliers et aux entreprises</strong
+            >. L'argent qui circule sur les comptes en banque provient
+            <strong>exclusivement</strong> des crédits non-remboursés à ce jour,
+            car ce sont eux qui sont responsables de la création de cette
+            monnaie.
+          </p>
+
+          <p>
+            Si tous les crédits étaient remboursés, il n'existerait en théorie
+            plus de monnaie scripturale.
+          </p>
+        </aside>
+
+        <aside>
+          <h3 class="secondary-title">
+            Pourrait-on <em>secrètement</em> ajouter quelques 0 au montant de
+            notre compte ?
+          </h3>
+          <p>
+            Lorsque je me suis posé cette question, je me suis demandé si chaque
+            euro de la monnaie scripturale possédait un identifiant unique,
+            capable d'être tracé et d'être retrouvé. Après tout, ça fait sens,
+            surtout en sécurité informatique.
+          </p>
+
+          <p>
+            Il semblerait que non, la création monéataire se matérialise dans
+            les livres comptables de la banque qui accorde le prêt, et c'est de
+            cette façon que l'argent prend forme quelque part. Toute la monnaie
+            scripturale provenant des crédits est donc enregistrée avec les
+            informations nécessaires pour retracer ses mouvements. Elle possède
+            un historique, en quelque sorte.
+          </p>
+
+          <p>
+            Chaque transaction est donc authentifiée et tracée pour éviter la
+            fraude ou la duplication, le mouvement de l'argent est enregistré.
+          </p>
+
+          <p>
+            Le montant présent sur nos comptes en banque est une entrée
+            numérique en base de données. En réalité, toutes les transactions
+            sont aussi des entrées en base de données. Les bases de données
+            peuvent être manipulées, alors ne présentent-elles pas de risques ?
+            Pourrait-on modifier la valeur des montants dans la table ?
+          </p>
+
+          <p>
+            En théorie, oui, on pourrait. <br />
+            <strong>Mais</strong>, il y a un mais. Les systèmes bancaires (comme
+            tous les systèmes informatiques, d'ailleurs) disposent d'un journal
+            de logs qui enregistre chaque action réalisée. Ce journal permet
+            d'identifier et de répondre à tout comportement anormal. On pourrait
+            penser à effacer ces logs pour ne pas éveiller les soupçons, mais
+            ils sont généralement enregistrés autre part pour éviter ce
+            problème.
+          </p>
+
+          <p>
+            De plus, les bases de données sont sécurisées grâce à des systèmes
+            de gestion des accès protégés par le MFA (authentification
+            multi-facteurs), ce qui diminue drastiquement les risques de
+            piratage. Pour en rajouter une couche, il est très rare qu'une
+            personne ait des permissions complètes, les accès sont généralement
+            limités et segmentés.
+          </p>
+
+          <p>
+            Certaines entrées critiques sont même verrouillées en
+            <em>mode lecture</em>
+            seule, car elles ne doivent jamais être modifiées manuellement, sauf
+            dans des cas EXTRÊMEMENT rares.
+          </p>
+          <p>
+            https://www.nbcnews.com/business/personal-finance/bank-error-your-favor-can-you-keep-cash-n735316
+          </p>
+          <p>
+            https://www.usnews.com/banking/articles/banking-on-a-mistake-can-you-cash-in-when-your-bank-messes-up
+          </p>
+        </aside>
+        <h4 class="subtitle">Sources</h4>
+        <ul class="sources">
+          <li>
+            <a
+              href="https://www.economie.gouv.fr/facileco/creation-monetaire-definition"
+              target="_blank"
+              >https://www.economie.gouv.fr/facileco/creation-monetaire-definition</a
+            >
+          </li>
+
+          <li>
+            <a
+              href="https://ecoenschemas.com/schema/la-creation-monetaire/"
+              target="_blank"
+              >https://ecoenschemas.com/schema/la-creation-monetaire/</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://green-got.com/articles/qui-cree-largent-ce-que-tu-ne-sais-pas"
+              target="_blank"
+              >https://green-got.com/articles/qui-cree-largent-ce-que-tu-ne-sais-pas</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://abc-economie.banque-france.fr/les-taux-directeurs"
+              target="_blank"
+              >https://abc-economie.banque-france.fr/les-taux-directeurs</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://fr.wikipedia.org/wiki/Liste_des_banques_centrales"
+              target="_blank"
+              >https://fr.wikipedia.org/wiki/Liste_des_banques_centrales</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://www.ecb.europa.eu/ecb-and-you/explainers/tell-me-more/html/ecb_independent.fr.html"
+              target="_blank"
+              >https://www.ecb.europa.eu/ecb-and-you/explainers/tell-me-more/html/ecb_independent.fr.html</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://www.ecb.europa.eu/ecb-and-you/explainers/tell-me/html/who-owns-the-ecb.fr.html"
+              target="_blank"
+              >https://www.ecb.europa.eu/ecb-and-you/explainers/tell-me/html/who-owns-the-ecb.fr.html</a
+            >
+          </li>
+        </ul>
+      </article>
+    </main>
+  </body>
+</html>
