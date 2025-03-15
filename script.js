@@ -108,7 +108,7 @@ template.innerHTML = `
 </label>
 <nav class="navbar">
 
-    <h1 class="nav-title">JNTPDNC</h1>
+    <h1 class="nav-title">singularity</h1>
 
     <ul class="main-nav">
         <li><a href="/" class="main-nav-link">Accueil</a></li>
