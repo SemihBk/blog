@@ -213,6 +213,11 @@
             Si tous les crédits étaient remboursés, il n'existerait en théorie
             plus de monnaie scripturale.
           </p>
+          <p>
+            Bien sûr, cela reste une situation théorique qui ne peut pas arriver
+            en réalité, car il y a toujours de nouveaux crédits qui prennent la
+            place des anciens.
+          </p>
         </aside>
 
         <aside>
@@ -220,70 +225,144 @@
             Pourrait-on <em>secrètement</em> ajouter quelques 0 au montant de
             notre compte ?
           </h3>
+
           <p>
-            Lorsque je me suis posé cette question, je me suis demandé si chaque
-            euro de la monnaie scripturale possédait un identifiant unique,
-            capable d'être tracé et d'être retrouvé. Après tout, ça fait sens,
-            surtout en sécurité informatique.
+            Quand je me suis posé cette question, j'ai d'abord imaginé chaque
+            euro de monnaie scripturale comme une sorte d'entité unique avec son
+            propre identifiant, traçable de bout en bout. Après tout, ça
+            semblerait logique en sécurité informatique : chaque unité monétaire
+            pouvant être auditée précisément.
           </p>
 
           <p>
-            Il semblerait que non, la création monéataire se matérialise dans
-            les livres comptables de la banque qui accorde le prêt, et c'est de
-            cette façon que l'argent prend forme quelque part. Toute la monnaie
-            scripturale provenant des crédits est donc enregistrée avec les
-            informations nécessaires pour retracer ses mouvements. Elle possède
-            un historique, en quelque sorte.
+            En réalité, ce n'est pas exactement comme cela que ça fonctionne. La
+            monnaie scripturale n’est qu'une inscription numérique dans les
+            livres comptables d'une banque. Chaque crédit, chaque prêt accordé
+            génère une nouvelle entrée, une simple écriture comptable. Ainsi, il
+            n'y a pas véritablement d'identifiant unique pour chaque euro créé,
+            mais plutôt une traçabilité assurée par l'historique détaillé des
+            transactions et des comptes associés.
           </p>
 
           <p>
-            Chaque transaction est donc authentifiée et tracée pour éviter la
-            fraude ou la duplication, le mouvement de l'argent est enregistré.
+            Alors oui, concrètement, chaque mouvement financier est enregistré,
+            authentifié, horodaté, tracé à travers de multiples systèmes. Chaque
+            action est scrupuleusement journalisée pour répondre aux obligations
+            légales et règlementaires strictes auxquelles les banques doivent se
+            soumettre.
           </p>
 
           <p>
-            Le montant présent sur nos comptes en banque est une entrée
-            numérique en base de données. En réalité, toutes les transactions
-            sont aussi des entrées en base de données. Les bases de données
-            peuvent être manipulées, alors ne présentent-elles pas de risques ?
-            Pourrait-on modifier la valeur des montants dans la table ?
+            Et justement, ces systèmes informatiques, en particulier les bases
+            de données financières, reposent sur des technologies robustes comme
+            Oracle, IBM DB2 ou Microsoft SQL Server, spécialement configurées
+            pour assurer un haut niveau de sécurité. Les modifications directes
+            en base ? Techniquement possibles, certes, mais extrêmement
+            complexes à mettre en œuvre sans laisser de traces.
           </p>
 
           <p>
-            En théorie, oui, on pourrait. <br />
-            <strong>Mais</strong>, il y a un mais. Les systèmes bancaires (comme
-            tous les systèmes informatiques, d'ailleurs) disposent d'un journal
-            de logs qui enregistre chaque action réalisée. Ce journal permet
-            d'identifier et de répondre à tout comportement anormal. On pourrait
-            penser à effacer ces logs pour ne pas éveiller les soupçons, mais
-            ils sont généralement enregistrés autre part pour éviter ce
-            problème.
+            Premièrement, toute manipulation déclenche immédiatement des logs
+            internes et externes. Les journaux d’audit sont stockés sur des
+            serveurs séparés, souvent protégés par des mécanismes WORM (Write
+            Once Read Many), ce qui rend l'effacement ou la modification des
+            journaux quasiment impossible sans se faire détecter.
           </p>
 
           <p>
-            De plus, les bases de données sont sécurisées grâce à des systèmes
-            de gestion des accès protégés par le MFA (authentification
-            multi-facteurs), ce qui diminue drastiquement les risques de
-            piratage. Pour en rajouter une couche, il est très rare qu'une
-            personne ait des permissions complètes, les accès sont généralement
-            limités et segmentés.
+            Deuxièmement, l’accès aux bases de données bancaires est soumis à
+            des politiques de sécurité extrêmement strictes et segmentées. Le
+            principe de moindre privilège est roi : personne (ou presque) ne
+            possède de droits complets, et toute tentative d'accès est contrôlée
+            via des systèmes d’authentification forte comme le MFA
+            (authentification multi-facteurs), souvent accompagnés de
+            technologies comme des certificats numériques ou des clés physiques
+            (tokens cryptographiques).
           </p>
 
           <p>
-            Certaines entrées critiques sont même verrouillées en
-            <em>mode lecture</em>
-            seule, car elles ne doivent jamais être modifiées manuellement, sauf
-            dans des cas EXTRÊMEMENT rares.
+            Troisièmement, ces systèmes financiers critiques sont généralement
+            isolés du reste de l'infrastructure via des mécanismes stricts de
+            segmentation réseau et de pare-feu applicatif (WAF – Web Application
+            Firewall). Les actions critiques nécessitent souvent une validation
+            par plusieurs individus (principe des quatre yeux), et certaines
+            données sensibles ne sont accessibles qu'en lecture seule.
           </p>
+
           <p>
-            https://www.nbcnews.com/business/personal-finance/bank-error-your-favor-can-you-keep-cash-n735316
+            Et si on parlait des normes ? En matière bancaire, il existe des
+            réglementations incontournables telles que PCI DSS (Payment Card
+            Industry Data Security Standard), qui régule précisément la sécurité
+            des données bancaires liées aux cartes de paiement. Cette norme
+            impose notamment des pratiques strictes en matière de cryptage, de
+            gestion des accès, de journalisation et d’audit régulier.
           </p>
+
           <p>
-            https://www.usnews.com/banking/articles/banking-on-a-mistake-can-you-cash-in-when-your-bank-messes-up
+            Encore plus récent, le règlement européen DORA (Digital Operational
+            Resilience Act) impose une cyber-résilience accrue aux banques. Ce
+            cadre législatif oblige les institutions financières à adopter une
+            approche proactive face aux cyberattaques : tests réguliers
+            d'intrusion (pentest), scénarios de crise, surveillance continue des
+            vulnérabilités, gestion rigoureuse des incidents, et même des
+            obligations précises vis-à-vis des fournisseurs informatiques
+            externes.
+          </p>
+
+          <p>
+            Donc oui, en théorie, si un pirate disposait des moyens techniques
+            et organisationnels hors du commun, ainsi qu'une complicité interne
+            exceptionnelle, on pourrait imaginer modifier furtivement des
+            données bancaires. Des erreurs arrivent d'ailleurs parfois, plus
+            souvent qu'on ne le croit : erreurs humaines dans la gestion des
+            accès, mauvaise configuration, négligences temporaires, ou tout
+            simplement des failles zero-day non encore découvertes.
+          </p>
+
+          <p>
+            Mais soyons honnêtes : pirater une banque à grande échelle reste un
+            défi colossal, très au-delà de la simple exécution d'une commande
+            Linux. Chaque banque possède un système de défense en couches
+            multiples (approche « défense en profondeur ») qui rend les
+            intrusions extrêmement complexes, longues et coûteuses. On peut
+            penser au spectaculaire piratage de la banque centrale du
+            Bangladesh, certes réussi, mais après des mois de préparation
+            méticuleuse et de coordination internationale.
+          </p>
+
+          <p>
+            Alors finalement, pourrait-on facilement hacker notre compte en
+            banque pour rajouter quelques zéros ? La réponse courte : absolument
+            pas. La réponse longue : avec des compétences exceptionnelles, des
+            ressources énormes, et en acceptant un risque gigantesque…
+            peut-être, mais pour une probabilité de succès très faible et des
+            conséquences judiciaires quasiment assurées.
+          </p>
+
+          <p>
+            Au fond, la véritable question n’est pas seulement technique, elle
+            est aussi humaine. Car en cybersécurité comme ailleurs, la
+            vulnérabilité la plus importante reste souvent celle située entre la
+            chaise et l'écran : l'humain.
           </p>
         </aside>
+
         <h4 class="subtitle">Sources</h4>
         <ul class="sources">
+          <li>
+            <a
+              href="https://www.nbcnews.com/business/personal-finance/bank-error-your-favor-can-you-keep-cash-n735316"
+              target="_blank"
+              >https://www.nbcnews.com/business/personal-finance/bank-error-your-favor-can-you-keep-cash-n735316</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://www.usnews.com/banking/articles/banking-on-a-mistake-can-you-cash-in-when-your-bank-messes-up"
+              target="_blank"
+              >https://www.usnews.com/banking/articles/banking-on-a-mistake-can-you-cash-in-when-your-bank-messes-up</a
+            >
+          </li>
           <li>
             <a
               href="https://www.economie.gouv.fr/facileco/creation-monetaire-definition"
