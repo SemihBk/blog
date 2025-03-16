@@ -116,7 +116,7 @@ template.innerHTML = `
         <li><a href="/blog/types-d-attaques.html" class="main-nav-link">Type d'attaques</a></li>
         <li><a href="/blog/comment-ca-fonctionne.html" class="main-nav-link">Comment ça fonctionne</a></li>
 
-        <li><a href="/blog/conseils.html" class="main-nav-link">Conseils pour ma femme</a></li>
+        <li><a href="/blog/conseils.html" class="main-nav-link">Conseils pour ma compagne</a></li>
 
         <li><a href="/blog/lexique.html" class="main-nav-link">Lexique</a></li>
         <li><a href="/blog/ressources.html" class="main-nav-link">Ressources</a></li>
