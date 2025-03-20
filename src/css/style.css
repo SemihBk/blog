@@ -271,3 +271,10 @@ ol.main-summary li::marker {
     margin-bottom: 2rem;
   }
 }
+
+video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
