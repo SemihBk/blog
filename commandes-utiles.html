@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="src/css/style.css" />
+    <script src="script.js" defer></script>
+
+    <title>singularity</title>
+  </head>
+  <body class="dark-mode">
+    <nav-bar></nav-bar>
+    <main>
+      <aside class="infobar">
+        <h3>Accueil</h3>
+        <p>Mise à jour : 4 avril 2025</p>
+      </aside>
+      <article>
+        <h2 class="main-title">Commandes utiles (experimental)</h2>
+        <p>
+          Ici, je regrouperai toutes les commandes que je choppe au passage et
+          qui pourraient être utiles plus tard.
+        </p>
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Recherchez une commande..."
+          class="form-control" />
+        <ul class="main-notions">
+          <li>
+            <p>
+              <b>Configurer la langue du clavier</b> <br />
+              <code>dpkg-reconfigure keyboard-configuration</code>
+            </p>
+          </li>
+          <li>
+            <p>
+              <b>Se connecter en ssh</b> <br />
+              <code>ssh user@ip</code>
+            </p>
+          </li>
+          <li>
+            <p>
+              <b>Lister les interfaces réseau</b> <br />
+              <code>ip a</code>
+            </p>
+          </li>
+          <li>
+            <p>
+              <b>Scanner un réseau avec Nmap</b> <br />
+              <code>nmap -sV -A ip_cible</code>
+            </p>
+          </li>
+        </ul>
+      </article>
+    </main>
+  </body>
+</html>
