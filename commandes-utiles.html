@@ -29,26 +29,58 @@
         <ul class="main-notions">
           <li>
             <p>
-              <b>Configurer la langue du clavier</b> <br />
+              <b>keyboard - Configurer la langue du clavier</b> <br />
               <code>dpkg-reconfigure keyboard-configuration</code>
             </p>
           </li>
           <li>
             <p>
-              <b>Se connecter en ssh</b> <br />
-              <code>ssh user@ip</code>
+              <b>ssh - Se connecter en ssh sur un hôte</b> <br />
+              <code>ssh <<em>user</em>>@<<em>addr_ip</em>></code>
             </p>
           </li>
           <li>
             <p>
-              <b>Lister les interfaces réseau</b> <br />
+              <b>ip - Lister les interfaces réseau</b> <br />
               <code>ip a</code>
             </p>
           </li>
           <li>
             <p>
-              <b>Scanner un réseau avec Nmap</b> <br />
-              <code>nmap -sV -A ip_cible</code>
+              <b
+                >nmap - Scan simple d'un hôte pour identifier les ports
+                ouverts</b
+              >
+              <br />
+              <code>nmap <<em>addr_ip</em>></code>
+            </p>
+          </li>
+          <li>
+            <p>
+              <b
+                >nmap - Scan d'un hôte pour identifier les versions des services
+                actifs sur les ports ouverts</b
+              >
+              <br />
+              <code>nmap -sV <<em>addr_ip</em>></code>
+            </p>
+          </li>
+          <li>
+            <p>
+              <b>nmap - Scan d'un hôte en profondeur (OS et service)</b> <br />
+              <code>nmap -A <<em>addr_ip</em>></code>
+            </p>
+          </li>
+          <li>
+            <p>
+              <b>nmap - Scan d'un hôte sur les ports spécifiés</b> <br />
+              <code>nmap -p <<em>port,port,port</em>> <<em>addr_ip</em>></code>
+            </p>
+          </li>
+          <li>
+            <p>
+              <b>nmap - Scan furtif d'un hôte (SYN scan)</b> <br />
+              <code>nmap -sS <<em>addr_ip</em>></code>
             </p>
           </li>
         </ul>

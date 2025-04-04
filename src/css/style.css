@@ -18,13 +18,14 @@ body {
 }
 
 code {
-  background-color: #1e1e1e; /* Fond sombre comme un terminal */
+  background-color: #343a40; /* Fond sombre comme un terminal */
   color: #ffffff; /* Vert fluo pour le texte */
   /* font-family: "Courier New", monospace; */
-  padding: 5px 10px;
-  border-radius: 5px;
+  padding: 1rem 2rem 1rem 1rem;
+  border-radius: 10px;
   display: inline-block;
-  /* font-size: 16rem; */
+  font-size: 1.4rem;
+  width: 100%;
 }
 
 /* Optionnel : Ajouter une ombre pour un effet terminal */
