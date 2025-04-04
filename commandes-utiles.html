@@ -29,8 +29,38 @@
         <ul class="main-notions">
           <li>
             <p>
+              <b>install - Installer un paquet</b>
+              <br />
+              <code>apt install <<em>package</em>></code>
+            </p>
+          </li>
+          <li>
+            <p>
+              <b>update - Télécharger la liste des paquets disponibles</b>
+              <br />
+              <code>apt update</code>
+            </p>
+          </li>
+          <li>
+            <p>
+              <b
+                >upgrade - Installer la liste des mises à jour des paquets
+                disponibles</b
+              >
+              <br />
+              <code>apt upgrade</code>
+            </p>
+          </li>
+          <li>
+            <p>
               <b>keyboard - Configurer la langue du clavier</b> <br />
               <code>dpkg-reconfigure keyboard-configuration</code>
+            </p>
+          </li>
+          <li>
+            <p>
+              <b>user - Créer un nouvel utilisateur</b> <br />
+              <code>adduser <<em>username</em>></code>
             </p>
           </li>
           <li>
@@ -41,8 +71,16 @@
           </li>
           <li>
             <p>
-              <b>ip - Lister les interfaces réseau</b> <br />
+              <b>ip - Lister les interfaces réseau et leurs configurations</b>
+              <br />
               <code>ip a</code>
+            </p>
+          </li>
+          <li>
+            <p>
+              <b>ip - Afficher les informations réseau de l'interface réseau</b>
+              <br />
+              <code>ifconfig</code>
             </p>
           </li>
           <li>
@@ -81,6 +119,24 @@
             <p>
               <b>nmap - Scan furtif d'un hôte (SYN scan)</b> <br />
               <code>nmap -sS <<em>addr_ip</em>></code>
+            </p>
+          </li>
+          <li>
+            <p>
+              <b>processus - Lister la liste des processus en cours</b> <br />
+              <code>ps aux</code>
+            </p>
+          </li>
+          <li>
+            <p>
+              <b>processus - Tuer un processus avec son PID</b> <br />
+              <code>kill <<em>PID</em>></code>
+            </p>
+          </li>
+          <li>
+            <p>
+              <b>ping - Tester la connectivité avec un hôte</b> <br />
+              <code>ping <<em>addr_ip</em>></code>
             </p>
           </li>
         </ul>
