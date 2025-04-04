@@ -109,10 +109,15 @@ ul li a {
   white-space: normal;
 }
 
+ul.main-notions {
+  list-style-type: none;
+}
+
 .subtitle {
-  font-size: 1.8rem;
+  font-size: 2rem;
+  margin-top: 5rem;
   margin-bottom: 1rem;
-  text-align: center;
+  /* text-align: center; */
   /* text-decoration: underline; */
 }
 
@@ -150,7 +155,7 @@ h3 {
 }
 
 article {
-  width: 70rem;
+  width: 60rem;
   margin: auto;
   margin-bottom: 9rem;
 }
