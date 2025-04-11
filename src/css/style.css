@@ -178,7 +178,7 @@ aside {
 }
 
 p {
-  text-align: justify;
+  /* text-align: justify; */
   margin-bottom: 3rem;
   line-height: 1.5;
 }
