@@ -93,7 +93,8 @@ hr {
   color: black;
 }
 
-aside ol li {
+aside ol li,
+ul li {
   margin-left: 2rem;
   margin-bottom: 2rem;
   line-height: 1.4;
@@ -140,6 +141,33 @@ ul.main-notions {
     text-decoration: underline;
     color: #007bff;
 } */
+
+/********************/
+/* TABLEAU */
+/* Styles généraux pour les tableaux dans les articles */
+article table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5em 0;
+}
+
+article th,
+article td {
+  border: 1px solid #ddd;
+  padding: 0.75em;
+  text-align: left;
+  vertical-align: top;
+  font-size: 1.4rem;
+}
+
+article th {
+  background-color: #f5f5f5;
+  font-weight: 600;
+}
+
+article tr:nth-child(even) {
+  background-color: #fafafa;
+}
 
 /* MAIN */
 
@@ -283,6 +311,18 @@ ol.main-summary li::marker {
     margin: auto;
     margin-bottom: 9rem;
   }
+
+  article table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; /* inertie sous iOS */
+    white-space: nowrap;
+  }
+  article th,
+  article td {
+    white-space: nowrap;
+  }
 }
 
 @media screen and (max-width: 400px) {
@@ -294,6 +334,12 @@ ol.main-summary li::marker {
   .secondary-title {
     font-size: 2rem;
     margin-bottom: 2rem;
+  }
+
+  article th,
+  article td {
+    padding: 0.5em;
+    font-size: 0.85em;
   }
 }
 
