@@ -93,8 +93,7 @@ hr {
   color: black;
 }
 
-aside ol li,
-ul li {
+aside ol li {
   margin-left: 2rem;
   margin-bottom: 2rem;
   line-height: 1.4;
