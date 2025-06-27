@@ -810,10 +810,9 @@
           C’est souvent utilisé par des applications
           <strong>hors Play Store</strong>, ou issues de
           <strong>stores asiatiques</strong>.<br />
-          → Le champ <strong>freecinefr_2000</strong> indique le
-          <strong>canal de distribution</strong>, il sert à UMeng pour savoir
-          d’où vient l’utilisateur (ici : téléchargement via un canal non
-          officiel).
+          → Le champ <strong>freecinefr_2000</strong> indique le canal de
+          distribution, il sert à UMeng pour savoir d’où vient l’utilisateur
+          (ici : téléchargement via un canal non officiel).
         </p>
 
         <img
@@ -821,8 +820,7 @@
           src="../blog/26062025/metadata2.png"
           alt="Tracking personnalisé non documenté" />
         <p>
-          → Ici, on est sur du tracking <strong>personnalisé</strong>, mais
-          <strong>non documenté</strong>.<br />
+          → Ici, on est sur du tracking personnalisé, mais non documenté.<br />
           → Aucune information trouvée sur
           <strong>kokimiwater-29zde</strong> dans mes recherches, ce qui n’est
           pas très rassurant.
@@ -891,16 +889,14 @@
           → <strong>FileProvider</strong> est un mécanisme Android pour partager
           des fichiers entre applis.<br />
           → L’attribut <strong>android:exported="false"</strong> signifie que ce
-          partage n’est <strong>pas ouvert</strong> par défaut aux autres
-          applications. <br />
-          → À première vue, c’est donc plutôt
-          <strong>positif côté sécurité</strong>.
+          partage n’est pas ouvert par défaut aux autres applications. <br />
+          → À première vue, c’est donc plutôt positif côté sécurité.
         </p>
 
         <p>
           Mais si on regarde de plus près le champ
           <strong>android:resource="@xml/file_paths"</strong>, on voit que ce
-          FileProvider <strong>est relié à un fichier XML</strong>.
+          FileProvider est relié à un fichier XML.
         </p>
 
         <p>Et c’est là que ça commence à devenir vraiment intéressant :</p>
@@ -977,13 +973,13 @@
           src="../blog/26062025/metadata7.png"
           alt="Apache HTTP Client déprécié" />
         <p>
-          → L'application utilise une <strong>version dépréciée</strong> de la
-          librairie <strong>Apache HTTP Client</strong> (abandonnée depuis
+          → L'application utilise une version dépréciée de la librairie
+          <strong>Apache HTTP Client</strong> (abandonnée depuis
           <strong>Android 6 (2015)</strong>).<br />
-          → Cette librairie sert à faire des requêtes HTTP, mais elle est
-          <strong>connue</strong> pour avoir pas mal de failles, notamment la
-          possibilité de <strong>contourner SSL/TLS</strong> (protocoles en
-          charge de chiffrer les communications).<br />
+          → Cette librairie sert à faire des requêtes HTTP, mais elle est connue
+          pour avoir pas mal de failles, notamment la possibilité de
+          <strong>contourner SSL/TLS</strong> (protocoles en charge de chiffrer
+          les communications).<br />
           → Dans notre cas, ça veut dire qu'il serait
           <strong>clairement possible</strong> de
           <strong>contourner le chiffrement</strong>… et donc d'exfiltrer les
@@ -1135,8 +1131,8 @@
         <h3 class="secondary-title">Conclusion</h3>
 
         <p>
-          Le <strong>Reverse Engineering</strong> est une méthode d’analyse
-          technique redoutablement efficace.
+          Le Reverse Engineering est une méthode d’analyse technique
+          redoutablement efficace.
           <br />
           Elle permet de voir au-delà de l’interface, et de comprendre ce que
           fait <em>réellement</em> une application, dans ses moindres recoins.
