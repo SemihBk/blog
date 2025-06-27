@@ -113,23 +113,23 @@
         </p>
 
         <ul>
-          <li>
+          <li class="mg">
             <strong>Inputs</strong> → Ce dossier contient le fichier APK chargé,
             ainsi que les fichiers .dex (ce sont les fichiers compilés utilisés
             par Android pour exécuter l'application).
           </li>
-          <li>
+          <li class="mg">
             <strong>Source code</strong> → Le code Java/Kotlin reconstitué. Dans
             notre cas, l’application a été obfusquée — on verra ça un peu plus
             loin.
           </li>
-          <li>
+          <li class="mg">
             <strong>Resources</strong> → Ce dossier contient notamment le
             fichier <strong>AndroidManifest.xml</strong> (qui liste les
             permissions), mais aussi d'autres répertoires comme res/, assets/,
             lib/, etc., ainsi que des fichiers de configuration.
           </li>
-          <li>
+          <li class="mg">
             <strong>APK signature</strong> → C’est ici qu’on trouve les
             certificats utilisés pour signer l’APK. Ils servent notamment à
             identifier l’auteur de l’application (pratique pour vérifier qu’une
@@ -184,19 +184,19 @@
             alt="AndroidManifest – informations de package et versions ciblées" />
         </p>
         <ul>
-          <li>
+          <li class="mg">
             <strong>Le nom du package :</strong>
             <strong>com.fr.freecinefr</strong><br />
             → C’est le nom <strong>unique</strong> de l’application. On peut
             s’en servir pour chercher des infos sur internet (il sert aussi
             d’identifiant sur le Play Store).
           </li>
-          <li>
+          <li class="mg">
             <strong>Les versions d’Android ciblées :</strong><br />
             → L’app fonctionne à partir d’<strong>Android 7.0</strong> (minSdk :
             24) jusqu’à <strong>Android 13</strong> (targetSdk : 33)
           </li>
-          <li>
+          <li class="mg">
             <strong>Elle a été compilée avec</strong>
             <strong>Android 14</strong> (compileSdk : 34)
           </li>
@@ -974,6 +974,166 @@
           Si on le couple avec
           <strong>requestLegacyExternalStorage="true"</strong>, c'est un
           aspirateur à fichiers personnels.
+        </p>
+
+        <img
+          class="illustration"
+          src="../blog/26062025/metadata7.png"
+          alt="Apache HTTP Client déprécié" />
+        <p>
+          → L'application utilise une <strong>version dépréciée</strong> de la
+          librairie <strong>Apache HTTP Client</strong> (abandonnée depuis
+          <strong>Android 6 (2015)</strong>).<br />
+          → Cette librairie sert à faire des requêtes HTTP, mais elle est
+          <strong>connue</strong> pour avoir pas mal de failles, notamment la
+          possibilité de <strong>contourner SSL/TLS</strong> (protocoles en
+          charge de chiffrer les communications).<br />
+          → Dans notre cas, ça veut dire qu'il serait
+          <strong>clairement possible</strong> de
+          <strong>contourner le chiffrement</strong>… et donc d'exfiltrer les
+          données sensibles.
+        </p>
+
+        <p>
+          À ce stade, on commence à comprendre que le reste du fichier
+          <strong>AndroidManifest.xml</strong> ne va pas vraiment améliorer la
+          situation côté respect de la vie privée. Plutôt étrange pour une
+          application qui est censée juste divertir, non ?
+        </p>
+
+        <p>
+          Et encore, on peut aussi parler de la quantité astronomique de
+          services publicitaires..
+        </p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Service</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Google Mobile Ads (AdMob)</strong></td>
+              <td>
+                Plateforme publicitaire de Google, très répandue sur Android.
+                Gère les bannières, interstitiels, pubs vidéo.
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Facebook Ads &amp; SDK</strong></td>
+              <td>
+                Permet de diffuser des publicités ciblées via le réseau Facebook
+                et de suivre les événements utilisateurs.
+              </td>
+            </tr>
+            <tr>
+              <td><strong>InMobi</strong></td>
+              <td>
+                Acteur majeur du marché asiatique, spécialisé dans la publicité
+                mobile programmatique.
+              </td>
+            </tr>
+            <tr>
+              <td><strong>BidMachine</strong></td>
+              <td>
+                Plateforme DSP/RTB permettant l’achat en temps réel de
+                publicités mobiles, souvent intégrée via des intermédiaires.
+              </td>
+            </tr>
+            <tr>
+              <td><strong>IronSource</strong></td>
+              <td>
+                Propose des formats riches comme les interstitiels et vidéos
+                récompensées, surtout utilisé dans les jeux.
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Unity Ads</strong></td>
+              <td>
+                SDK publicitaire intégré à Unity, très utilisé dans les jeux
+                pour afficher des pubs immersives.
+              </td>
+            </tr>
+            <tr>
+              <td><strong>ByteDance / TikTok Ads</strong></td>
+              <td>
+                SDK de publicité mobile de ByteDance (maison mère de TikTok),
+                utilisé pour le tracking et le retargeting.
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Vungle</strong></td>
+              <td>
+                Fournisseur de pubs vidéo interactives, souvent utilisé dans les
+                apps gratuites à forte monétisation.
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Bigo Ads</strong></td>
+              <td>
+                Régie liée à BIGO Live, acteur asiatique proposant du display et
+                de la vidéo publicitaire.
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Fyber</strong></td>
+              <td>
+                Plateforme de monétisation et médiation, intégrée dans de
+                nombreuses apps pour optimiser les revenus publicitaires.
+              </td>
+            </tr>
+            <tr>
+              <td><strong>ExploreStack</strong></td>
+              <td>
+                Fournisseur de solutions publicitaires mobiles, notamment sur la
+                publicité native et le display.
+              </td>
+            </tr>
+            <tr>
+              <td><strong>AppLovin</strong></td>
+              <td>
+                Très grosse plateforme de monétisation mobile, regroupe
+                plusieurs services liés à la pub, la data et l’analytics.
+              </td>
+            </tr>
+            <tr>
+              <td><strong>MBridge (anciennement Mintegral)</strong></td>
+              <td>
+                Propose des outils de publicité programmatique et des analytics,
+                avec des pratiques parfois controversées.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p>
+          Alors… Doit-on se sentir rassuré avec une application comme celle-là
+          installée sur son téléphone ?
+        </p>
+
+        <p>
+          Elle diffuse du contenu piraté, possède des dizaines de services
+          tiers, collecte énormément de données (bien plus que nécessaire) et
+          tout ça sans aucun cadre légal.
+          <br />
+          Ce n'est pas juste une application “douteuse”, c'est une boîte noire,
+          avec des intentions floues, un comportement imprévisible, qui profite
+          de la crédulité des utilisateurs tombés au hasard sur une vidéo TikTok
+          d'un influenceur qui n'y connaît rien (ou alors.. Complice ? 🤔)
+        </p>
+
+        <p>
+          Ce n'est pas juste une histoire de publicités ou de pop-up en boucle.
+          <br />
+          C'est une histoire de <strong>perte totale de contrôle</strong>.
+        </p>
+
+        <p>
+          À partir du moment où une application fonctionne hors des règles, plus
+          rien ne garantit que ce qu'elle fait avec vos données soit limité,
+          transparent ou même correct.
         </p>
       </article>
     </main>

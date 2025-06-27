@@ -93,6 +93,10 @@ hr {
   color: black;
 }
 
+.mg {
+  margin-bottom: 3rem;
+}
+
 aside ol li {
   margin-left: 2rem;
   margin-bottom: 2rem;
