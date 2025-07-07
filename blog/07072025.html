@@ -85,16 +85,10 @@
             class="illustration"
             src="../blog/07072025/profiler1.jpg"
             alt="Profiler – capture 1" />
-        </p>
-
-        <p>
           <img
             class="illustration"
             src="../blog/07072025/profiler2.jpg"
             alt="Profiler – capture 2" />
-        </p>
-
-        <p>
           <img
             class="illustration"
             src="../blog/07072025/profiler3.jpg"
@@ -395,9 +389,6 @@
             class="illustration"
             src="../blog/07072025/camera1.jpg"
             alt="Caméra de surveillance dans Watch Dogs" />
-        </p>
-
-        <p>
           <img
             class="illustration"
             src="../blog/07072025/camera2.jpg"
@@ -565,8 +556,7 @@
             class="illustration"
             src="../blog/07072025/infra1.jpg"
             alt="Explosion de canalisation dans Watch Dogs" />
-        </p>
-        <p>
+
           <img
             class="illustration"
             src="../blog/07072025/infra2.jpg"
@@ -580,8 +570,6 @@
             class="illustration"
             src="../blog/07072025/infra3.jpg"
             alt="Bornes anti-intrusion levées dans Watch Dogs" />
-        </p>
-        <p>
           <img
             class="illustration"
             src="../blog/07072025/infra4.jpg"
@@ -595,8 +583,6 @@
             class="illustration"
             src="../blog/07072025/infra5.jpg"
             alt="Feux rouges piratés Watch Dogs" />
-        </p>
-        <p>
           <img
             class="illustration"
             src="../blog/07072025/infra6.jpg"
@@ -783,7 +769,7 @@
             <iframe
               width="100%"
               height="315"
-              src="https://www.youtube.com/watch?v=OWYo6z_tUD0"
+              src="https://www.youtube.com/embed/OWYo6z_tUD0"
               title="YouTube video player"
               frameborder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -797,6 +783,190 @@
           Donc <strong>oui, pirater un compte, c'est possible</strong>, mais il
           faut être réaliste, Watch Dogs exagère le trait. C'est tout sauf
           instantané.
+        </p>
+
+        <h3 class="secondary-title">
+          5. Interception des conversations téléphoniques / SMS
+        </h3>
+
+        <p>
+          Dans le jeu, écouter une conversation téléphonique ou lire les sms
+          d'un passant est une mécanique presque banale. Il suffit d'être à
+          proximité, de viser la personne avec son téléphone, et comme par
+          magie, le contenu de ses communications s'affiche.
+        </p>
+
+        <p>
+          <img class="illustration" src="../blog/07072025/call.jpg" />
+          <img class="illustration" src="../blog/07072025/sms.jpg" />
+        </p>
+
+        <p>
+          Mais dans la réalité, est-ce possible ? La réponse est
+          <strong>oui</strong>.<br />
+          Pas avec une simple application mobile, mais avec un matériel assez
+          connu : l’IMSI Catcher.
+        </p>
+
+        <figure>
+          <img class="illustration" src="../blog/07072025/imsicatcher.webp" />
+          <figcaption>
+            <a
+              href="https://www.enea.com/insights/adaptive-mobile-imsi-catchers/"
+              target="_blank"
+              >https://www.enea.com/insights/adaptive-mobile-imsi-catchers/</a
+            >
+          </figcaption>
+        </figure>
+
+        <p>
+          Un IMSI Catcher est un dispositif qui se fait passer pour une antenne
+          relais mobile. C’est ce qu’on appelle un faux relais GSM. Il émet un
+          signal <strong>plus fort</strong> que ceux des vraies antennes
+          téléphoniques autour de lui, et comme les téléphones cherchent
+          toujours à se connecter à la meilleure source, ils se connectent sans
+          se poser de question.
+        </p>
+
+        <p>
+          Une fois le téléphone connecté au faux relais, l’IMSI Catcher peut
+          forcer une rétrogradation en 2G, un ancien protocole qui présente deux
+          grandes failles : <br />
+          → Le chiffrement (A5/1) est cassé depuis 2009 (<a
+            href="https://www.numerama.com/tech/14772-le-chiffrement-du-gsm-est-casse.html"
+            target="_blank"
+            >source</a
+          >). <br />
+
+          → Pas d’authentification mutuelle.
+        </p>
+
+        <p>
+          L’attaquant peut donc intercepter les appels en clair, les
+          enregistrer, voire les rediriger. C’est une attaque de l’homme du
+          milieu (ou Man-in-the-Middle pour les puristes).
+        </p>
+
+        <aside>
+          <figure>
+            <iframe
+              width="100%"
+              height="315"
+              src="https://www.youtube.com/embed/-e2qDOfylD4"
+              title="YouTube video player"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen></iframe>
+            <figcaption>
+              <a
+                href="https://www.youtube.com/embed/-e2qDOfylD4"
+                target="_blank"
+                >Explication claire du fonctionnement de l'IMSI Catcher</a
+              >
+            </figcaption>
+          </figure>
+        </aside>
+
+        <p>
+          Une façon d'atténuer ce risque, c'est de désactiver manuellement
+          l'accès à la 2G dans les paramètres de son téléphone (si le modèle le
+          permet).<br />
+          Ça suffit parfois à refuser la connexion aux IMSI Catchers, puisqu'ils
+          tentent en vain de noyer les vrais signaux avec des signaux plus
+          puissants en 2G pour exploiter ses vulnérabilités.
+        </p>
+
+        <p>
+          <a
+            href="https://www.lemonde.fr/pixels/article/2015/03/31/que-sont-les-imsi-catchers-ces-valises-qui-espionnent-les-telephones-portables_4605827_4408996.html"
+            target="_blank">
+            Un article du Monde sur les IMSI Catchers
+          </a>
+        </p>
+
+        <p>
+          L'interception des SMS repose sur le même principe.<br />
+          Les SMS ne sont pas chiffrés. Contrairement aux idées reçues, ils
+          transitent en clair sur le réseau de l'opérateur. Ils peuvent donc
+          être interceptés exactement de la même manière, avec un IMSI Catcher,
+          surtout si le terminal est rétrogradé en 2G.
+        </p>
+
+        <p>
+          Il existe une autre méthode, l'exploitation du protocole SS7
+          (Signaling System 7).
+        </p>
+
+        <p>
+          Le SS7 est un protocole utilisé par les opérateurs téléphoniques pour
+          faire transiter des informations de signalisation entre réseaux :
+          transfert d'appels, envoi de SMS, itinérance, géolocalisation, etc.
+        </p>
+
+        <p>
+          <a href="../blog/07072025/protocoless7.pdf" target="_blank"
+            >Voir le schéma du protocole SS7</a
+          >
+        </p>
+
+        <p>
+          Le problème, c'est que ce protocole est trèèèès ancien. Il date des
+          années 80, et il repose entièrement sur la confiance entre les
+          opérateurs.
+        </p>
+
+        <p>
+          Un attaquant qui parvient à obtenir un accès légitime au réseau SS7
+          (par exemple, via un petit opérateur étranger mal sécurisé) peut lire
+          des SMS, rediriger un appel ou encore localiser un téléphone avec une
+          grande précision.
+        </p>
+
+        <p>
+          Tout ça sans que la victime ne se doute de rien (comme dans Watch Dogs
+          🤓)
+        </p>
+
+        <p>
+          Pour s'en préserver, le premier réflexe, c'est de ne
+          <strong
+            >jamais faire confiance aux SMS pour des usages sensibles</strong
+          >
+          !!!<br />
+          (d'ailleurs, il faudrait que les services arrêtent de nous envoyer des
+          codes de confirmation par ce canal, c'est DANGEREUX)
+        </p>
+
+        <p>
+          Ils n'ont aucun chiffrement de bout en bout et sont vulnérables aux
+          attaques réseaux. À la place, il faut absolument privilégier les
+          applications de messagerie <strong>sécurisée et chiffrée</strong> (je
+          ne donnerai pas de noms, une petite recherche Google vous donnera la
+          connaissance (et ce qui vous convient le plus..))
+        </p>
+
+        <p>
+          Enfin, il y a les méthodes un peu plus classiques : installer un
+          malware sur le téléphone de la cible.<br />
+          Les spyware peuvent accéder à tout ce qui passe par le téléphone
+          (messages, appels, micro, caméra). Et là, peu importe le chiffrement,
+          le téléphone est déjà infecté.
+        </p>
+
+        <p>
+          Pegasus en est un exemple bien connu :
+          <a
+            href="https://nordvpn.com/fr/blog/pegasus-espionnage/"
+            target="_blank"
+            >https://nordvpn.com/fr/blog/pegasus-espionnage/</a
+          >
+        </p>
+
+        <p>
+          <strong>Conclusion :</strong> <strong>Oui</strong>, c'est faisable.
+          Encore une fois, c'est un peu plus laborieux que ce que montre le jeu,
+          mais c'est à 100% faisable.
         </p>
       </article>
     </main>
