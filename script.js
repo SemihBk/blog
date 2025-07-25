@@ -120,7 +120,6 @@ template.innerHTML = `
 
         <li><a href="/blog/lexique.html" class="main-nav-link">Lexique</a></li>
         <li><a href="/blog/ressources.html" class="main-nav-link">Ressources</a></li>
-        <li><a href="/blog/commandes-utiles.html" class="main-nav-link">Commandes utiles</a></li>
   
 
 
