@@ -19,6 +19,41 @@ body {
   background-color: white;
 }
 
+/***********/
+
+.quote {
+  font-style: italic;
+  color: #0000007f;
+  /* background-color: #f6f8fa; gris très léger */
+  border-left: 3px solid #1864ab;
+  padding-left: 2rem;
+  margin: 1rem 0 6rem;
+}
+
+.toggle-citation {
+  color: #3b82f6;
+  cursor: pointer;
+  font-weight: 600;
+  margin-left: 0.5rem;
+  margin-bottom: 5rem;
+}
+
+.citation-content {
+  display: none;
+  font-style: italic;
+  color: #0000007f;
+  /* background-color: #f6f8fa; gris très léger */
+  border-left: 3px solid #1864ab;
+  padding-left: 2rem;
+  margin: 1rem 0 6rem;
+}
+
+.citation-content.visible {
+  display: block;
+}
+
+/*************/
+
 code {
   background-color: #343a40; /* Fond sombre comme un terminal */
   color: #ffffff; /* Vert fluo pour le texte */
@@ -126,6 +161,12 @@ ul.main-notions {
   margin-bottom: 1rem;
   /* text-align: center; */
   /* text-decoration: underline; */
+}
+
+.u-subtitle {
+  font-size: 1.8rem;
+  margin-top: 9rem;
+  margin-bottom: 1rem;
 }
 
 /* DROPDOWN */
@@ -254,6 +295,7 @@ figcaption {
   justify-content: center;
   margin-left: 1.5rem;
   margin-bottom: 9rem;
+  line-height: 1.4;
   /* list-style-type: none; */
   /* align-items: center; */
 }
@@ -288,6 +330,10 @@ ol.main-summary li::marker {
 
 .sources {
   list-style-type: none;
+}
+
+.sources li {
+  font-style: italic;
 }
 
 /* LEXIQUE */
