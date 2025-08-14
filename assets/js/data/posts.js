@@ -1,5 +1,14 @@
 window.BLOG_POSTS = [
   {
+    title: "GPT-5",
+    date: "2025-08-14",
+    url: "blog/gpt-5/14082025.html",
+    type: "article",
+    tags: ["dev", "ia", "blog", "société"],
+    excerpt: "GPT-5 est monstrueux et le blog est en pleine (r)évolution.",
+    thumb: "blog/thumbs/gpt-5.png",
+  },
+  {
     title: "Qu'est-ce que l'AI Act ?",
     date: "2025-08-04",
     url: "blog/qu-est-ce-que-l-ai-act/04082025.html",
