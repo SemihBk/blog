@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>La fièvre du CTF — singularity</title>
+    <meta
+      name="description"
+      content="Article du blog singularity : La fièvre du CTF" />
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet" />
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <script src="../../assets/js/script.js" defer></script>
+  </head>
+  <body>
+    <div class="bg-decor" aria-hidden="true"></div>
+    <div class="progress" id="progress"></div>
+
+    <header>
+      <div class="container nav">
+        <div class="brand">
+          <div class="logo" aria-hidden="true">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="m4 17 6-6-6-6" />
+              <path d="M12 19h8" />
+            </svg>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px">
+            <a
+              href="../../blog.html"
+              style="text-decoration: none; color: inherit"
+              >Blog</a
+            >
+            <span
+              class="btn"
+              style="padding: 4px 8px; border-radius: 8px; font-size: 12px"
+              >Article</span
+            >
+          </div>
+        </div>
+        <button class="btn-theme" id="themeBtn" title="Changer le thème">
+          <span class="icon-sun" aria-hidden="true">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round">
+              <circle cx="12" cy="12" r="4" />
+              <path
+                d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+            </svg>
+          </span>
+          <span class="icon-moon" aria-hidden="true" style="display: none">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+            </svg>
+          </span>
+          <span id="themeLabel">Clair</span>
+        </button>
+      </div>
+    </header>
+
+    <main class="container">
+      <aside class="infobar">
+        <h3>Blog</h3>
+        <p>Publié le : 22 mars 2025</p>
+        <p class="muted">Temps de lecture : <span id="reading">—</span></p>
+      </aside>
+
+      <!-- ⚠️ COLLE ICI TON CONTENU EXACT (texte + images) -->
+      <article id="article">
+        <h2 class="main-title">La fièvre du CTF</h2>
+        <p>
+          Il y a un peu plus d'un mois, j'ai découvert qu'il existait une chose
+          que j'ai toujours faite dans ma vie.
+        </p>
+
+        <p>
+          J'aime les défis, les mystères, les choses cachées, celles qui se
+          relient entre elles pour créer une oeuvre totalement complexe et
+          unique.
+        </p>
+
+        <p>
+          Dans mes écrits, j'ai toujours aimé les liens.<br />
+          L'action de se continuer à travers le temps, n'est-ce pas profondément
+          ancrée en nous ?
+        </p>
+
+        <p>
+          Quel plaisir que de trouver ces pépites d'or qui nous mènent au trésor
+          complet.<br />
+          Dans le monde de l'informatique, ces trésors existent sous le nom de
+          CTF.
+        </p>
+
+        <p>
+          CTF est l'acronyme de <strong>Capture The Flag</strong>.<br />
+          Un flag, pour ceux qui ont du mal avec l'anglais, c'est un drapeau.<br />
+          En traduction française, c'est <strong>Capturer Le Drapeau</strong>.
+        </p>
+
+        <p>
+          En quoi ça consiste concrètement ?<br />
+          Ce sont des challenges informatiques plus ou moins complexes, conçus
+          pour tester et développer nos compétences dans plusieurs domaines : la
+          cryptographie, le reverse engineering, le web, ou encore le forensic.
+          L'objectif, c'est de trouver le drapeau, afin de marquer des points et
+          de grimper dans un classement.
+        </p>
+
+        <p>
+          Quand on le fait pour la première fois, c'est dur.<br />
+          Oui, on peut passer des heures entières sur un challenge, s'arracher
+          les cheveux sans savoir comment s'y prendre. Et devinez quoi ? C'est
+          souvent à la limite de l'abandon que l'on comprend comment l'exercice
+          doit être abordé.
+        </p>
+
+        <p>
+          La compétitivité joue aussi un grand rôle.<br />
+          Voir d'autres personnes réussir, ça nous donne envie de nous
+          surpasser. Une fois le challenge réussi, le système de récompense dans
+          notre cerveau s'active et procure un sentiment d'accomplissement
+          incroyable.
+        </p>
+
+        <figure>
+          <img src="img/challenge.gif" alt="GIF Donkey Kong" />
+          <figcaption>
+            (GIF marrant mais dites-vous qu'un flag s'y cache, ahah..)
+          </figcaption>
+        </figure>
+
+        <p>
+          Toutefois, attention à ne pas abuser des bonnes choses.<br />
+          Rester jusqu'à 2h du matin avec ses camarades, c'est peut-être cool,
+          mais le réveil le lendemain matin sera dur.
+        </p>
+
+        <p><strong>Il faut de la mesure dans toute bonne chose.</strong></p>
+
+        <figure>
+          <img src="img/ctf1.jpg" alt="CTF en cours" />
+          <figcaption>
+            Quand ça va trop loin en pleine semaine de cours.. (flouté pour mes
+            futurs camarades de classe, bonne chance pour trouver le flag ;-) )
+          </figcaption>
+        </figure>
+
+        <p>
+          Pour réussir un CTF, il faudra user de stratégies, être polyvalent, ou
+          alors compter sur une équipe solide où chacun pourra exceller dans son
+          domaine.
+        </p>
+
+        <p>
+          Sans parler des faux flags, des fausses pistes ou de ces petites
+          phrases provocatrices qui nous piquent au coeur...
+        </p>
+
+        <figure>
+          <img src="img/ctf2.png" alt="Faux flags et provocations" />
+        </figure>
+
+        <p>
+          A force de persévérance, on finit toujours par trouver des indices.<br />
+          Mais il est nécessaire d'avoir de bonnes bases.
+        </p>
+
+        <p>
+          Aujourd'hui, l'IA peut être un outil utile pour mieux comprendre
+          certains aspects techniques, mais elle ne fera pas tout à notre
+          place.<br />
+          De toute façon, elle possède encore ses limites. Beaucoup ont déjà
+          essayé, moi-même y compris, mais l'IA ne résout pas encore les défis
+          trop complexes. ;-)
+        </p>
+
+        <p>
+          Le CTF est un exercice unique pour les esprits curieux.<br />
+          N'ayez pas peur d'être perdu, ayez plutôt peur de ne jamais vous
+          perdre.
+        </p>
+
+        <p>
+          Quoi qu'il arrive, à un moment donné, le DNS vous permettra toujours
+          de retrouver votre chemin.
+        </p>
+
+        <figure>
+          <img src="img/ctf3.jpg" alt="DNS CTF" />
+          <figcaption>
+            Volontairement flouté certaines infos pour éviter de spoil les
+            débutants, les plus avancés sauront quoi faire pour chopper le flag,
+            de toutes façons...
+          </figcaption>
+        </figure>
+      </article>
+    </main>
+
+    <div class="container article-nav">
+      <a class="btn" href="../../blog.html">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round">
+          <path d="m15 18-6-6 6-6" />
+        </svg>
+        Retour au blog
+      </a>
+    </div>
+
+    <footer>
+      <div class="container foot">
+        <div>© <span id="year"></span> · singularity</div>
+      </div>
+    </footer>
+  </body>
+</html>

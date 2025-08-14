@@ -1,0 +1,1559 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Qu'est-ce que l'AI Act ? — singularity</title>
+    <meta
+      name="description"
+      content="Article du blog singularity : Qu'est-ce que l'AI Act ?" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet" />
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <script src="../../assets/js/script.js" defer></script>
+  </head>
+  <body>
+    <div class="bg-decor" aria-hidden="true"></div>
+    <div class="progress" id="progress"></div>
+
+    <header>
+      <div class="container nav">
+        <div class="brand">
+          <div class="logo" aria-hidden="true">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="m4 17 6-6-6-6" />
+              <path d="M12 19h8" />
+            </svg>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px">
+            <a
+              href="../../blog.html"
+              style="text-decoration: none; color: inherit"
+              >Blog</a
+            >
+            <span
+              class="btn"
+              style="padding: 4px 8px; border-radius: 8px; font-size: 12px"
+              >Article</span
+            >
+          </div>
+        </div>
+        <button class="btn-theme" id="themeBtn" title="Changer le thème">
+          <span class="icon-sun" aria-hidden="true">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round">
+              <circle cx="12" cy="12" r="4" />
+              <path
+                d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+            </svg>
+          </span>
+          <span class="icon-moon" aria-hidden="true" style="display: none">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+            </svg>
+          </span>
+          <span id="themeLabel">Clair</span>
+        </button>
+      </div>
+    </header>
+
+    <main class="container">
+      <aside class="infobar">
+        <h3>Blog</h3>
+        <p>Publié le : 4 août 2025</p>
+        <p class="muted">Temps de lecture : <span id="reading">—</span></p>
+        <div class="toc">
+          <h4>Sommaire</h4>
+          <nav id="toc"></nav>
+        </div>
+      </aside>
+
+      <!-- ⚠️ COLLE ICI TON CONTENU EXACT (texte + images) -->
+      <article id="article">
+        <h2 class="main-title">Qu'est-ce que l'AI Act ?</h2>
+        <h3 class="secondary-title">Introduction</h3>
+        <p>
+          M'intéressant de plus en plus à l'IA et à son impact sur notre
+          société, mes recherches m'ont petit à petit mené sur l'AI Act, le
+          règlement européen qui vise à encadrer le développement et l'usage de
+          l'intelligence artificielle.
+        </p>
+
+        <p>Alors j’ai pris le temps de creuser le sujet.</p>
+
+        <p>
+          Ce que j’ai découvert, c’est un texte dense, ambitieux, très
+          structuré, mais pas si inaccessible quand on le prend morceau par
+          morceau. Et surtout, c’est un règlement qui touche directement à des
+          enjeux de cybersécurité, de vie privée, de contrôle, de manipulation,
+          bref : tout un tas de charabia intéressant.
+        </p>
+
+        <p>
+          Cet article est un essai de vulgarisation, mais aussi un carnet de
+          notes. Il n’a pas vocation à résumer l’intégralité du texte (qui est
+          énorme), mais plutôt à décortiquer ce qui me semble essentiel, en
+          gardant un œil critique et curieux.
+        </p>
+
+        <p>
+          On va parler d’interdictions, de modèles à haut risque, de
+          transparence, et même de reconnaissance d’émotion en entreprise…
+        </p>
+
+        <p>Je vous mets à disposition les documents officiels :</p>
+        <ul class="main-summary">
+          <li>
+            <a href="AI_ACT_ENG.pdf" target="_blank">AI Act (ENG)</a>
+          </li>
+          <li>
+            <a href="AI_ACT_FR.pdf" target="_blank">AI Act (FR)</a>
+          </li>
+          <li>
+            <a
+              href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=OJ%3AL_202401689"
+              target="_blank"
+              >AI Act (online)</a
+            >
+          </li>
+        </ul>
+
+        <figure>
+          <img
+            class="illustration"
+            src="img/ia-europe.webp"
+            alt="Illustration IA Europe" />
+          <figcaption>
+            Image tirée de l'article
+            <a
+              href="https://www.adimeo.com/blog/europe-intelligence-artificielle"
+              target="_blank"
+              >https://www.adimeo.com/blog/europe-intelligence-artificielle</a
+            >
+          </figcaption>
+        </figure>
+
+        <h3 class="secondary-title" id="considerants">
+          Considérants (contexte et objectifs) (pp. 1-44.)
+        </h3>
+        <p>
+          Quand on ouvre un règlement européen comme l’AI Act, la première chose
+          qu’on trouve, ce ne sont pas les articles de loi… mais une longue
+          série de paragraphes numérotés. Ce sont les
+          <strong>considérants</strong>.
+        </p>
+
+        <p>
+          Ce n’est pas du blabla introductif, ni du droit directement applicable
+          :
+          <strong
+            >ce sont des justifications, des explications de contexte, et des
+            clés de lecture</strong
+          >
+          pour mieux comprendre les choix faits dans le reste du texte. Ils
+          n’ont pas de valeur contraignante à eux seuls, mais ils servent à
+          <strong>interpréter le règlement</strong>, notamment en cas de litige
+          ou d’ambiguïté.
+        </p>
+        <br />
+
+        <p>
+          Dans le cas de l’AI Act, ces considérants forment une sorte de récit
+          d’intention :
+        </p>
+
+        <p>
+          L’AI Act veut avant tout améliorer le fonctionnement du marché
+          intérieur en établissant un cadre juridique uniforme
+          <em>(AI Act, considérant (1), p. 1.)</em>. Cette harmonisation est
+          essentielle, car sans elle, les règles nationales divergentes
+          risqueraient d'entraîner une fragmentation du marché intérieur et
+          pourraient réduire la sécurité juridique pour ceux qui développent ou
+          utilisent des systèmes d’IA <em>(AI Act, considérant (3), p. 1.)</em>.
+        </p>
+
+        <p>
+          Le règlement cherche également à promouvoir une intelligence
+          artificielle axée sur l’humain et digne de confiance, tout en
+          garantissant un niveau élevé de protection de la santé, de la sécurité
+          et des droits fondamentaux <em>(AI Act, considérant (1), p. 1.)</em>.
+          Il reconnaît pleinement les bénéfices énormes que l’IA peut apporter à
+          divers secteurs comme la santé, l’agriculture, l’énergie et la
+          logistique, tout en soulignant les risques potentiels pour les droits
+          fondamentaux et les intérêts publics
+          <em>(AI Act, considérant (4), p. 2.)</em>.
+        </p>
+
+        <p>
+          Face à ces risques, l’AI Act insiste pour que le cadre réglementaire
+          soit élaboré dans le respect des valeurs européennes fondamentales
+          consacrées par les traités européens
+          <em>(AI Act, considérant (6), p. 2.)</em>. Pour garantir cette
+          cohérence, l'Union européenne a adopté une approche fondée clairement
+          sur les risques : les pratiques les plus dangereuses sont interdites,
+          tandis que celles présentant un risque élevé sont étroitement
+          encadrées par des règles communes afin d'assurer un niveau de
+          protection élevé partout dans l’Union
+          <em>(AI Act, considérant (26), p. 7.)</em>.
+        </p>
+
+        <p>
+          Enfin, le texte ne part pas de zéro : il s’appuie sur des principes
+          éthiques déjà établis pour une IA digne de confiance, notamment le
+          contrôle humain, la robustesse technique, le respect de la vie privée,
+          la transparence, la diversité, l'équité et la responsabilité
+          <em>(AI Act, considérant (27), p. 8.)</em>.
+        </p>
+        <br />
+
+        <p>
+          <strong
+            >Pour garantir la bonne application de ces règles, le règlement crée
+            également un Bureau de l’IA au sein de la Commission</strong
+          >, chargé de surveiller l’application du texte et de pouvoir enquêter
+          sur les fournisseurs de modèles d’IA génériques
+          <em>(AI Act, considérant (164), p. 41.)</em>. Par ailleurs, un Comité
+          européen de l’IA (“Comité IA”) rassemblera les
+          <a
+            href="https://european-union.europa.eu/principles-countries-history/eu-countries_fr#header_countries_list"
+            target="_blank"
+            >États membres</a
+          >
+          pour harmoniser l’application du règlement, rendre des avis techniques
+          et faciliter la coopération entre autorités nationales
+          <em>(AI Act, considérant (149), p. 38.)</em>.
+        </p>
+
+        <p>
+          En bref, l’AI Act veut poser un cadre équilibré, permettant de
+          profiter pleinement des avantages de l’IA tout en se protégeant contre
+          ses abus potentiels.
+        </p>
+
+        <h3 class="secondary-title" id="chapitre1">
+          Chapitre 1 : Dispositions générales (pp. 44-51.)
+        </h3>
+        <h4 class="subtitle">
+          > Article 1 et 2 : Objet et champ d'application
+        </h4>
+        <p>
+          Ici, on parle des objectifs de l'acte, comme ils sont assez clairs et
+          courts, je ne les détaillerai pas ici.
+        </p>
+
+        <p>Le règlement établit :</p>
+
+        <ul class="main-summary">
+          <li>
+            des règles harmonisées concernant la mise sur le marché, la mise en
+            service et l’utilisation de systèmes d’IA dans l’Union;
+          </li>
+          <li>l’interdiction de certaines pratiques en matière d’IA;</li>
+          <li>
+            des exigences spécifiques applicables aux systèmes d’IA à haut
+            risque et des obligations imposées aux opérateurs de ces systèmes;
+          </li>
+          <li>
+            des règles harmonisées en matière de transparence applicables à
+            certains systèmes d’IA;
+          </li>
+          <li>
+            des règles harmonisées pour la mise sur le marché de modèles d’IA à
+            usage général;
+          </li>
+          <li>
+            des règles relatives au suivi du marché, à la surveillance du
+            marché, à la gouvernance et à l’application des règles;
+          </li>
+          <li>
+            des mesures visant à soutenir l’innovation, en mettant
+            particulièrement l’accent sur les PME, y compris "les jeunes
+            pousses"
+            <em
+              >(c'est bien dans le règlement, je ne savais pas mais ce terme est
+              utilisé pour les nouvelles entreprises).</em
+            >
+          </li>
+        </ul>
+
+        <p>
+          Mais à qui s’appliquent concrètement ces règles ?
+          <strong
+            >À <em>presque</em> tout le monde, pourvu que l’IA en question ait
+            un lien avec l’Union européenne.</strong
+          >
+          Que le fournisseur soit basé à Paris, à San Francisco ou sur une île
+          perdue de l'océan Indien, si son système est mis sur le marché
+          européen ou que ses résultats y sont utilisés, il est concerné. Ça
+          inclut les fournisseurs, les déployeurs, les importateurs, les
+          distributeurs, voire même les fabricants de produits qui intègrent une
+          IA dans leur matériel.
+          <em>(AI Act, Article 2.1, p. 45.)</em>
+        </p>
+
+        <p>
+          A noter que le texte prévoit plusieurs exceptions :
+          <strong
+            >il ne s’applique pas aux usages strictement militaires ou de
+            sécurité nationale, ni aux IA développées uniquement à des fins de
+            recherche fondamentale.</strong
+          >
+          Les particuliers qui bidouillent une IA dans leur coin pour un usage
+          personnel non professionnel ne sont pas concernés non plus, pas plus
+          que les systèmes publiés en open source tant qu’ils ne sont pas mis en
+          service sur le marché. <em>(AI Act, Article 2.2 à 2.12, p. 46.)</em>
+        </p>
+
+        <p>
+          C’est important à noter : le règlement ne remplace pas les textes
+          existants comme le RGPD ou les règles sur la protection des
+          consommateurs. Il vient en complément, sans les affaiblir.
+          <em>(AI Act, Article 2.7 et 2.9, pp. 45-46.)</em>
+        </p>
+
+        <h4 class="subtitle">> Article 3 : Définitions</h4>
+        <p>
+          Je passerai ce passage, ce ne sont que des définitions pour comprendre
+          de quoi on parle.
+        </p>
+
+        <h4 class="subtitle">> Article 4 : Maîtrise de l'IA</h4>
+        <p class="quote">
+          Les fournisseurs et les déployeurs de systèmes d’IA prennent des
+          mesures pour garantir, dans toute la mesure du possible, un niveau
+          suffisant de maîtrise de l’IA pour leur personnel et les autres
+          personnes s’occupant du fonctionnement et de l’utilisation des
+          systèmes d’IA pour leur compte, en prenant en considération leurs
+          connaissances techniques, leur expérience, leur éducation et leur
+          formation, ainsi que le contexte dans lequel les systèmes d’IA sont
+          destinés à être utilisés, et en tenant compte des personnes ou des
+          groupes de personnes à l’égard desquels les systèmes d’IA sont
+          destinés à être utilisés. <em>(AI Act, Article 4, p. 41.)</em>
+        </p>
+
+        <h3 class="secondary-title" id="chapitre2">
+          Chapitre 2 : Pratiques interdites en matière d'IA (pp. 51-53.)
+        </h3>
+        <h4 class="subtitle">
+          > Article 5 : Pratiques interdites en matière d'IA
+        </h4>
+
+        <p>
+          L’AI Act ne se contente pas de poser des règles ou de classer les
+          systèmes d’IA selon leur niveau de risque. Il trace clairement des
+          lignes rouges en interdisant certains usages jugés incompatibles avec
+          nos droits fondamentaux.
+        </p>
+
+        <figure>
+          <img
+            class="illustration"
+            src="img/pratiques-interdites-ia.webp"
+            alt="Illustration IA Europe" />
+          <figcaption>
+            Image tirée de l'article
+            <a
+              href="https://itdaily.fr/nouvelles/business/premieres-regles-d-ia-act-en-vigueur/"
+              target="_blank"
+              >https://itdaily.fr/nouvelles/business/premieres-regles-d-ia-act-en-vigueur/</a
+            >
+          </figcaption>
+        </figure>
+
+        <h4 class="secondary-title">
+          1. La manipulation subliminale ou abusive
+        </h4>
+        <p>
+          Toute IA conçue pour influencer notre comportement de manière
+          subliminale, trompeuse, ou manipulatrice est strictement interdite
+          <em>(AI Act, Article 5.1.a, p. 51.)</em>. Cela inclut les systèmes qui
+          exploitent des failles psychologiques, des biais inconscients ou des
+          techniques persuasives abusives pour modifier nos décisions sans que
+          nous en ayons conscience. Même logique pour l’exploitation des
+          personnes vulnérables : les IA ne peuvent pas tirer parti de l’âge,
+          d’un handicap ou d’une fragilité sociale
+          <em>(AI Act, Article 5.1.b, p. 51.)</em>.
+        </p>
+
+        <h4 class="secondary-title">2. Le scoring social façon chinoise</h4>
+        <p>
+          L’Union européenne rejette catégoriquement l’idée d’une notation
+          sociale généralisée. Un système d’IA qui attribuerait à chaque citoyen
+          un score basé sur son comportement ou ses caractéristiques
+          personnelles, afin de l’utiliser pour discriminer ou restreindre ses
+          droits, est clairement hors-la-loi
+          <em>(AI Act, Article 5.1.c, p. 51.)</em>.
+        </p>
+
+        <h4 class="secondary-title">
+          3. La prédiction criminelle automatisée
+          <em>(me rappelle quelque chose :-) (cf. Watch Dogs)</em>
+        </h4>
+        <p>
+          Utiliser une IA pour prédire des comportements criminels sur la seule
+          base d’un profil psychologique ou comportemental, sans faits concrets,
+          est interdit <em>(AI Act, Article 5.1.d, p. 51.)</em>. En clair : la
+          justice prédictive à la Minority Report ou Watch Dogs est exclue, et
+          seule une évaluation humaine basée sur des preuves tangibles peut
+          recourir à l’aide d’une IA, jamais l’inverse.
+        </p>
+
+        <h4 class="secondary-title">
+          4. Le moissonnage massif d’images biométriques
+        </h4>
+        <p>
+          La collecte sauvage d’images faciales en ligne ou par
+          vidéosurveillance, dans le but de constituer des bases de données de
+          reconnaissance faciale à grande échelle, est également interdite
+          <em>(AI Act, Article 5.1.e, p. 51.)</em>. Une décision forte pour
+          protéger notre vie privée face à une surveillance biométrique
+          débridée.
+        </p>
+
+        <h4 class="secondary-title">
+          5. La catégorisation biométrique sur des critères sensibles
+        </h4>
+        <p>
+          On interdit également : l’usage d’une IA pour identifier ou classer
+          des individus en fonction de caractéristiques sensibles (religion,
+          orientation sexuelle, opinions politiques, etc.) sur la base de
+          données biométriques <em>(AI Act, Article 5.1.g, p. 52.)</em>. Une
+          dérive qui ressemble à de la science-fiction, mais techniquement
+          réalisable aujourd’hui, d’où cette interdiction ferme.
+        </p>
+
+        <h4 class="secondary-title">
+          6. La reconnaissance biométrique à distance en temps réel (sauf
+          exceptions)
+        </h4>
+        <p>
+          Enfin, l’AI Act interdit par principe l’usage de la reconnaissance
+          faciale biométrique en temps réel dans les espaces publics, notamment
+          à des fins policières. Des exceptions existent toutefois dans des cas
+          très précis : retrouver des victimes disparues, prévenir un attentat
+          imminent ou identifier un suspect impliqué dans une infraction très
+          grave (au moins 4 ans de prison). Même dans ces cas, les conditions
+          sont strictes : autorisation judiciaire obligatoire, transparence et
+          déclaration officielle auprès des autorités compétentes
+          <em>(AI Act, Article 5.1.h à 5.7, pp. 52-53.)</em>.
+        </p>
+
+        <h3 class="secondary-title" id="chapitre3">
+          Chapitre 3 : Systèmes d'IA à haut risque (pp. 53-82.)
+        </h3>
+        <h4 class="subtitle">
+          > Section 1 : Classification de systèmes d’IA comme systèmes à haut
+          risque
+        </h4>
+        <p class="quote">
+          1. Un système d’IA mis sur le marché ou mis en service, qu’il soit ou
+          non indépendant des produits visés aux points a) et b), est considéré
+          comme étant à haut risque lorsque les deux conditions suivantes sont
+          remplies : <br />
+          <br />a) le système d’IA est destiné à être utilisé comme composant de
+          sécurité d’un produit couvert par la législation d’harmonisation de
+          l’Union dont la liste figure à l’annexe I, ou le système d’IA
+          constitue lui-même un tel produit; <br />
+          <br />
+          b) le produit dont le composant de sécurité visé au point a) est le
+          système d’IA, ou le système d’IA lui-même en tant que produit, est
+          soumis à une évaluation de conformité par un tiers en vue de la mise
+          sur le marché ou de la mise en service de ce produit conformément à la
+          législation d’harmonisation de l’Union dont la liste figure à l’annexe
+          I.
+        </p>
+
+        <p class="quote">
+          2. Outre les systèmes d’IA à haut risque visés au paragraphe 1, les
+          systèmes d’IA visés à l’annexe III* sont considérés comme étant à haut
+          risque.
+        </p>
+
+        <p class="quote">
+          3. Par dérogation au paragraphe 2, un système d’IA visé à l’annexe
+          III* n’est pas considéré comme étant à haut risque lorsqu’il ne
+          présente pas de risque important de préjudice pour la santé, la
+          sécurité ou les droits fondamentaux des personnes physiques, y compris
+          en n’ayant pas d’incidence significative sur le résultat de la prise
+          de décision.
+        </p>
+
+        <p>
+          <em>(AI Act, Article 6, pp. 53-54.)</em> <br />
+          <em>(AI Act, Annexe III*, pp. 127-129.)</em>
+        </p>
+
+        <h4 class="subtitle">
+          > Section 2 : Exigences applicables aux systèmes d'IA à haut risques
+        </h4>
+        <p>
+          Avant d’être mis sur le marché, les systèmes d’IA considérés comme “à
+          haut risque” doivent respecter une série d’exigences strictes définies
+          par le règlement.
+          <strong
+            >Ces exigences visent à garantir qu’ils soient sûrs, fiables,
+            transparents et sous contrôle humain à chaque étape de leur cycle de
+            vie.</strong
+          >
+          L’objectif est double : réduire les risques pour les droits
+          fondamentaux, la santé, ou la sécurité, tout en assurant une cohérence
+          avec d’autres législations européennes, notamment dans les secteurs
+          médical, automobile ou industriel <em>(AI Act, Article 8, p. 55)</em>.
+        </p>
+        <p>Concrètement, les fournisseurs doivent mettre en oeuvre :</p>
+        <ul class="main-summary">
+          <li>
+            Un système de gestion des risques, tout au long du cycle de vie
+            <em>(AI Act, Article 9, p. 56.)</em>
+          </li>
+          <li>
+            Une qualité rigoureuse des données utilisées, pour éviter les biais
+            discriminatoires <em>(AI Act, Article 10, p. 57.)</em>
+          </li>
+          <li>
+            Une documentation technique complète, accessible aux autorités
+            <em>(AI Act, Article 11, p. 58.)</em>
+          </li>
+          <li>
+            Des capacités de traçabilité (journalisation automatique des
+            événements) <em>(AI Act, Article 12, p. 59.)</em>
+          </li>
+          <li>
+            Une transparence sur les performances, limites et conditions d’usage
+            <em>(AI Act, Article 13, p. 59.)</em>
+          </li>
+          <li>
+            Un contrôle humain prévu et explicite
+            <em>(AI Act, Article 14, p. 60.)</em>
+          </li>
+
+          <li>
+            Une robustesse face aux défaillances et une cybersécurité renforcée
+            <em>(AI Act, Article 15, p. 61.)</em>
+          </li>
+        </ul>
+
+        <h4 class="subtitle">
+          > Section 3 : Obligations incombant aux fournisseurs de modèles d’IA à
+          usage général présentant un risque systémique
+        </h4>
+
+        <p>
+          Ici, on va établir des règles concernant "Qui fait quoi ?" ou "Qui est
+          soumis à quoi ?". Une fois qu’un système d’IA est classé « à haut
+          risque », tout le monde dans sa chaîne de vie a un rôle clair à jouer.
+          Et ici, l’AI Act ne rigole pas avec les responsabilités. Chaque acteur
+          doit se mettre en conformité. Voici une overview des rôles :
+        </p>
+
+        <h4 class="secondary-title">Les fournisseurs</h4>
+        <p>
+          Un fournisseur d’IA à haut risque, c’est
+          <strong>celui qui conçoit et met sur le marché le système.</strong> À
+          lui d’assurer que l’IA est conforme, documentée, testée, traçable et
+          transparente. Il doit :
+        </p>
+        <ul class="main-summary">
+          <li>
+            Assurer la conformité technique avec toutes les exigences de la
+            section 2 (section précédente): qualité des données, transparence,
+            robustesse, sécurité, documentation…
+          </li>
+          <li>
+            Tenir un système de gestion de la qualité, incluant les procédures
+            de tests, de surveillance post-déploiement, la traçabilité des
+            incidents, etc. <em>(AI Act, Article 17, p. 62.)</em>
+          </li>
+          <li>
+            Rédiger la doc technique complète, adaptée aux autorités et
+            facilement compréhensible. (durée de conservation : 10 ans)
+            <em>(AI Act, Article 18, p. 63.)</em>
+          </li>
+          <li>
+            Tenir des journaux d’événements, les conserver au minimum 6 mois.
+            <em>(AI Act, Article 19, p. 64.)</em>
+          </li>
+          <li>
+            Soumettre son système à une évaluation de conformité, souvent avec
+            un organisme notifié externe.
+            <em>(AI Act, Article 43 et Article 47, p. 78, p. 80.)</em>
+          </li>
+          <li>
+            Apposer le marquage CE et établir la déclaration de conformité UE.
+            <em>(AI Act, Article 48, p. 81.)</em>
+          </li>
+          <li>
+            S’enregistrer dans la base de données européenne dédiée.
+            <em>(AI Act, Article 49.1, p. 81.)</em>
+          </li>
+          <li>
+            Mettre en œuvre des mesures correctives immédiates s’il détecte une
+            non-conformité ou un risque. <em>(AI Act, Article 20, p. 64.)</em>
+          </li>
+          <li>
+            Coopérer avec les autorités, fournir les infos sur demande, corriger
+            si un problème est signalé. <em>(AI Act, Article 21, p. 64.)</em>
+          </li>
+        </ul>
+
+        <h4 class="secondary-title">Les importateurs</h4>
+        <p>
+          Un importateur, c’est
+          <strong
+            >celui qui fait entrer une IA à haut risque sur le marché européen
+            en provenance d’un pays tiers.</strong
+          >
+          Avant toute mise sur le marché, l’importateur doit vérifier que le
+          fournisseur a bien fait son travail.
+        </p>
+
+        <p>
+          S’il a le moindre doute sur la conformité ou l’authenticité des
+          documents, il doit bloquer la commercialisation jusqu’à résolution du
+          problème. Et si un risque est identifié, il est obligé d’en informer
+          le fournisseur, les autorités et tous les acteurs concernés
+          <em>(AI Act, Article 23.2, p. 66.)</em>.
+        </p>
+
+        <p>L'importateur doit aussi :</p>
+
+        <ul class="main-summary">
+          <li>
+            Apposer ses propres coordonnées sur le produit ou son emballage
+            <em>(AI Act, Article 23.3, p. 66.)</em>
+          </li>
+          <li>
+            Garantir les bonnes conditions de stockage et de transport, pour ne
+            pas altérer les performances du système
+            <em>(AI Act, Article 23.4, p. 66.)</em>
+          </li>
+          <li>
+            Conserver tous les documents clés pendant 10 ans
+            <em>(AI Act, Article 23.5, p. 66.)</em>
+          </li>
+          <li>
+            Transmettre toute info aux autorités sur simple demande, dans une
+            langue compréhensible <em>(AI Act, Article 23.6, p. 66.)</em>
+          </li>
+          <li>
+            Coopérer en cas de contrôle ou d’incident, comme tout acteur de
+            confiance du marché <em>(AI Act, Article 23.7, p. 66.)</em>
+          </li>
+        </ul>
+
+        <h4 class="secondary-title">Les distributeurs</h4>
+        <p>
+          Les distributeurs n’introduisent pas directement les systèmes d’IA sur
+          le marché européen, mais
+          <strong>jouent un rôle central en les mettant à disposition.</strong>
+          Pour éviter les dérives, ils doivent vérifier plusieurs points avant
+          toute distribution : la présence du marquage CE, mais aussi que la
+          déclaration UE de conformité et la notice d’utilisation accompagnent
+          bien le produit. Ils doivent également s’assurer que le fournisseur et
+          l’importateur ont respecté toutes leurs obligations de base
+          <em>(AI Act, Article 24.1, p. 66.)</em>.
+        </p>
+
+        <p>
+          En cas de problème identifié, leur responsabilité est engagée : pas
+          question de distribuer un système non conforme
+          <em>(AI Act, Article 24.2, p. 66.)</em>. S'ils détectent un risque,
+          ils doivent immédiatement informer les autorités et les autres acteurs
+          de la chaîne, et prendre ou faire prendre les mesures correctives
+          nécessaires, comme le retrait ou le rappel du produit
+          <em>(AI Act, Article 24.4, p. 66.)</em>.
+        </p>
+
+        <p>
+          Enfin, les distributeurs ont aussi des obligations pratiques : ils
+          doivent garantir les bonnes conditions de transport et de stockage des
+          systèmes d’IA, fournir aux autorités toutes les informations utiles
+          sur les mesures prises, et coopérer pleinement en cas d’enquête ou
+          d’audit <em>(AI Act, Article 24.3 à Article 24.6, p. 66.)</em>.
+        </p>
+
+        <h4 class="secondary-title">Les déployeurs</h4>
+        <p>
+          Le déployeur, c’est
+          <strong>celui qui met en service l’IA dans un cadre réel</strong>
+          (entreprise, administration, établissement scolaire, etc.). Le texte
+          est clair : utiliser une IA à haut risque, c’est s’engager à
+          l’utiliser correctement. Il doit :
+        </p>
+
+        <ul class="main-summary">
+          <li>
+            Respecter la notice d’utilisation, ne pas détourner l’IA de son
+            usage prévu.
+          </li>
+          <li>
+            Assurer le contrôle humain, via des personnes compétentes, formées
+            et bien outillées.
+          </li>
+          <li>
+            Vérifier la qualité et la représentativité des données d’entrée,
+            quand c’est possible.
+          </li>
+          <li>
+            Surveiller le comportement de l’IA, et signaler sans délai tout
+            incident, bug ou dérive aux autorités (et au fournisseur).
+          </li>
+          <li>
+            Tenir les journaux d’événements, s’ils sont sous leur contrôle.
+          </li>
+          <li>
+            Informer les personnes concernées, notamment sur le lieu de travail.
+          </li>
+          <li>
+            Effectuer une analyse d’impact sur les droits fondamentaux, dans
+            certains cas (administration publique, usage éducatif, ou RH
+            sensibles).
+          </li>
+          <li>
+            Ne pas utiliser un système non enregistré dans la base européenne,
+            et refuser tout système douteux.
+          </li>
+        </ul>
+
+        <p>
+          Toutes les obligations incombant les déployeurs sont détaillées ici :
+          <em> AI Act, Article 26.1 à Article 26.12, pp. 67-69.</em>
+        </p>
+
+        <h4 class="secondary-title">
+          Et si quelqu'un modifie l'IA après coup ?
+        </h4>
+        <p>
+          Le règlement est clair : si un acteur modifie substantiellement une IA
+          déjà mise sur le marché, il en devient fournisseur à son tour, avec
+          toutes les responsabilités que ça implique.
+          <em>(AI Act, Article 25, p. 67.)</em>
+        </p>
+
+        <p class="quote">
+          1. Tout distributeur, importateur, déployeur ou autre tiers est
+          considéré comme un fournisseur d’un système d’IA à haut risque aux
+          fins du présent règlement et est soumis aux obligations incombant au
+          fournisseur au titre de l’article 16 dans toutes les circonstances
+          suivantes: <br />
+          <br />
+          a) il commercialise sous son propre nom ou sa propre marque un système
+          d’IA à haut risque déjà mis sur le marché ou mis en service, sans
+          préjudice des dispositions contractuelles prévoyant une autre
+          répartition des obligations; <br />
+          <br />
+          b) il apporte une modification substantielle à un système d’IA à haut
+          risque qui a déjà été mis sur le marché ou a déjà été mis en service
+          de telle manière qu’il reste un système d’IA à haut risque en
+          application de l’article 6; <br />
+          <br />
+          c) il modifie la destination d’un système d’IA, y compris un système
+          d’IA à usage général, qui n’a pas été classé à haut risque et a déjà
+          été mis sur le marché ou mis en service de telle manière que le
+          système d’IA concerné devient un système d’IA à haut risque
+          conformément l’article 6.
+        </p>
+
+        <h3 class="secondary-title" id="chapitre4">
+          Chapitre 4 : Obligations de transparence pour les fournisseurs et les
+          déployeurs de certains systèmes d'IA (pp. 82-83.)
+        </h3>
+        <p>
+          L’AI Act impose aux fournisseurs et déployeurs de certains systèmes
+          d’intelligence artificielle une série d’obligations de transparence.
+          <strong
+            >L’objectif est de garantir que les personnes concernées savent
+            qu’elles interagissent avec une IA, ou qu’un contenu qu’elles
+            consultent a été généré ou manipulé par une IA.</strong
+          >
+        </p>
+
+        <figure>
+          <img
+            class="illustration"
+            src="img/ia-human.webp"
+            alt="IA et Humain" />
+          <figcaption>
+            Image tirée de l'article
+            <a
+              href="https://naaia.ai/la-vulnerabilite-humaine-face-a-lia/"
+              target="_blank"
+              >https://naaia.ai/la-vulnerabilite-humaine-face-a-lia/</a
+            >
+          </figcaption>
+        </figure>
+
+        <p>
+          Premièrement, les systèmes d’IA conçus pour interagir directement avec
+          des personnes physiques doivent être développés de manière à ce que
+          l’utilisateur soit informé qu’il ne s’agit pas d’un humain. Cette
+          exigence ne s’applique pas si cela est déjà évident pour un individu
+          normalement informé, raisonnablement attentif et avisé. Elle ne
+          s’applique pas non plus aux systèmes utilisés dans un cadre pénal ou
+          judiciaire, sauf si ces systèmes sont accessibles au public pour
+          signaler une infraction <em>(AI Act, Article 50.1, p. 82.)</em>.
+        </p>
+
+        <p>
+          Ensuite, les systèmes d’IA, y compris ceux à usage général, qui
+          produisent des contenus synthétiques (texte, image, audio, vidéo)
+          doivent intégrer un mécanisme d’identification indiquant que ces
+          contenus sont générés ou modifiés par une IA. Cette identification
+          doit être lisible par machine et conçue de manière à être fiable,
+          robuste, interopérable et efficace, en tenant compte de l’état de la
+          technique. Il existe des exceptions, notamment lorsque l’IA n’a qu’une
+          fonction d’assistance (mise en forme standard, par exemple), ou
+          lorsqu’elle est utilisée à des fins judiciaires ou policières
+          encadrées par la loi <em>(AI Act, Article 50.2, p. 82.)</em>.
+        </p>
+
+        <p>
+          Lorsqu’un système est utilisé pour la reconnaissance des émotions ou
+          pour la catégorisation biométrique, les personnes concernées doivent
+          être informées. Ces traitements doivent respecter les règles
+          applicables en matière de protection des données personnelles (RGPD,
+          règlement 2018/1725 ou directive 2016/680 selon les cas). Là encore,
+          une dérogation est prévue pour les usages répressifs, sous réserve de
+          garanties appropriées <em>(AI Act, Article 50.3, p. 82.)</em>.
+        </p>
+
+        <p>
+          Par ailleurs, lorsqu’un système d’IA génère ou modifie des images,
+          vidéos ou contenus audio qualifiables de deepfake ou d’hypertrucage,
+          l’obligation d’informer s’applique également. Cette obligation peut
+          être allégée si le contenu fait clairement partie d’une œuvre
+          artistique, créative, satirique ou fictive, à condition que
+          l’existence de l’usage de l’IA soit néanmoins indiquée de manière
+          appropriée. Pour les textes générés et publiés dans le but d’informer
+          le public, la mention du recours à l’IA est obligatoire, sauf s’il y a
+          eu un contrôle éditorial humain ou si l’utilisation est prévue par la
+          loi dans un cadre judiciaire ou policier
+          <em>(AI Act, Article 50.4, p. 82.)</em>.
+        </p>
+
+        <p>
+          Toutes ces informations doivent être communiquées aux personnes
+          concernées de manière claire, reconnaissable et dès la première
+          interaction ou exposition. Elles doivent en outre respecter les
+          exigences en matière d’accessibilité
+          <em>(AI Act, Article 50.5, p. 83.)</em>.
+        </p>
+
+        <p>
+          Ces obligations viennent s’ajouter à celles déjà imposées aux systèmes
+          d’IA à haut risque par le chapitre III. Elles ne remplacent pas les
+          obligations existantes dans d’autres textes européens ou nationaux,
+          mais les complètent <em>(AI Act, Article 50.6, p. 83.)</em>.
+        </p>
+
+        <p>
+          Enfin, le Bureau de l’IA est chargé de promouvoir l’élaboration de
+          codes de bonne pratique européens pour aider à la mise en œuvre de ces
+          règles. La Commission peut approuver ces codes ou, si elle estime
+          qu’ils sont insuffisants, adopter des actes d’exécution établissant
+          des règles communes contraignantes
+          <em>(AI Act, Article 50.7, p. 83.)</em>.
+        </p>
+
+        <h3 class="secondary-title" id="chapitre5">
+          Chapitre 5 : Modèle d'IA à usage générale (pp. 83-88.)
+        </h3>
+        <p>
+          L'AI Act s’attaque à un type de modèle bien particulier : les modèles
+          d’IA à usage général. Ce sont les briques de base de nombreux systèmes
+          que l’on connaît aujourd’hui (modèles de langage, générateurs d’image,
+          assistants vocaux, outils de résumé ou de traduction…).
+        </p>
+
+        <p>
+          Ils sont dits "à usage général" parce qu’ils peuvent être intégrés
+          dans une grande variété d’applications, sans être conçus pour une
+          tâche spécifique. Ce sont souvent des modèles pré-entraînés sur
+          d’énormes quantités de données, qui peuvent être adaptés ou réutilisés
+          (<em>comme GPT, Claude, Mistral ou LLaMA par exemple</em>).
+        </p>
+
+        <p>
+          Mais dans cette catégorie,
+          <strong>l’AI Act distingue deux niveaux :</strong> <br />
+          → Les modèles à usage général "classiques" <br />
+          → Et les modèles à usage général présentant un risque systémique
+        </p>
+
+        <h4 class="secondary-title">C'est quoi un risque systémique ?</h4>
+        <p>
+          On parle de cette catégorie quand un modèle atteint un certain seuil
+          de puissance ou s’il est désigné comme tel par la Commission
+          européenne. Le seuil technique actuellement retenu est un volume
+          d’entraînement supérieur à <strong>10²⁵ FLOPs</strong> (unités de
+          calcul utilisées pendant l’entraînement du modèle)
+          <em>(AI Act, Article 51.1 et Article 51.2, p. 83)</em>.
+        </p>
+
+        <p>
+          Ce seuil correspond à des modèles de très grande ampleur, qui ont le
+          potentiel de produire des effets à large échelle, de manière directe
+          ou indirecte : désinformation, manipulation sociale, dépendance
+          critique, ou encore apparition de comportements imprévus. Ce n’est pas
+          le modèle lui-même qui est jugé dangereux, mais
+          <strong
+            >le niveau de contrôle nécessaire quand son impact peut traverser de
+            multiples domaines sans supervision humaine directe.</strong
+          >
+        </p>
+
+        <p>
+          Dans certains cas, il est possible pour un fournisseur de démontrer
+          que malgré sa puissance, son modèle ne présente pas de risque
+          systémique, en fonction de son usage, de son architecture ou des
+          protections mises en place. Mais c’est la Commission qui tranche.
+          <em>(AI Act, Article 52.2 et Article 52.3, pp. 83-84.)</em>
+        </p>
+
+        <h4 class="secondary-title">
+          Quelles obligations pour les fournisseurs ?
+        </h4>
+        <p>
+          Tous les fournisseurs de modèles d’IA à usage général, qu’ils soient
+          ou non classés "systémiques", ont un socle d’obligations à respecter
+          <em>(AI Act, Article 53, pp. 84-85.)</em>. <br />
+          <em
+            >*Évidemment,
+            <strong
+              >ces obligations ne s’appliquent pas aux modèles open
+              source</strong
+            >
+            rendus publics dans leur intégralité (poids, architecture, usage),
+            sauf si le modèle est classé comme systémique. (AI Act, Article
+            53.2, p. 85.)</em
+          >
+        </p>
+
+        <p>
+          Par contre,
+          <strong
+            >les fournisseurs de modèles classés à risque systémique</strong
+          >
+          doivent aller plus loin. Ils doivent :
+        </p>
+        <ul class="main-summary">
+          <li>
+            Réaliser des tests rigoureux, y compris des essais contradictoires,
+            pour détecter les risques <em>(AI Act, Article 55.1.a, p. 86.)</em>
+          </li>
+          <li>
+            Évaluer et atténuer les risques systémiques à l’échelle de l’Union
+            européenne <em>(AI Act, Article 55.1.b, p. 86.)</em>
+          </li>
+          <li>
+            Signaler sans délai tout incident grave au Bureau de l’IA
+            <em>(AI Act, Article 55.1.c, p. 86.)</em>
+          </li>
+          <li>
+            Renforcer la cybersécurité, tant au niveau du modèle qu’au niveau de
+            l’infrastructure qui l’exécute
+            <em>(AI Act, Article 55.1.d, p. 86.)</em>
+          </li>
+        </ul>
+
+        <h4 class="secondary-title">Gouvernance</h4>
+        <p>
+          Le texte prévoit également la désignation d’un mandataire dans l’UE
+          pour les fournisseurs hors Europe, et encourage l’élaboration de codes
+          de bonne pratique, pilotés par le Bureau de l’IA, auxquels les
+          fournisseurs peuvent adhérer volontairement
+          <em>(AI Act, Article 55 et Article 56, p. 85, p. 86.)</em>.
+        </p>
+
+        <p>
+          Ces codes doivent fixer des méthodes communes (par exemple sur la
+          manière d’évaluer les risques ou de documenter les contenus
+          d’entraînement) et seront requis si aucune norme harmonisée n’est
+          encore disponible. S’ils ne sont pas prêts à temps ou jugés
+          insuffisants, la Commission pourra imposer des règles communes par
+          voie d’acte d’exécution <em>(AI Act, Article 56.9, p. 87.)</em>.
+        </p>
+
+        <h3 class="secondary-title" id="chapitre6">
+          Chapitre 6 : Mesure de soutien à l'innovation (pp. 88-95.)
+        </h3>
+        <p>
+          Contrairement à une vision punitive de la régulation, ce chapitre
+          insiste sur un principe fort : aider les acteurs de l’IA à se mettre
+          en conformité sans freiner leur capacité à innover, en particulier les
+          jeunes pousses et les PME. Pour cela, plusieurs dispositifs sont mis
+          en place, le principal étant
+          <strong>les bacs à sable réglementaires de l’IA</strong>.
+        </p>
+
+        <p>
+          Les bacs à sable réglementaires sont
+          <strong>
+            des environnements encadrés, surveillés et temporaires, où des
+            acteurs peuvent développer, tester, entraîner ou valider des
+            systèmes d’IA innovants avant leur mise sur le marché</strong
+          >
+          <em>(AI Act, Article 57.5, p. 88.)</em>. Ils permettent aux autorités
+          compétentes d’apporter des conseils, de surveiller les risques, et de
+          donner des retours concrets sur la conformité d’un projet
+          <em>(AI Act, Article 57.6 et Article 57.7, p. 88.)</em>
+        </p>
+
+        <p>
+          Chaque État membre devra en mettre au moins un en place d’ici le
+          <strong>2 août 2026</strong>, mais il est aussi possible d’en créer au
+          niveau local ou transfrontalier
+          <em>(AI Act, Article 57.1 et 57.2, p. 88.)</em>. La Commission
+          soutient ces initiatives avec des outils, des modèles et une
+          plateforme centralisée
+          <em>(AI Act, Article 57.1 et Article 62.3.b, p. 88, p. 94.)</em>.
+        </p>
+        <br />
+        <p>Les bacs à sable ont plusieurs objectifs :</p>
+
+        <ul class="main-summary">
+          <li>
+            Apporter de la clarté réglementaire à ceux qui développent des IA
+            complexes <em>(AI Act, Article 57.9.a, p. 88.)</em>.
+          </li>
+          <li>
+            Faciliter l’accès au marché en accélérant certaines étapes
+            d’évaluation <em>(AI Act, Article 57.7, p. 88.)</em>.
+          </li>
+          <li>
+            Permettre des essais réels sous supervision, dans le respect des
+            droits fondamentaux
+            <em>(AI Act, Article 57.5 et Article 57.6, p. 88.)</em>.
+          </li>
+          <li>
+            Éviter les sanctions, lorsque l’expérimentation respecte les règles
+            du bac à sable, même en cas d’erreur
+            <em>(AI Act, Article 57.12, p. 89.)</em>.
+          </li>
+          <li>
+            Soutenir l’innovation des PME, qui bénéficient d’un accès à frais
+            réduits (proportionnellement à leur taille, à la taille de leur
+            marché et à d’autres indicateurs), d’un accompagnement renforcé et
+            d’une prise en compte spécifique dans la tarification des
+            évaluations de conformité
+            <em>(AI Act, Article 58.2.d et Article 62.1-2, p. 94.)</em>.
+          </li>
+        </ul>
+
+        <p>
+          Les participants peuvent repartir avec un rapport de sortie fourni par
+          les autorités, qui peut ensuite faciliter les procédures d’évaluation
+          officielles <em>(AI Act, Article 57.7, p. 88.)</em>.
+        </p>
+
+        <h4 class="secondary-title">Et la protection des données ?</h4>
+        <p>
+          Le règlement encadre de façon très stricte le traitement de données
+          personnelles dans ces environnements. Par exemple, une IA développée
+          pour des raisons d’intérêt public (santé, climat, sécurité, services
+          publics…) peut réutiliser des données déjà collectées, mais uniquement
+          dans un cadre sécurisé, isolé, avec supervision et sans effet
+          juridique sur les individus <em>(AI Act, Article 59, p. 91.)</em>
+        </p>
+
+        <h4 class="secondary-title">Essais en conditions réelles</h4>
+        <p>
+          Le chapitre prévoit aussi la possibilité de mener des tests sur le
+          terrain de systèmes d’IA à haut risque en dehors des bacs à sable, à
+          condition de respecter un cadre strict :
+        </p>
+
+        <ul class="main-summary">
+          <li>
+            Plan d’essai approuvé par l’autorité de surveillance
+            <em>(AI Act, Article 60.4.a-b, p. 92.)</em>
+          </li>
+          <li>
+            Information claire des participants, y compris sur leur droit de
+            retrait
+            <em>(AI Act, Article 61.1-2, p. 94.)</em>
+          </li>
+          <li>
+            Enregistrement dans une base de données européenne
+            <em>(AI Act, Article 60.4.c, p. 92.)</em>
+          </li>
+          <li>
+            Supervision technique continue et possibilité de corriger ou ignorer
+            les recommandations de l’IA
+            <em>(AI Act, Article 60 et Article 61, pp. 92-94.)</em> (art. 60–61)
+          </li>
+        </ul>
+
+        <h4 class="secondary-title">La coopération des autorités nationales</h4>
+        <p>
+          Le règlement prévoit que les autorités nationales coopèrent entre
+          elles et avec le Bureau de l’IA, notamment pour éviter la
+          fragmentation des règles, permettre la reconnaissance mutuelle des
+          bacs à sable entre pays, et favoriser un écosystème européen cohérent
+          <em>(AI Act, Article 57.13-15 et Article 58.2.g, p. 89, p. 90.)</em>.
+        </p>
+
+        <h3 class="secondary-title" id="chapitre7">
+          Chapitre 7 : Gouvernance (pp. 95-100.)
+        </h3>
+
+        <p>
+          Pour superviser l'application du règlement, l’Union européenne met en
+          place une gouvernance partagée entre Bruxelles et les États membres.
+        </p>
+
+        <p>
+          Au centre, on trouve le <strong>Bureau de l’IA</strong>, piloté par la
+          Commission, chargé de développer l’expertise et de coordonner les
+          actions à l’échelle de l’Union <em>(AI Act, Article 64, p. 95)</em>.
+        </p>
+
+        <p>
+          À ses côtés, le <strong>Comité européen de l’IA</strong> réunit des
+          représentants des États membres pour assurer une application cohérente
+          du règlement. Il peut proposer des recommandations, harmoniser les
+          pratiques, et suivre les évolutions du secteur
+          <em>(AI Act, Articles 65 et Article 66, pp. 95–96)</em>.
+        </p>
+
+        <p>
+          Un <strong>Forum consultatif</strong> (avec chercheurs, ONG,
+          entreprises...) et un groupe scientifique indépendant viennent appuyer
+          les décisions avec une expertise technique
+          <em>(AI Act, Articles 67 et Article 68, pp. 97–98)</em>.
+        </p>
+
+        <p>
+          Enfin, chaque pays désigne ses propres autorités nationales de
+          contrôle, qui veillent à l’application locale du règlement. Elles
+          doivent être compétentes, indépendantes et suffisamment équipées pour
+          agir efficacement <em>(AI Act, Article 70, p. 99)</em>.
+        </p>
+
+        <figure>
+          <img
+            class="illustration"
+            src="img/gouvernance.png"
+            alt="Gouvernance EU AI" />
+          <figcaption>
+            Image tirée de l'article
+            <a
+              href="https://www.valtus.fr/2025/04/22/gouvernance-conformite-strategie-ce-que-lai-act-change-pour-les-entreprises/"
+              target="_blank"
+              >https://www.valtus.fr/2025/04/22/gouvernance-conformite-strategie-ce-que-lai-act-change-pour-les-entreprises/</a
+            >
+          </figcaption>
+        </figure>
+
+        <h3 class="secondary-title" id="chapitre8">
+          Chapitre 8 : Base de données pour l'UE pour les systèmes d'IA à haut
+          risque (pp. 100-101.)
+        </h3>
+        <p>
+          Pour garantir un meilleur suivi des systèmes d’IA à haut risque, la
+          Commission européenne met en place une base de données centralisée à
+          l’échelle de l’Union. Cette base regroupe des informations techniques
+          essentielles sur les systèmes enregistrés, qu’ils aient été jugés à
+          haut risque ou non, selon les critères du règlement. Elle est
+          alimentée directement par <strong>les fournisseurs d’IA</strong> et,
+          dans le cas des administrations publiques, par
+          <strong>les déployeurs concernés</strong>
+          <em>(AI Act, Article 71.2 et Article 71.3, p. 100)</em>.
+        </p>
+
+        <p>
+          L’essentiel des données est mis à disposition du public, de manière
+          lisible et accessible en ligne, à l’exception de certaines entrées
+          sensibles, comme celles relatives aux essais en conditions réelles,
+          qui restent réservées aux autorités de surveillance. Des informations
+          personnelles sont aussi incluses, mais uniquement lorsqu’elles sont
+          nécessaires pour identifier les personnes responsables du système
+          déclaré.
+        </p>
+
+        <p>
+          <strong
+            >La Commission reste responsable de cette base, tant sur le plan
+            technique que juridique.</strong
+          >
+          L’objectif est clair : offrir un outil de transparence, de confiance
+          et de contrôle sur les systèmes d’IA les plus sensibles, dans le
+          respect des droits fondamentaux
+          <em>(AI Act, Article 71.6, p. 101)</em>.
+        </p>
+
+        <h3 class="secondary-title" id="chapitre9">
+          Chapitre 9 : Surveillance après commercialisation, partage
+          d'informations et surveillance du marché (pp. 101-113.)
+        </h3>
+        <p>
+          Si vous lisez ceci, rassurez-vous, on arrive presque au bout.. 😉
+          <br />
+          Les informations sont très denses. Et je fais du mieux que je peux
+          pour les récupérer et les résumer en les sourceant au maximum pour les
+          recherches futures.
+        </p>
+
+        <p>
+          Dans cette partie, on traite de la surveillance après la mise sur le
+          marché, du signalement des incidents graves, et des pouvoirs de
+          contrôle pour assurer le respect du cadre réglementaire.
+        </p>
+
+        <h4 class="subtitle">
+          > Section 1 : Surveillance après commercialisation
+        </h4>
+        <p>
+          Les fournisseurs de systèmes d’IA à haut risque doivent mettre en
+          place un système de suivi continu de leurs modèles, fondé sur un plan
+          structuré, pour détecter les risques potentiels ou déviations après
+          mise sur le marché. Ce suivi inclut des retours utilisateurs, des
+          données de performance, et une analyse des interactions avec d'autres
+          IA. L’objectif est de garantir que les modèles restent conformes aux
+          exigences du chapitre III tout au long de leur cycle de vie
+          <em>(AI Act, Article 72, p. 101)</em>.
+        </p>
+
+        <h4 class="subtitle">
+          > Section 2 : Partage d'informations sur les incidents graves
+        </h4>
+        <p>
+          Un incident grave (<em
+            >comme un décès, une atteinte aux droits fondamentaux ou une
+            infraction massive</em
+          >) doit être signalé aux autorités nationales dans des délais stricts
+          (en fonction de l'ampleur de l'incident grave
+          <em>(AI Act, Article 73.2, p. 102)</em>). Les fournisseurs doivent
+          aussi enquêter, collaborer avec les autorités, et corriger rapidement
+          les défaillances constatées <em>(AI Act, Article 73, p. 101)</em>.
+        </p>
+
+        <h4 class="subtitle">> Section 3 : Contrôle de l'application</h4>
+        <p>Les autorités de surveillance peuvent :</p>
+        <ul class="main-summary">
+          <li>
+            coopérer avec d'autres États membres et la Commission via des
+            enquêtes conjointes si un système présente un risque dans plusieurs
+            pays <em>(AI Act, Article 74.11, p. 104)</em>
+          </li>
+          <li>
+            obtenir un accès au code source ou aux données d’entraînement, en
+            dernier recours <em>(AI Act, Article 74.13, p. 104)</em>
+          </li>
+          <li>
+            contrôler les systèmes mis sur le marché, y compris ceux à usage
+            général s’ils sont utilisés dans des contextes à haut risque
+            <em>(AI Act, Article 75.1, p. 104)</em>
+          </li>
+          <li>
+            ordonner des retraits ou sanctionner les fournisseurs en cas de
+            manquement <em>(AI Act, Article 79.9, p. 107)</em>
+          </li>
+        </ul>
+
+        <h4 class="subtitle">> Section 4 : Voie de recours</h4>
+        <ul class="main-summary">
+          <li>
+            Toute personne peut porter plainte auprès d’une autorité de
+            surveillance
+            <em>(AI Act, Article 85, p. 110.)</em>
+          </li>
+          <li>
+            Un droit à l’explication des décisions prises par des IA à haut
+            risque est garanti, sauf exceptions légales
+            <em>(AI Act, Article 86, p. 110.)</em>
+          </li>
+          <li>
+            La directive sur les lanceurs d’alerte (UE 2019/1937) s’applique aux
+            signalements de violations du règlement
+            <em>(AI Act, Article 87, p. 110.)</em>
+          </li>
+        </ul>
+
+        <h4 class="subtitle">
+          > Section 5 : Surveillance, enquêtes, contrôle de l’application et
+          contrôle en ce qui concerne les fournisseurs de modèles d’IA à usage
+          généra
+        </h4>
+        <p>
+          La Commission européenne, via le Bureau de l’IA, est seule compétente
+          pour surveiller les fournisseurs de modèles d’IA à usage général. Elle
+          peut :
+        </p>
+        <ul class="main-summary">
+          <li>
+            agir sur la base d’alertes scientifiques provenant du groupe
+            d’experts indépendants <em>(AI Act, Article 90.1, p. 111.)</em>
+          </li>
+          <li>
+            initier des évaluations de conformité
+            <em>(AI Act, Article 91.1, p. 111.)</em>
+          </li>
+          <li>
+            demander de la documentation ou des accès techniques (API, code)
+            <em>(AI Act, Article 91.3, p. 112.)</em>
+          </li>
+          <li>
+            imposer des mesures d’atténuation si un risque systémique est
+            détecté <em>(AI Act, Article 93.1.b, p. 113.)</em>
+          </li>
+        </ul>
+
+        <h3 class="secondary-title" id="chapitre10">
+          Chapitre 10 : Codes de conduite et lignes directrices (pp. 113-114.)
+        </h3>
+        <p>
+          Cette partie met en place deux outils d'accompagnement
+          <strong>non obligatoires</strong>, pensés pour accompagner les acteurs
+          de l’intelligence artificielle dans l’application du règlement :
+          <strong>les codes de conduite volontaires</strong> et
+          <strong>les lignes directrices de la Commission.</strong>
+        </p>
+        <p>
+          → Les codes de conduite sont encouragés par le Bureau de l’IA et les
+          États membres. Leur objectif est de permettre aux développeurs et
+          utilisateurs de systèmes d’IA (<em
+            >même lorsque ceux-ci ne sont pas considérés comme à haut risque</em
+          >) d’adopter volontairement certaines exigences du règlement,
+          notamment en matière de qualité, de sécurité, ou de respect des droits
+          fondamentaux (durabilité environnementale, promotion de la maîtrise de
+          l'IA, ...). Ces codes peuvent être élaborés par des entreprises, des
+          groupements professionnels, ou encore des organisations de la société
+          civile, avec une attention particulière portée aux besoins des petites
+          structures comme les PME et "les jeunes pousses"
+          <em>(AI Act, Article 95, p. 113.)</em>.
+        </p>
+
+        <p>
+          → En complément, la Commission publiera des lignes directrices
+          officielles, qui, elles non plus, n’ont pas de valeur juridique
+          contraignante. Elles visent à clarifier certains points du règlement
+          et à guider les opérateurs dans sa mise en œuvre concrète
+          <em>(AI Act, Article 96 p. 114.)</em>.
+        </p>
+
+        <h3 class="secondary-title" id="chapitre11">
+          Chapitre 11 : Délégation de pouvoir et procédure de comité (pp.
+          114-115.)
+        </h3>
+        <p>
+          Ce chapitre explique comment
+          <strong
+            >la Commission européenne peut, dans certains cas, adapter ou
+            préciser des éléments techniques du règlement, sans devoir relancer
+            toute la machine législative</strong
+          >
+          (vote au Parlement et au Conseil). Ce pouvoir lui est délégué pour une
+          durée de cinq ans renouvelable à partir d’août 2024.
+        </p>
+
+        <p>
+          La Commission peut par exemple ajuster un seuil pour définier un
+          risque systémique (on se rappelle de la puissance de calcul avec les
+          FLOPs), compléter une obligation, ou mettre à jour une annexe à la
+          lumière de l’évolution technologique. Avant de le faire, elle doit
+          consulter des experts des États membres, puis informer formellement le
+          Parlement européen et le Conseil.
+        </p>
+
+        <p>
+          Ces derniers ont un délai de trois mois (renouvelables) pour s’opposer
+          à la mesure. S’ils ne le font pas, l’acte entre en vigueur. Et s’ils
+          estiment un jour que la Commission outrepasse ce pouvoir, ils peuvent
+          le lui retirer à tout moment.
+        </p>
+
+        <p>
+          Enfin, un comité d’experts européens accompagne la Commission dans ce
+          processus, notamment pour encadrer les actes d’exécution, qui servent
+          à appliquer le règlement dans le détail.
+        </p>
+
+        <p><em>(AI Act, Article 97 et Article 98, pp. 114-115.)</em></p>
+
+        <h3 class="secondary-title" id="chapitre12">
+          Chapitre 12 : Sanctions (pp. 115-118.)
+        </h3>
+        <p>
+          Un chapitre assez important ici, concrètement, si on ne respecte pas
+          le règlement, à quoi peut-on s'attendre comme sanction ?
+        </p>
+
+        <p>
+          Ce chapitre définit le régime des sanctions applicables en cas de
+          non-respect du règlement. Les États membres restent libres de fixer
+          les modalités exactes (amendes, avertissements, mesures correctives),
+          mais ces sanctions doivent être effectives, proportionnées et
+          dissuasives. Une attention particulière est portée à la situation des
+          PME et des nouvelles entreprises
+          <em>(AI Act, Article 99.1 et Article 99.6, pp. 115, p. 116.)</em>.
+        </p>
+
+        <p>Certaines violations entraînent des amendes très lourdes :</p>
+        <ul class="main-summary">
+          <li>
+            <strong
+              >Jusqu’à 35 millions d’euros ou 7 % du chiffre d’affaires
+              mondial</strong
+            >
+            pour les pratiques interdites listées à l’article 5
+            <em>(AI Act, Article 99.3, p. 115.)</em>.
+          </li>
+          <li>
+            <strong
+              >Jusqu’à 15 millions d’euros ou 3 % du chiffre d’affaires
+              mondial</strong
+            >
+            pour des manquements aux obligations générales des opérateurs pour
+            des manquements aux obligations générales des opérateurs
+            (fournisseurs, importateurs, déployeurs, etc.) ou aux obligations de
+            transparence
+            <em>(AI Act, Article 99.4, p. 115.)</em>.
+          </li>
+          <li>
+            <strong
+              >Jusqu’à 7,5 millions d’euros ou 1 % du chiffre d’affaires
+              mondial</strong
+            >
+            en cas de fourniture d’informations inexactes, incomplètes ou
+            trompeuses aux autorités
+            <em>(AI Act, Article 99.5, p. 116.)</em>.
+          </li>
+        </ul>
+
+        <p>
+          Le montant exact dépend de plusieurs facteurs contextuels : gravité,
+          durée, nombre de personnes concernées, responsabilité, coopération
+          avec les autorités, récidive, négligence ou intention, mesures prises
+          pour limiter le dommage, etc.
+        </p>
+
+        <p>Des régimes particuliers s’appliquent également :</p>
+        <ul class="main-summary">
+          <li>
+            <strong>Aux institutions de l’Union</strong>, surveillées par le
+            Contrôleur européen de la protection des données, avec des amendes
+            pouvant aller <strong>jusqu’à 1,5 million d’euros</strong> pour les
+            violations des pratiques interdites, ou
+            <strong>750 000 euros</strong> pour les autres manquements
+            <em>(AI Act, Article 100.2 et Article 100.3, p. 116.)</em>.
+          </li>
+          <li>
+            <strong>Aux fournisseurs de modèles d’IA à usage général</strong>,
+            directement sous la compétence de la Commission européenne, avec des
+            sanctions allant
+            <strong
+              >jusqu’à 15 millions d’euros ou 3 % du chiffre d’affaires
+              mondial</strong
+            >
+            en cas de non-coopération, d’obstruction ou de violation de leurs
+            obligations <em>(AI Act, Article 101.1, p. 117.)</em>.
+          </li>
+        </ul>
+
+        <p>
+          Enfin, dans tous les cas, le texte garantit des droits procéduraux,
+          comme la possibilité de se défendre, l’accès au dossier et le droit à
+          un recours juridictionnel
+          <em>(AI Act, Article 99.10 et Article 100.5, pp. 116–117.)</em>.
+        </p>
+
+        <h3 class="secondary-title" id="chapitre13">
+          Chapitre 13 : Dispositions finales (pp. 118-123.)
+        </h3>
+        <p>
+          Le chapitre final précise que l'AI Act s'appliquera progressivement :
+        </p>
+        <figure>
+          <img
+            class="illustration"
+            src="img/application.png"
+            alt="Application de l'AI Act" />
+          <figcaption>
+            <a
+              href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=OJ%3AL_202401689"
+              target="_blank"
+              >AI Act</a
+            >
+          </figcaption>
+        </figure>
+        <p>
+          En parallèle, plusieurs règlements et directives européens sont
+          adaptés pour intégrer les exigences liées aux systèmes d’IA à haut
+          risque <em>(AI Act, Article 102-113, pp. 118-123.)</em>.
+        </p>
+
+        <h3 class="secondary-title" id="conclusion">Conclusion</h3>
+        <p>
+          C’est toujours une bonne chose d’avoir un cadre réglementaire clair,
+          surtout sur un sujet aussi sensible et évolutif que l’intelligence
+          artificielle. L’AI Act pose des bases solides, avec l’ambition de
+          protéger les droits fondamentaux sans étouffer l’innovation. Mais
+          comme souvent avec les textes européens, tout se jouera dans la mise
+          en œuvre concrète. Reste à voir si l’acte tiendra ses promesses sur la
+          durée.
+        </p>
+
+        <p>
+          J’ai pris le temps de lire et relire le règlement, d’en décortiquer
+          chaque section, de croiser les éléments, de résumer tout ça le plus
+          fidèlement possible. C’est la première fois que je fais ce genre
+          d’exercice en profondeur, et même si c’est long, dense, parfois
+          technique, c’est aussi franchement enrichissant. 144 pages passées au
+          peigne fin, c’est pas rien, mais au moins, j'ai une vision beaucoup
+          plus claire des enjeux et des implications de cette législation.
+        </p>
+
+        <p>
+          Je vous dis à bientôt pour de nouvelles analyses et réflexions. Peace.
+          😉
+        </p>
+      </article>
+    </main>
+
+    <div class="container article-nav">
+      <a class="btn" href="../../blog.html">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round">
+          <path d="m15 18-6-6 6-6" />
+        </svg>
+        Retour au blog
+      </a>
+    </div>
+
+    <footer>
+      <div class="container foot">
+        <div>© <span id="year"></span> · singularity</div>
+      </div>
+    </footer>
+  </body>
+</html>

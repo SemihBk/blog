@@ -1,0 +1,507 @@
+/* ===========================
+   Base / Variables / Reset
+   =========================== */
+:root {
+  --bg: #ffffff;
+  --bg-soft: rgba(255, 255, 255, 0.75);
+  --text: #0a0a0a;
+  --muted: #5f6368;
+  --border: rgba(0, 0, 0, 0.12);
+  --card: rgba(255, 255, 255, 0.7);
+  --accent-1: #c026d3;
+  --accent-2: #22d3ee;
+  --shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+  --radius: 16px;
+  --grid: rgba(120, 120, 120, 0.12);
+  --link: #1555d6;
+
+  --table-border: rgba(0, 0, 0, 0.12);
+  --table-head-bg: #f5f5f5;
+  --table-zebra-bg: #fafafa;
+
+  /* cartes (mode mobile) */
+  --table-card-bg: #fff;
+  --table-card-head-bg: #f7f7f7;
+  --table-card-text: #222;
+}
+html.dark {
+  --bg: #0b0b0f;
+  --bg-soft: rgba(13, 13, 19, 0.7);
+  --text: #fafafa;
+  --muted: #b7b7c2;
+  --border: rgba(255, 255, 255, 0.12);
+  --card: rgba(22, 22, 28, 0.6);
+  --shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+  --grid: rgba(180, 180, 180, 0.08);
+  --link: #89b4ff;
+
+  --table-border: rgba(255, 255, 255, 0.16);
+  --table-head-bg: rgba(255, 255, 255, 0.06);
+  --table-zebra-bg: rgba(255, 255, 255, 0.04);
+
+  /* cartes (mode mobile) */
+  --table-card-bg: rgba(22, 22, 28, 0.85);
+  --table-card-head-bg: rgba(255, 255, 255, 0.07);
+  --table-card-text: var(--text);
+}
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+}
+a {
+  color: var(--link);
+}
+
+/* ===========================
+   Décor de fond
+   =========================== */
+.bg-decor {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+.bg-decor::before,
+.bg-decor::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+.bg-decor::before {
+  background: radial-gradient(
+      ellipse at 40% -10%,
+      rgba(120, 120, 255, 0.18),
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse at 80% 110%,
+      rgba(0, 200, 255, 0.16),
+      transparent 55%
+    );
+}
+.bg-decor::after {
+  background: linear-gradient(to right, var(--grid) 1px, transparent 1px) 0 0/20px
+      20px,
+    linear-gradient(to bottom, var(--grid) 1px, transparent 1px) 0 0/20px 20px;
+}
+
+/* ===========================
+   Layout
+   =========================== */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 60;
+  background: var(--bg-soft);
+  backdrop-filter: saturate(1.2) blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 0;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 800;
+  min-width: 0;
+}
+.logo {
+  width: 34px;
+  height: 34px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+  box-shadow: var(--shadow);
+}
+.btn-theme {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 9px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.btn-theme svg {
+  width: 18px;
+  height: 18px;
+}
+
+.progress {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-2), var(--accent-1));
+  width: 0%;
+  z-index: 70;
+}
+
+main {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  padding: 28px 0;
+}
+
+.infobar {
+  position: static;
+  top: 100px;
+  align-self: start;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  box-shadow: var(--shadow);
+}
+.infobar h3 {
+  margin: 0.2em 0 4px;
+}
+.infobar .muted {
+  color: var(--muted);
+  font-size: 14px;
+  margin: 0.2em 0;
+}
+
+.toc {
+  margin-top: 10px;
+  border-top: 1px dashed var(--border);
+  padding-top: 10px;
+}
+.toc h4 {
+  margin: 0.2em 0 0.6em;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+.toc a {
+  display: block;
+  text-decoration: none;
+  color: var(--muted);
+  font-size: 14px;
+  padding: 4px 0;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.toc a:hover {
+  color: var(--text);
+}
+.toc a.depth-2 {
+  padding-left: 10px;
+}
+
+/* ===========================
+   Article
+   =========================== */
+article {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 24px;
+}
+.main-title {
+  margin-top: 0;
+  font-size: clamp(28px, 5vw, 44px);
+  line-height: 1.1;
+}
+.secondary-title {
+  margin: 4em 0 0.6em;
+}
+article p {
+  margin: 2em 0;
+}
+.subtitle {
+  margin: 1.6em 0 0.4em;
+}
+.sources {
+  padding-left: 18px;
+}
+.sources a {
+  word-break: break-word;
+}
+
+/* Médias dans l’article */
+article img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 24px auto 8px;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+article figure {
+  margin: 2em 0;
+  text-align: center;
+}
+article figcaption {
+  font-size: 0.9em;
+  color: var(--muted);
+  margin-top: 8px;
+  font-style: italic;
+}
+article video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 24px auto;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  background: #000;
+}
+article iframe {
+  width: 100%;
+  aspect-ratio: 16/9;
+  height: auto;
+  display: block;
+  border: 0;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+
+.quote {
+  font-style: italic;
+  color: #0000007f;
+  /* background-color: #f6f8fa; gris très léger */
+  border-left: 3px solid #1864ab;
+  padding-left: 2rem;
+  margin: 1rem 0 6rem;
+}
+
+/********************/
+/* TABLEAU */
+/* Styles généraux pour les tableaux dans les articles */
+/********************/
+/* TABLEAU */
+article table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5em 0;
+  font-size: 0.9rem;
+}
+
+article table :is(th, td) {
+  font-size: inherit;
+}
+
+article th,
+article td {
+  border: 1px solid var(--table-border);
+  padding: 0.75em;
+  text-align: left;
+  vertical-align: top;
+}
+
+article th {
+  background: var(--table-head-bg);
+  font-weight: 600;
+}
+
+article tbody tr:nth-child(even) {
+  background: var(--table-zebra-bg);
+}
+
+/* Nav d’article & footer */
+.article-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 16px;
+}
+.btn {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  font-weight: 600;
+  border-radius: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  text-decoration: none;
+  color: var(--text);
+}
+
+footer {
+  border-top: 1px solid var(--border);
+  padding: 24px 0;
+  margin-top: 36px;
+}
+.foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  color: var(--muted);
+}
+
+/* ===========================
+   Breakpoints
+   =========================== */
+/* 980+ : sidebar à gauche */
+@media (min-width: 980px) {
+  main {
+    grid-template-columns: 260px 1fr;
+  }
+
+  article table {
+    table-layout: fixed;
+    font-size: 0.95rem;
+  }
+  article th,
+  article td {
+    font-size: 1rem;
+    padding: 0.85em 1em;
+  }
+  article th:first-child,
+  article td:first-child {
+    width: 36%;
+    overflow-wrap: anywhere;
+  }
+}
+
+/* ≤ 684px : compactage général */
+@media (max-width: 684px) {
+  .container {
+    padding: 0 16px;
+  }
+  .nav {
+    flex-wrap: wrap;
+    row-gap: 8px;
+  }
+  #themeLabel {
+    display: none;
+  }
+  .btn-theme {
+    padding: 8px 10px;
+  }
+  .infobar {
+    padding: 12px;
+  }
+  .toc nav {
+    max-height: 40vh;
+    overflow: auto;
+    padding-right: 4px;
+  }
+  .main-title {
+    font-size: clamp(22px, 7vw, 32px);
+  }
+  article {
+    padding: 18px;
+  }
+  article p {
+    margin: 1.4em 0;
+  }
+  .article-nav {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .btn {
+    justify-content: center;
+  }
+
+  article th,
+  article td {
+    font-size: 0.95rem;
+    padding: 0.6em 0.7em;
+  }
+  /* éviter le scroll horizontal à cause des permissions */
+  article th:first-child,
+  article td:first-child {
+    overflow-wrap: anywhere; /* casse sur n’importe où si besoin */
+    word-break: break-word; /* sécurité supplémentaire */
+  }
+  /* au cas où un tableau dépasse malgré tout */
+  article table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* 685–979px : éviter les débords de navbar */
+@media (min-width: 685px) and (max-width: 979px) {
+  .container {
+    padding: 0 20px;
+  }
+  .nav {
+    flex-wrap: wrap;
+  }
+  #themeLabel {
+    display: none;
+  }
+}
+
+/* ≤ 560px : fix principal — on annule la grille */
+@media (max-width: 560px) {
+  main {
+    display: block;
+  }
+  .infobar {
+    margin-bottom: 16px;
+  }
+
+  article table {
+    border: 0;
+  }
+  article thead {
+    display: none;
+  }
+
+  article tbody tr {
+    display: block;
+    margin: 0 0 12px;
+    background: var(--table-card-bg);
+    border: 1px solid var(--table-border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  /* neutralise le zébrage en mode cartes */
+  article tbody tr:nth-child(even) {
+    background: var(--table-card-bg);
+  }
+
+  article td {
+    display: block;
+    border: 0;
+    padding: 0.7em 0.9em;
+  }
+  article td:first-child {
+    font-weight: 600;
+    background: var(--table-card-head-bg);
+    border-bottom: 1px solid var(--table-border);
+    overflow-wrap: anywhere;
+  }
+  article td:nth-child(2) {
+    color: var(--table-card-text);
+  }
+}

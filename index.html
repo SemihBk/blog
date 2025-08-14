@@ -1,102 +1,344 @@
 <!DOCTYPE html>
 <html lang="fr">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="src/css/style.css" />
-    <script src="script.js" defer></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>singularity</title>
+    <meta name="description" content="singularity" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet" />
+    <script src="assets/js/data/posts.js" defer></script>
+    <script src="assets/js/pages/home.js" defer></script>
+
+    <link rel="stylesheet" href="assets/css/pages/home.css" />
   </head>
-  <body class="dark-mode">
-    <nav-bar></nav-bar>
-    <main>
-      <aside class="infobar">
-        <h3>Accueil</h3>
-        <p>2025</p>
-      </aside>
-      <article>
-        <h2 class="main-title">singularity</h2>
-        <p>
-          Ce blog est un peu comme un carnet de bord, un endroit où je partage
-          tout ce que je découvre, principalement en cybersécurité mais aussi
-          dans d'autres domaines.
-        </p>
-        <p>
-          Cet endroit n'a pas vocation à être une source officielle
-          d'information. C'est plutôt un point de départ, une collection
-          d'idées, d'outils et de ressources que j'ai trouvé utiles et que j'ai
-          envie de partager. L'idée, c'est que tout le monde puisse piocher ce
-          qui l'intéresse, explorer à son rythme, et peut-être trouver un début
-          de réponse pour aller plus loin.
-        </p>
+  <body>
+    <div class="bg-decor" aria-hidden="true"></div>
 
-        <p>
-          Internet est un terrain de jeu incroyable pour les esprits curieux, et
-          j'espère que ce petit espace donnera envie au plus grand nombre
-          d'explorer encore plus. Je ne crée rien de parfait, je cherche juste à
-          satisfaire ma curiosité, à m'améliorer, à apprendre et à me laisser
-          surprendre par tout ce qu'il y a à découvrir. On peut appeler cela "la
-          fièvre de la recherche d'informations".
-        </p>
+    <!-- Header -->
+    <header>
+      <div class="container nav">
+        <div class="brand">
+          <div class="logo" aria-hidden="true">
+            <!-- terminal icon -->
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="m4 17 6-6-6-6" />
+              <path d="M12 19h8" />
+            </svg>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px">
+            <span>singularity</span>
+            <span class="pill">Accueil</span>
+          </div>
+        </div>
+        <div class="right-actions">
+          <nav class="nav-links">
+            <a href="blog.html">Blog</a>
+            <a href="type-d-attaques.html">Types d'attaques</a>
+            <a href="conseils.html">Conseils</a>
+            <a href="lexique.html">Lexique</a>
+            <a href="ressources.html">Ressources</a>
+          </nav>
 
-        <p>
-          Alors si tu es comme moi, un esprit vagabond et curieux, fais comme
-          chez toi, et n'oublie jamais : reste
+          <button
+            class="btn-icon menu-btn"
+            id="menuBtn"
+            aria-label="Menu"
+            aria-expanded="false"
+            aria-controls="mobileMenu">
+            <svg
+              viewBox="0 0 24 24"
+              width="18"
+              height="18"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M3 6h18M3 12h18M3 18h18" />
+            </svg>
+          </button>
+
+          <button class="btn-theme" id="themeBtn" title="Changer le thème">
+            <span class="icon-sun" aria-hidden="true">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round">
+                <circle cx="12" cy="12" r="4" />
+                <path
+                  d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+              </svg>
+            </span>
+            <span class="icon-moon" aria-hidden="true" style="display: none">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+              </svg>
+            </span>
+            <span id="themeLabel">Clair</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- MENU HAMBURGER -->
+    <div id="menuBackdrop" class="menu-backdrop" hidden></div>
+    <nav id="mobileMenu" class="mobile-menu" hidden>
+      <a href="index.html">Accueil</a>
+      <a href="blog.html">Blog</a>
+      <a href="type-d-attaques.html">Types d'attaques</a>
+      <a href="conseils.html">Conseils</a>
+      <a href="lexique.html">Lexique</a>
+      <a href="ressources.html">Ressources</a>
+    </nav>
+
+    <!-- Hero -->
+    <section class="section">
+      <div class="container hero">
+        <div>
+          <h1>
+            <span class="gradient-text">singularity</span>
+          </h1>
+          <p class="lead">
+            Ce blog est un peu comme un carnet de bord, un endroit où je partage
+            tout ce que je découvre, principalement en cybersécurité mais aussi
+            dans d'autres domaines.
+          </p>
+          <p class="lead">
+            Cet endroit n'a pas vocation à être une source officielle
+            d'information. C'est plutôt un point de départ, une collection
+            d'idées, d'outils et de ressources que j'ai trouvé utiles et que
+            j'ai envie de partager. L'idée, c'est que tout le monde puisse
+            piocher ce qui l'intéresse, explorer à son rythme, et peut-être
+            trouver un début de réponse pour aller plus loin.
+          </p>
+          <p class="lead">
+            Internet est un terrain de jeu incroyable pour les esprits curieux,
+            et j'espère que ce petit espace donnera envie au plus grand nombre
+            d'explorer encore plus. Je ne crée rien de parfait, je cherche juste
+            à satisfaire ma curiosité, à m'améliorer, à apprendre et à me
+            laisser surprendre par tout ce qu'il y a à découvrir. On peut
+            appeler cela "la fièvre de la recherche d'informations".
+          </p>
+
+          <p class="lead">
+            Alors si tu es comme moi, un esprit vagabond et curieux, fais comme
+            chez toi, et n'oublie jamais : reste
+            <a
+              href="https://fr.wikipedia.org/wiki/Manifeste_du_hacker#Contenu_du_manifeste"
+              target="_blank"
+              >curieux</a
+            >
+            et kiffe.
+          </p>
+          <!-- Un autre s’est fait prendre aujourd’hui, c’est partout dans les journaux.
+          «  Scandale  : Un adolescent arrêté pour crime informatique  », «  Arrestation d’un hacker après le piratage d’une banque »…
+          Satanés gosses, tous les mêmes.
+
+          Mais vous, dans votre psychologie de costume trois pièces et votre conscience technologique des années 50, avez-vous un jour pensé à regarder le monde avec les yeux d’un hacker  ?
+          Ne vous êtes-vous jamais demandé ce qui l’avait fait agir et quelles forces l’avaient animé  ?
+          Je suis un hacker, entrez dans mon monde…
+          Mon monde, il commence avec l’école… Je suis plus éveillé que la plupart des autres enfants et les nullités qu’on nous enseigne m’ennuient…
+          Satanés gamins, ce sont tous les mêmes.
+
+          Je suis au collège ou au lycée. J’ai écouté les professeurs expliquer pour la quinzième fois comment réduire une fraction.
+          J’ai bien compris. «  Non Mme Dubois, je n’ai pas montré mon travail. Je l’ai fait dans ma tête  ».
+          Satané gosse. Il a certainement copié. Ce sont tous les mêmes.
+
+          J’ai fait une découverte aujourd’hui. J’ai trouvé un ordinateur.
+          Attends une minute, c’est cool. Ça fait ce que je veux. Si ça fait une erreur, c’est parce que je me suis planté.
+          Pas parce qu’il ne m’aime pas…
+          Ni parce qu’il se sent menacé par moi…
+          Ni parce qu’il pense que je suis un petit malin…
+          Ni parce qu’il n’aime pas enseigner et qu’il ne devrait pas être là…
+          Satané gosse. Tout ce qu’il fait c’est jouer. Ce sont tous les mêmes.
+
+          Et c’est alors que ça arrive. Une porte s’ouvre…
+          Les impulsions électroniques déferlent sur la ligne téléphonique comme l’héroïne dans les veines d’un drogué.
+          Pour trouver dans un Forum le refuge contre la stupidité quotidienne.
+          «  C’est ça… C’est ici que je dois être… »
+          Ici, je connais tout le monde… Même si je n’ai jamais rencontré personne. Je ne leur ai jamais parlé, et je n’entendrai peut-être plus parler d’eux un jour… Je vous connais tous.
+          Satané gosse. Encore pendu au téléphone. Ce sont tous les mêmes.
+
+          A l’école, on nous a donné des pots de bébé alors qu’on avait les crocs pour un steak…
+          Les morceaux de viande que vous avez bien voulu nous tendre étaient pré-mâchés et sans goût.
+          On a été dominé par des sadiques ou ignoré par des apathiques.
+          Les seuls qui avaient des choses à nous apprendre trouvèrent en nous des élèves de bonne volonté, mais ceux-ci étaient comme des gouttes d’eau dans le désert.
+
+          C’est notre monde maintenant… Le monde de l’électron et des commutateurs, la beauté du baud. Nous utilisons un service déjà existant, sans payer ce qui pourrait être bon marché si ce n’était pas géré par des profiteurs avides, et c’est nous que vous appelez criminels.
+          Nous explorons… et vous nous appelez criminels.
+          Nous recherchons la connaissance… et vous nous appelez criminels.
+          Nous existons sans couleur de peau, sans nationalité, sans dogme religieux… et vous nous appelez criminels.
+          Vous construisez des bombes atomiques, vous financez les guerres, vous assassinez et trichez, vous manipulez et vous nous mentez en essayant de nous faire croire que c’est pour notre propre bien… et pourtant c’est nous qui sommes les criminels.
+
+          Oui, je suis un criminel. Mon crime est celui de la curiosité.
+          Mon crime est celui de juger les gens selon ce qu’ils pensent et disent, pas selon leur apparence.
+          Mon crime est d’être plus malin que vous, quelque chose que vous ne me pardonnerez jamais.
+
+          Je suis un hacker, et ceci est mon manifeste.
+          Vous pouvez arrêter un individu, mais vous ne pouvez pas tous nous arrêter…
+          Après tout, nous sommes tous les mêmes. -->
+        </div>
+
+        <div>
+          <div class="term always-dark">
+            <div class="term-top">
+              <span class="dot red"></span><span class="dot yellow"></span
+              ><span class="dot green"></span
+              ><span style="margin-left: 8px">~/singularity</span>
+            </div>
+            <div class="term-body" id="motd"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Posts -->
+
+    <section
+      class="section"
+      id="blog"
+      style="
+        background: var(--bg-soft);
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+      ">
+      <div class="container">
+        <div
+          style="
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 16px;
+          ">
+          <h2 style="margin: 0; font-size: 28px">Derniers articles</h2>
           <a
-            href="https://fr.wikipedia.org/wiki/Manifeste_du_hacker#Contenu_du_manifeste"
-            target="_blank"
-            >curieux</a
+            href="blog.html"
+            class="muted"
+            style="text-decoration: underline; text-underline-offset: 3px"
+            >Tout voir</a
           >
-          et kiffe.
-        </p>
-        <!-- Un autre s’est fait prendre aujourd’hui, c’est partout dans les journaux.
-«  Scandale  : Un adolescent arrêté pour crime informatique  », «  Arrestation d’un hacker après le piratage d’une banque »…
-Satanés gosses, tous les mêmes.
+        </div>
+        <div class="grid posts" id="home-latest"></div>
+      </div>
+    </section>
+    <script></script>
 
-Mais vous, dans votre psychologie de costume trois pièces et votre conscience technologique des années 50, avez-vous un jour pensé à regarder le monde avec les yeux d’un hacker  ?
-Ne vous êtes-vous jamais demandé ce qui l’avait fait agir et quelles forces l’avaient animé  ?
-Je suis un hacker, entrez dans mon monde…
-Mon monde, il commence avec l’école… Je suis plus éveillé que la plupart des autres enfants et les nullités qu’on nous enseigne m’ennuient…
-Satanés gamins, ce sont tous les mêmes.
+    <section class="section">
+      <div class="container">
+        <div class="card" style="overflow: hidden; position: relative">
+          <div
+            aria-hidden="true"
+            style="
+              position: absolute;
+              inset: 0;
+              pointer-events: none;
+              opacity: 0.5;
+              filter: blur(60px);
+            ">
+            <div
+              style="
+                position: absolute;
+                top: -40px;
+                left: 50%;
+                width: 240px;
+                height: 240px;
+                transform: translateX(-50%);
+                background: color-mix(
+                  in oklab,
+                  var(--accent-1) 40%,
+                  transparent
+                );
+                border-radius: 50%;
+              "></div>
+            <div
+              style="
+                position: absolute;
+                bottom: -40px;
+                right: 40px;
+                width: 240px;
+                height: 240px;
+                background: color-mix(
+                  in oklab,
+                  var(--accent-2) 40%,
+                  transparent
+                );
+                border-radius: 50%;
+              "></div>
+          </div>
 
-Je suis au collège ou au lycée. J’ai écouté les professeurs expliquer pour la quinzième fois comment réduire une fraction.
-J’ai bien compris. «  Non Mme Dubois, je n’ai pas montré mon travail. Je l’ai fait dans ma tête  ».
-Satané gosse. Il a certainement copié. Ce sont tous les mêmes.
+          <div class="newsletter" style="text-align: center">
+            <div>
+              <h3 style="margin-top: 0">Une question ?</h3>
+              <p class="muted">Contacte-moi sur LinkedIn 😉</p>
+            </div>
+            <a
+              href="https://www.linkedin.com/in/semih-bekki/"
+              target="_blank"
+              class="btn-primary"
+              style="
+                text-decoration: none;
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+              ">
+              <!-- Icône LinkedIn -->
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                fill="currentColor"
+                viewBox="0 0 16 16">
+                <path
+                  d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 
+            16 1.146v13.708c0 .633-.526 1.146-1.175 
+            1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 
+            12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 
+            0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 
+            0-1.358.54-1.358 1.248 0 .694.52 1.248 1.327 
+            1.248h.015zm4.908 8.212V9.359c0-.203.015-.406.074-.55.163-.406.534-.827 
+            1.157-.827.816 0 1.143.623 1.143 1.538v3.874h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 
+            0-1.845.7-2.165 1.19v.025h-.015l.015-.025V6.169h-2.4c.03.656 
+            0 7.225 0 7.225h2.4z" />
+              </svg>
+              Mon LinkedIn
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
 
-J’ai fait une découverte aujourd’hui. J’ai trouvé un ordinateur.
-Attends une minute, c’est cool. Ça fait ce que je veux. Si ça fait une erreur, c’est parce que je me suis planté.
-Pas parce qu’il ne m’aime pas…
-Ni parce qu’il se sent menacé par moi…
-Ni parce qu’il pense que je suis un petit malin…
-Ni parce qu’il n’aime pas enseigner et qu’il ne devrait pas être là…
-Satané gosse. Tout ce qu’il fait c’est jouer. Ce sont tous les mêmes.
-
-Et c’est alors que ça arrive. Une porte s’ouvre…
-Les impulsions électroniques déferlent sur la ligne téléphonique comme l’héroïne dans les veines d’un drogué.
-Pour trouver dans un Forum le refuge contre la stupidité quotidienne.
-«  C’est ça… C’est ici que je dois être… »
-Ici, je connais tout le monde… Même si je n’ai jamais rencontré personne. Je ne leur ai jamais parlé, et je n’entendrai peut-être plus parler d’eux un jour… Je vous connais tous.
-Satané gosse. Encore pendu au téléphone. Ce sont tous les mêmes.
-
-A l’école, on nous a donné des pots de bébé alors qu’on avait les crocs pour un steak…
-Les morceaux de viande que vous avez bien voulu nous tendre étaient pré-mâchés et sans goût.
-On a été dominé par des sadiques ou ignoré par des apathiques.
-Les seuls qui avaient des choses à nous apprendre trouvèrent en nous des élèves de bonne volonté, mais ceux-ci étaient comme des gouttes d’eau dans le désert.
-
-C’est notre monde maintenant… Le monde de l’électron et des commutateurs, la beauté du baud. Nous utilisons un service déjà existant, sans payer ce qui pourrait être bon marché si ce n’était pas géré par des profiteurs avides, et c’est nous que vous appelez criminels.
-Nous explorons… et vous nous appelez criminels.
-Nous recherchons la connaissance… et vous nous appelez criminels.
-Nous existons sans couleur de peau, sans nationalité, sans dogme religieux… et vous nous appelez criminels.
-Vous construisez des bombes atomiques, vous financez les guerres, vous assassinez et trichez, vous manipulez et vous nous mentez en essayant de nous faire croire que c’est pour notre propre bien… et pourtant c’est nous qui sommes les criminels.
-
-Oui, je suis un criminel. Mon crime est celui de la curiosité.
-Mon crime est celui de juger les gens selon ce qu’ils pensent et disent, pas selon leur apparence.
-Mon crime est d’être plus malin que vous, quelque chose que vous ne me pardonnerez jamais.
-
-Je suis un hacker, et ceci est mon manifeste.
-Vous pouvez arrêter un individu, mais vous ne pouvez pas tous nous arrêter…
-Après tout, nous sommes tous les mêmes. -->
-      </article>
-    </main>
+    <!-- Footer -->
+    <footer class="section" style="padding-top: 24px; padding-bottom: 32px">
+      <div class="container foot">
+        <div>© <span id="year"></span> · singularity</div>
+        <!-- <div style="display: flex; gap: 14px">
+          <a class="muted" href="#a-propos">À propos</a>
+          <a class="muted" href="#contact">Contact</a>
+          <a class="muted" href="#rss">RSS</a>
+        </div> -->
+      </div>
+    </footer>
   </body>
 </html>
