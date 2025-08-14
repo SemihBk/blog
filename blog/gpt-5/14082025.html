@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GPT-5 - singularity</title>
+    <meta name="description" content="Article du blog singularity : GPT-5" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet" />
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <script src="../../assets/js/script.js" defer></script>
+  </head>
+  <body>
+    <div class="bg-decor" aria-hidden="true"></div>
+    <div class="progress" id="progress"></div>
+
+    <header>
+      <div class="container nav">
+        <div class="brand">
+          <div class="logo" aria-hidden="true">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="m4 17 6-6-6-6" />
+              <path d="M12 19h8" />
+            </svg>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px">
+            <a
+              href="../../blog.html"
+              style="text-decoration: none; color: inherit"
+              >Blog</a
+            >
+            <span
+              class="btn"
+              style="padding: 4px 8px; border-radius: 8px; font-size: 12px"
+              >Article</span
+            >
+          </div>
+        </div>
+        <button class="btn-theme" id="themeBtn" title="Changer le thème">
+          <span class="icon-sun" aria-hidden="true">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round">
+              <circle cx="12" cy="12" r="4" />
+              <path
+                d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+            </svg>
+          </span>
+          <span class="icon-moon" aria-hidden="true" style="display: none">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+            </svg>
+          </span>
+          <span id="themeLabel">Clair</span>
+        </button>
+      </div>
+    </header>
+
+    <main class="container">
+      <aside class="infobar">
+        <h3>Blog</h3>
+        <p>Publié le : 14 août 2025</p>
+        <p class="muted">Temps de lecture : <span id="reading">—</span></p>
+        <div class="toc">
+          <h4>Sommaire</h4>
+          <nav id="toc"></nav>
+        </div>
+      </aside>
+
+      <!-- ⚠️ COLLE ICI TON CONTENU EXACT (texte + images) -->
+      <article id="article">
+        <h2 class="main-title">GPT-5</h2>
+        <h3 class="secondary-title">La fin</h3>
+
+        <p>GPT-5 est monstrueux.</p>
+
+        <p>Et le progrès ne s’arrêtera pas là.</p>
+
+        <p>
+          Je me souviens de l’inquiétude de pas mal de collègues développeurs à
+          la popularisation de ChatGPT fin 2022. J’entendais partout : « L’IA
+          prend notre boulot. » Ça a fait pschitt quand, quelques semaines plus
+          tard, GPT sortait des conneries dès qu’on lui demandait un simple menu
+          déroulant en CSS.
+        </p>
+
+        <p>
+          Quand une situation arrive, j’essaie toujours de prendre du recul.
+          <br />
+          Je m’élève, je regarde de haut, comme si je ne faisais pas partie de
+          l’échiquier. J’analyse, j’observe, je vois. On ne peut se faire un
+          avis correct qu’en restant détaché de l’événement.
+        </p>
+
+        <p>
+          Qui dit quoi ? Qui réagit ? Quels sont les intérêts de chacun ? Les
+          enjeux ? Pourquoi pense-t-on cela ?
+        </p>
+
+        <p>
+          Dans la vie, il faut souvent dissocier les intérêts des réelles
+          inquiétudes pour mieux comprendre le monde qui nous entoure.
+        </p>
+
+        <p>
+          Et aujourd’hui, on y est. <br />
+          L’IA propose de plus en plus de choses intelligentes et efficaces.
+          Elle est devenue assez puissante et autonome pour, à partir d’un
+          prompt simple, donner des réponses complexes et (plus ou moins)
+          correctes.
+        </p>
+
+        <p>
+          GPT-5 est sorti. J’en avais entendu beaucoup de bien et, en
+          l’essayant, j’ai découvert une IA extrêmement capable, sensible et
+          puissante. Fini le give up après un énième prompt raté. Aujourd’hui,
+          j’ai une IA qui me donne de vrais résultats sans m’arracher les
+          cheveux (clindoeil).
+        </p>
+
+        <p>
+          J’ai fait le test : j’ai créé une petite application de suivi sportif.
+          Moi qui fait des razzias contre toutes ces applis bullshit « calepins
+          sportifs » et « nutri-trackers » remplis de pubs et de revente de
+          données, en cherchant toujours LA bonne app open source, sûre et
+          fiable pour suivre mon activité physique et ma nutrition… je m’y suis
+          attelé. Un truc simple : un suivi de poids tout bête, avec graphique
+          et fonctionnalités basiques. À coups d’Android Studio et de quelques
+          ajustements, en 1h, j’avais mon appli prête à l’emploi sur mon
+          téléphone.
+        </p>
+
+        <p>
+          Un seul prompt, quelques retouches, et ça a suffi pour obtenir quelque
+          chose de fonctionnel. <br />
+          Simple, je vous l’accorde, mais moi qui aime tester les limites de
+          l’IA, ça n’avait jamais été aussi facile.
+        </p>
+
+        <p>
+          J’ai aussi testé sur mon blog (H3ll0_w0rld!). <br />
+          Un blog qui me sert à prendre des notes, écrire mes pensées et avis,
+          faire des labs, des tests, exprimer ma passion. Avant publication, en
+          bon perfectionniste, je l’ai codé jour et nuit, je voulais quelque
+          chose de simpliste et complet. Puis je me suis dit que le message
+          comptait plus que la forme, et je l’ai publié, pas totalement
+          satisfait du visuel, mais c’était aussi son charme. Un peu comme
+          Phrack Magazine, Sam Altman ou encore GeoHotz (d'ailleurs, le nom de
+          mon blog « singularity » est inspiré de lui 😉)
+        </p>
+
+        <p>
+          Il y a quelques jours, j’ai posé une question simple à GPT-5 : il m’a
+          sorti un canva extrêmement complet, responsive inclus. Comme je
+          n’utilise pas de backend et que je fais presque tout à la main,
+          l’adaptation m’a pris du temps, mais voilà enfin le design que j’avais
+          en tête depuis le début. GPT-5 m’a aidé à refondre complètement le
+          design de mon blog en trois jours. Et ce qui a pris le plus de temps,
+          c’était les copier-coller des balises (parce que GPT n’est pas encore
+          très à l’aise pour copier une grande quantité d’infos : il modifie
+          souvent mes articles et généralise).
+        </p>
+
+        <p>
+          Je ne sais pas ce que l’IA réserve aux développeurs, mais je pense
+          surtout qu’elle nous fait gagner <strong>BEAUCOUP</strong> de temps
+          sur certaines tâches.
+        </p>
+
+        <p>
+          M’inspirer d’un design complet, concevoir les fonctionnalités, tester,
+          déboguer, me prendre la tête sur le
+          <a
+            href="https://www.reddit.com/r/learnprogramming/comments/17qtc71/is_the_missing_semicolon_joke_still_valid/"
+            target="_blank"
+            >fameux point-virgule manquant</a
+          >
+          , intégrer tout ça à l’ancien design, tout gérer de A à Z… en solo, ça
+          m’aurait pris bien plus de temps. Là, en trois jours, c’était plié, et
+          j’en suis encore impressionné.
+        </p>
+
+        <p>
+          Tout le monde ne peut pas s’improviser développeur, mais avec un peu
+          de curiosité et d’intérêt, je pense que n’importe qui ayant accès à
+          l’IA peut trouver son filon. Et c’est à la fois effrayant et
+          incroyable.
+        </p>
+
+        <h3 class="secondary-title">Les nouveautés</h3>
+
+        <p>
+          Je profite donc de cet article pour vous partager les dernières mises
+          à jour du blog. <br />
+          Voici tous les changements :
+        </p>
+
+        <span><strong>Page d'accueil :</strong></span>
+        <ul>
+          <li>Barre de navigation fixée en haut de la page</li>
+          <li>Thème sombre ajouté</li>
+          <li>
+            Petit easter egg : des bribes de code aléatoires s’affichent à côté
+            du texte d’intro
+          </li>
+          <li>Bannière contenant les trois derniers articles</li>
+          <li>Lien vers mon compte LinkedIn</li>
+        </ul>
+
+        <figure>
+          <img src="img/accueil.jpg" alt="Ancien design de la page d'accueil" />
+          <figcaption>Ancien design</figcaption>
+        </figure>
+        <figure>
+          <img
+            src="img/accueil2.jpg"
+            alt="Nouveau design de la page d'accueil" />
+          <figcaption>Nouveau design</figcaption>
+        </figure>
+
+        <span><strong>Blog :</strong></span>
+        <ul>
+          <li>Barre de recherche ajoutée</li>
+          <li>Tags sur les articles</li>
+          <li>Tri des articles par tags</li>
+          <li>Vignette pour chaque article</li>
+          <li>Courte description sous chaque article</li>
+        </ul>
+
+        <figure>
+          <img src="img/blog.jpg" alt="Ancien design de la page du blog" />
+          <figcaption>Ancien design</figcaption>
+        </figure>
+        <figure>
+          <img src="img/blog2.jpg" alt="Nouveau design de la page d'accueil" />
+          <figcaption>Nouveau design</figcaption>
+        </figure>
+
+        <span><strong>Article :</strong></span>
+        <ul>
+          <li>Sommaire cliquable généré à partir des titres et sous-titres</li>
+          <li>Temps de lecture estimé</li>
+          <li>
+            Barre de progression en haut de page pour suivre votre progression
+            dans l’article
+          </li>
+        </ul>
+        <figure>
+          <img
+            src="img/article.jpg"
+            alt="Ancien design de la page de l'article" />
+          <figcaption>Ancien design</figcaption>
+        </figure>
+        <figure>
+          <img
+            src="img/article2.jpg"
+            alt="Nouveau design de la page de l'article" />
+          <figcaption>Nouveau design</figcaption>
+        </figure>
+
+        <span><strong>Type d’attaque :</strong></span>
+        <ul>
+          <li>Barre de recherche ajoutée</li>
+          <li>Sommaire des catégories d’attaques</li>
+          <li>Tri des attaques par catégorie</li>
+          <li>
+            Clic sur le nom d’une attaque pour la déplier et voir son contenu
+          </li>
+          <li>Ajout d’alias (noms alternatifs) à côté du nom de l’attaque</li>
+        </ul>
+        <figure>
+          <img
+            src="img/attaques.jpg"
+            alt="Ancien design de la page des attaques" />
+          <figcaption>Ancien design</figcaption>
+        </figure>
+        <figure>
+          <img
+            src="img/attaques2.jpg"
+            alt="Nouveau design de la page des attaques" />
+          <figcaption>Nouveau design</figcaption>
+        </figure>
+
+        <span><strong>Lexique</strong></span>
+        <ul>
+          <li>Barre de recherche plus cohérente</li>
+          <li>Sommaire alphabétique</li>
+          <li>Filtre par première lettre des mots</li>
+        </ul>
+        <figure>
+          <img
+            src="img/lexique.jpg"
+            alt="Ancien design de la page du lexique" />
+          <figcaption>Ancien design</figcaption>
+        </figure>
+        <figure>
+          <img
+            src="img/lexique2.jpg"
+            alt="Nouveau design de la page du lexique" />
+          <figcaption>Nouveau design</figcaption>
+        </figure>
+
+        <span><strong>Ressources</strong></span>
+        <ul>
+          <li>Barre de recherche ajoutée</li>
+          <li>Sommaire des catégories de ressources</li>
+          <li>Tri des ressources par catégorie</li>
+          <li>Ajout d’un favicon à côté de chaque ressource</li>
+          <li>Lien direct à côté de chaque ressource</li>
+        </ul>
+        <figure>
+          <img
+            src="img/ressources.jpg"
+            alt="Ancien design de la page des ressources" />
+          <figcaption>Ancien design</figcaption>
+        </figure>
+        <figure>
+          <img
+            src="img/ressources2.jpg"
+            alt="Nouveau design de la page des ressources" />
+          <figcaption>Nouveau design</figcaption>
+        </figure>
+
+        <p>
+          Si vous voulez visiter l’ancien design, il est toujours dispo sur ce
+          lien :
+          <a href="https://semihbk.github.io/oldblog/" target="_blank"
+            >https://semihbk.github.io/oldblog/</a
+          >.
+        </p>
+
+        <p>
+          Soyons clairs, GPT-5 m’a aussi servi de la daube. Les bonnes pratiques
+          étaient souvent « presque » respectées, mais il y avait du déchet à
+          nettoyer : duplications, changement complet de design, responsive
+          manqué, CSS bancal. J'ai remarqué qu'il ne pouvait pas faire quelque
+          chose d'extrêmement complet. On a beau lui donner un prompt ingénieux,
+          il finira au bout de quelques minutes de thinking à faire n'importe
+          quoi.
+        </p>
+        <p>
+          En revanche, en mode pair-programmer, il est très bon : dès que je
+          pointais un bug précis, il savait expliquer la cause et proposer une
+          correction crédible (ce qu'il n'y avait pas souvent avec gpt-4o par
+          exemple).
+        </p>
+
+        <p>
+          Si je dois conclure avec quelque chose, l'IA est un vrai accélérateur,
+          et elle continue de monter en puissance. Mais ça reste un
+          <strong>outil</strong>, pas un oracle. L'IA ne doit pas penser à notre
+          place, elle doit assister l'humain. Les enjeux éthiques et de
+          responsabilité restent cruciaux.
+        </p>
+        <p><strong>Faites attention aux données que vous partagez. </strong></p>
+
+        <p>
+          Je vois de plus en plus de personnes interagir avec elle comme si
+          c’était un humain. L'IA (en particulier les LLM) peut sembler avoir un
+          mode de fonctionnement similaire sur certains points (par exemple, la
+          prise en compte du contexte), mais elle ne "comprend" pas le monde.
+        </p>
+
+        <p>
+          Elle traite des données et calcule des probabilités, pas des émotions
+          ni des intentions. Elle n'est pas <strong>consciente</strong>, elle ne
+          ressent rien. C'est un outil puissant mais qu'il faut utiliser avec
+          discernement.
+        </p>
+
+        <p>On reviendra sur son fonctionnement dans un prochain article.</p>
+      </article>
+    </main>
+
+    <div class="container article-nav">
+      <a class="btn" href="../../blog.html">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round">
+          <path d="m15 18-6-6 6-6" />
+        </svg>
+        Retour au blog
+      </a>
+    </div>
+
+    <footer>
+      <div class="container foot">
+        <div>© <span id="year"></span> · singularity</div>
+      </div>
+    </footer>
+  </body>
+</html>
