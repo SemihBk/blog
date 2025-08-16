@@ -287,13 +287,22 @@ article iframe {
   box-shadow: var(--shadow);
 }
 
+/* Citations lisibles clair/sombre */
 .quote {
   font-style: italic;
-  color: #0000007f;
-  /* background-color: #f6f8fa; gris très léger */
-  border-left: 3px solid #1864ab;
+
+  /* fallback pour vieux navigateurs */
+  color: var(--text);
+
+  /* préférence : teinte dynamique selon le thème (si supporté) */
+  color: color-mix(in oklab, var(--text) 85%, transparent);
+  background: color-mix(in oklab, var(--text) 6%, transparent);
+
+  border-left: 3px solid
+    color-mix(in oklab, var(--accent-2) 70%, var(--accent-1) 30%);
   padding-left: 2rem;
   margin: 1rem 0 6rem;
+  border-radius: 8px; /* optionnel */
 }
 
 /********************/
