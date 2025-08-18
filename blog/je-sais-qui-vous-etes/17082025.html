@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Je sais qui vous êtes - singularity</title>
+    <meta
+      name="description"
+      content="Article du blog singularity : Je sais qui vous êtes" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet" />
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <script src="../../assets/js/script.js" defer></script>
+  </head>
+  <body>
+    <div class="bg-decor" aria-hidden="true"></div>
+    <div class="progress" id="progress"></div>
+
+    <header>
+      <div class="container nav">
+        <div class="brand">
+          <div class="logo" aria-hidden="true">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="m4 17 6-6-6-6" />
+              <path d="M12 19h8" />
+            </svg>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px">
+            <a
+              href="../../blog.html"
+              style="text-decoration: none; color: inherit"
+              >Blog</a
+            >
+            <span
+              class="btn"
+              style="padding: 4px 8px; border-radius: 8px; font-size: 12px"
+              >Article</span
+            >
+          </div>
+        </div>
+        <button class="btn-theme" id="themeBtn" title="Changer le thème">
+          <span class="icon-sun" aria-hidden="true">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round">
+              <circle cx="12" cy="12" r="4" />
+              <path
+                d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+            </svg>
+          </span>
+          <span class="icon-moon" aria-hidden="true" style="display: none">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+            </svg>
+          </span>
+          <span id="themeLabel">Clair</span>
+        </button>
+      </div>
+    </header>
+
+    <main class="container">
+      <aside class="infobar">
+        <h3>Blog</h3>
+        <p>Publié le : 17 août 2025</p>
+        <p class="muted">Temps de lecture : <span id="reading">—</span></p>
+        <div class="toc">
+          <h4>Sommaire</h4>
+          <nav id="toc"></nav>
+        </div>
+      </aside>
+
+      <article id="article">
+        <h2 class="main-title">Je sais qui vous êtes</h2>
+
+        <h3 class="secondary-title">Lasalle.</h3>
+
+        <p>
+          Pour des millions d'abonnés, ce nom est synonyme de GTA, de fun et de
+          mystère. Depuis plus de dix ans sur YouTube, il a construit un empire
+          autour de son pseudonyme… sans jamais rien dévoiler de sa vie privée.
+          Pas de prénom, pas de visage, aucune information personnelle. Un
+          fantôme numérique, en apparence intouchable.
+        </p>
+
+        <p>
+          Mais à l’ère d’Internet, est-il vraiment possible de rester anonyme
+          ?<br />
+          Est-il possible de ne pas laisser de traces ? De ne pas être identifié
+          ? De rester dans l’ombre ?
+        </p>
+
+        <p>
+          Et si... Quelqu’un de très déterminé voulait enquêter sur lui ? <br />
+          Et si... Armé de patience et de quelques outils, on essayait de
+          rassembler des miettes d'informations laissées en ligne depuis plus de
+          dix ans ?
+        </p>
+
+        <p>
+          Face à une personne aussi verrouillée que Lasalle, j'ai entrepris une
+          véritable enquête, uniquement basée sur l'OSINT. Et ce que je peux
+          affirmer aujourd'hui, c'est que l'anonymat en ligne est un mythe.
+        </p>
+
+        <h3 class="secondary-title">OSINT</h3>
+        <p>
+          L’OSINT, pour Open Source Intelligence, désigne la collecte et
+          l’analyse d’informations accessibles publiquement. Pas de piratage,
+          pas d’accès illégal : uniquement ce que tout le monde peut trouver sur
+          Internet.
+        </p>
+        <p>
+          Il peut s’agir d’un post sur un réseau social, d’une vieille photo
+          conservée par un moteur de recherche, ou encore d’un détail visible en
+          arrière-plan d’une vidéo.
+        </p>
+        <p>
+          Pris séparément, ces éléments paraissent insignifiants. Mais une fois
+          recoupés, ils peuvent révéler bien plus que ce que l’on imagine.
+        </p>
+        <h3 class="secondary-title">Trouver la faille</h3>
+        <p>
+          Lasalle fait partie de ces rares créateurs obsédés par la
+          confidentialité. Tout est verrouillé, tout est contrôlé. On devine
+          chez lui une vraie conscience des risques liés à l’exposition, et une
+          volonté obsessive de séparer son pseudonyme de sa vie réelle.
+        </p>
+
+        <p>Mais personne n’est infaillible.</p>
+
+        <p>
+          Peu importe les précautions prises, il suffit d’un détail laissé au
+          mauvais endroit, d’un indice que l’on pense insignifiant, pour ouvrir
+          une brèche.
+        </p>
+
+        <h3 class="secondary-title">Les premières pistes</h3>
+        <p>À première vue, on ne sait rien de Lasalle.</p>
+        <p>
+          Aucune info personnelle directement accessible, aucune trace évidente.
+        </p>
+        <p>
+          Il existe bien une page sur un
+          <a href="https://youtube.fandom.com/fr/wiki/LaSalle" target="_blank"
+            >fandom Youtube</a
+          >
+          qui avance un nom et une date de naissance. Mais rien ne permet de
+          confirmer l’origine de ces informations. Elles ne sont sourcées nulle
+          part.
+        </p>
+        <p>
+          Est-ce que c’est vrai ? Peut-être. <br />Mais en l’état, ça reste une
+          hypothèse, pas une donnée exploitable. On peut la garder sous le
+          coude, mais elle ne vaut rien tant qu’on n’a pas de recoupement
+          solide.
+        </p>
+        <p>
+          Dans l’une de ses vidéos, Lasalle partage ce qui semble être des
+          photos de lui adolescent, pour mettre fin aux multiples fake face
+          reveals qui circulent.
+        </p>
+        <aside>
+          <figure>
+            <iframe
+              width="100%"
+              height="315"
+              src="https://www.youtube.com/embed/iJB961hnc5Q?si=dEectxNJBiape4GF"
+              title="YouTube video player"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen></iframe>
+            <figcaption>Son face reveal</figcaption>
+          </figure>
+        </aside>
+        <p>Mais là encore, on ne peut pas vraiment savoir...</p>
+        <p>
+          Ces photos sont peut-être vraies. Peut-être pas. Il pourrait très bien
+          avoir choisi des images volontairement floues ou déformées pour
+          entretenir la confusion. C’est d’ailleurs tout à fait cohérent avec
+          son profil : quelqu’un de très conscient de sa visibilité, qui
+          maîtrise parfaitement son image, et qui n’a clairement aucune envie de
+          voir sa vie privée exposée.
+        </p>
+
+        <p>
+          Ce point est essentiel : <strong>Lasalle sait ce qu’il fait.</strong>
+        </p>
+        <p>
+          Quand on regarde ses vidéos, on comprend vite que ce n’est pas
+          quelqu’un d’inconscient ou négligent. Il est réfléchi, malin, et
+          visiblement mature. Il s’exprime bien, choisit ses mots, et ne laisse
+          que ce qu’il veut bien montrer.
+        </p>
+        <p>
+          Il ne faut donc jamais écarter la possibilité qu’il brouille
+          volontairement les pistes.
+        </p>
+
+        <p>
+          Côté comptes officiels, il utilise YouTube, un compte Twitter, et un
+          compte Facebook. Pas de grosse activité, mais les comptes sont là, et
+          mis à jour de temps en temps. Rien d'extravagant ou d'inhabituel dans
+          leur usage, mais ça pose les premiers repères pour le reste de
+          l’analyse.
+        </p>
+      </article>
+    </main>
+
+    <div class="container article-nav">
+      <a class="btn" href="../../blog.html">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round">
+          <path d="m15 18-6-6 6-6" />
+        </svg>
+        Retour au blog
+      </a>
+    </div>
+
+    <footer>
+      <div class="container foot">
+        <div>© <span id="year"></span> · singularity</div>
+      </div>
+    </footer>
+  </body>
+</html>
