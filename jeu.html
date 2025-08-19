@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Conseils - singularity</title>
+    <meta
+      name="description"
+      content="Conseils pratiques de sécurité du quotidien : réseaux, appareils, mots de passe, MFA, QR codes, etc." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/pages/conseils.css" />
+    <link rel="stylesheet" href="assets/css/components/nav.css" />
+    <script src="assets/js/data/conseils-data.js" defer></script>
+    <script src="assets/js/pages/conseils.js" defer></script>
+    <script src="assets/js/components/nav.js" defer></script>
+    <style>
+      /*
+      Version intégrée pour ton canevas / design system
+      - Inhère les variables : --bg, --card, --text, --muted, --border, --accent-1/2, --radius, --shadow
+      - Utilise tes classes existantes (.container, .btn, etc.)
+      - Styles strictement *scopés* à #awareness pour éviter tout conflit
+    */
+      #awareness {
+        padding: 18px 0;
+        color: var(--text);
+      }
+      #awareness .wrap {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+
+      /* Carte/panel générique aligné avec ton thème */
+      #awareness .panel {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius, 16px);
+        box-shadow: var(--shadow);
+        overflow: clip;
+      }
+      #awareness .panel-h {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 14px 16px;
+        border-bottom: 1px solid var(--border);
+      }
+      #awareness .panel-b {
+        padding: 16px;
+      }
+      #awareness .subtitle {
+        color: var(--muted);
+      }
+      #awareness .pill {
+        display: inline-block;
+        padding: 6px 10px;
+        border-radius: 999px;
+        font-weight: 700;
+        background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+        color: #fff;
+        box-shadow: var(--shadow);
+      }
+
+      /* Mise en page responsive */
+      #awareness .layout {
+        display: grid;
+        gap: 14px;
+      }
+      @media (min-width: 860px) {
+        #awareness .layout {
+          grid-template-columns: 1.25fr 0.85fr;
+          align-items: start;
+        }
+      }
+
+      /* Sections/Questions */
+      #awareness details {
+        background: transparent;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+      }
+      #awareness summary {
+        list-style: none;
+        cursor: pointer;
+        padding: 12px 14px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      #awareness details[open] summary {
+        border-bottom: 1px solid var(--border);
+      }
+      #awareness .qs {
+        padding: 10px 14px;
+      }
+      #awareness .q {
+        display: grid;
+        gap: 6px;
+        padding: 10px 8px;
+        border-bottom: 1px dashed var(--border);
+      }
+      #awareness .q:last-child {
+        border-bottom: 0;
+      }
+      #awareness .hint {
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+      #awareness .opts {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      #awareness label.opt {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 8px 10px;
+        background: var(--bg-soft, transparent);
+        cursor: pointer;
+      }
+      #awareness input[type="checkbox"],
+      #awareness input[type="radio"] {
+        accent-color: var(--accent-2);
+      }
+
+      /* Gauge */
+      #awareness .gauge {
+        width: 220px;
+        height: 220px;
+        margin: 6px auto;
+        position: relative;
+      }
+      #awareness .gauge svg {
+        width: 100%;
+        height: 100%;
+      }
+      #awareness .gauge .value {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 1.9rem;
+      }
+      #awareness .gauge .label {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 10px;
+        text-align: center;
+        color: var(--muted);
+      }
+
+      /* Résultat */
+      #awareness .result {
+        display: none;
+      }
+      #awareness .r-good {
+        color: #16a34a;
+      }
+      #awareness .r-warn {
+        color: #f59e0b;
+      }
+      #awareness .r-bad {
+        color: #ef4444;
+      }
+      #awareness .rec-card {
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 12px;
+        background: var(--bg-soft, transparent);
+      }
+      #awareness table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      #awareness th,
+      #awareness td {
+        padding: 8px 10px;
+        border-bottom: 1px solid var(--border);
+        text-align: left;
+      }
+
+      /* Boutons : on réutilise ta classe .btn */
+      #awareness .btn-row {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+      }
+      #awareness .btn.primary {
+        background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+        color: #fff;
+        border-color: transparent;
+        font-weight: 800;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bg-decor" aria-hidden="true"></div>
+
+    <header>
+      <div class="container nav">
+        <div class="brand">
+          <div class="logo" aria-hidden="true">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="m4 17 6-6-6-6" />
+              <path d="M12 19h8" />
+            </svg>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px">
+            <a href="./index.html" style="text-decoration: none; color: inherit"
+              >singularity</a
+            >
+            <span class="pill">Conseils</span>
+          </div>
+        </div>
+
+        <div class="right-actions">
+          <!-- Liens desktop -->
+          <nav class="nav-links">
+            <a href="/blog/blog.html">Blog</a>
+            <a href="/blog/type-d-attaques.html">Types d'attaques</a>
+            <a href="/blog/conseils.html">Conseils</a>
+            <a href="/blog/lexique.html">Lexique</a>
+            <a href="/blog/ressources.html">Ressources</a>
+          </nav>
+
+          <!-- Bouton hamburger -->
+          <button
+            class="btn-icon menu-btn"
+            id="menuBtn"
+            aria-label="Menu"
+            aria-expanded="false"
+            aria-controls="mobileMenu">
+            <svg
+              viewBox="0 0 24 24"
+              width="18"
+              height="18"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M3 6h18M3 12h18M3 18h18" />
+            </svg>
+          </button>
+
+          <!-- Thème -->
+          <button class="btn-theme" id="themeBtn" title="Changer le thème">
+            <span class="icon-sun" aria-hidden="true">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round">
+                <circle cx="12" cy="12" r="4" />
+                <path
+                  d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+              </svg>
+            </span>
+            <span class="icon-moon" aria-hidden="true" style="display: none">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+              </svg>
+            </span>
+            <span id="themeLabel">Clair</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Menu mobile (mêmes liens) -->
+    <div id="menuBackdrop" class="menu-backdrop" hidden></div>
+    <nav id="mobileMenu" class="mobile-menu" hidden>
+      <a href="/blog/index.html">Accueil</a>
+      <a href="/blog/blog.html">Blog</a>
+      <a href="/blog/type-d-attaques.html">Types d'attaques</a>
+      <a href="/blog/conseils.html">Conseils</a>
+      <a href="/blog/lexique.html">Lexique</a>
+      <a href="/blog/ressources.html">Ressources</a>
+    </nav>
+
+    <main class="container">
+      <section
+        id="awareness"
+        aria-label="Audit express – Score de conscience numérique">
+        <div class="wrap">
+          <header class="panel" style="margin-top: 12px">
+            <div class="panel-h">
+              <div>
+                <h2 style="margin: 0">
+                  🧭 Audit express – Score de conscience numérique
+                </h2>
+                <div class="subtitle">
+                  Cochez ce que vous faites réellement au travail. Obtenez un
+                  score et des actions concrètes pour vous améliorer.
+                </div>
+              </div>
+              <span class="pill" aria-hidden="true">~ 3–5 min</span>
+            </div>
+            <div class="panel-b layout">
+              <div>
+                <!-- Questionnaire -->
+                <form id="awForm" class="grid" novalidate>
+                  <!-- Mots de passe -->
+                  <details open>
+                    <summary>🔐 Mots de passe</summary>
+                    <div class="qs">
+                      <div class="q">
+                        <div>
+                          <strong
+                            >Vous utilisez un gestionnaire de mots de
+                            passe</strong
+                          >
+                        </div>
+                        <div class="opts">
+                          <label class="opt"
+                            ><input type="radio" name="pwd_mgr" value="2" />
+                            Oui, systématiquement</label
+                          >
+                          <label class="opt"
+                            ><input type="radio" name="pwd_mgr" value="1" />
+                            Parfois</label
+                          >
+                          <label class="opt"
+                            ><input type="radio" name="pwd_mgr" value="0" />
+                            Non</label
+                          >
+                        </div>
+                        <div class="hint">
+                          Un gestionnaire permet des mots de passe longs et
+                          uniques.
+                        </div>
+                      </div>
+                      <div class="q">
+                        <div>
+                          <strong
+                            >Vos mots de passe sont longs (≥14 caractères) et
+                            uniques</strong
+                          >
+                        </div>
+                        <label class="opt"
+                          ><input type="checkbox" name="pwd_len" value="1" />
+                          Oui</label
+                        >
+                        <div class="hint">
+                          Longueur + unicité > complexité seule.
+                        </div>
+                      </div>
+                      <div class="q">
+                        <div>
+                          <strong
+                            >Vous avez activé le 2FA (appli TOTP / clé FIDO) sur
+                            les comptes clés</strong
+                          >
+                        </div>
+                        <label class="opt"
+                          ><input type="checkbox" name="pwd_2fa" value="1" />
+                          Oui</label
+                        >
+                      </div>
+                    </div>
+                  </details>
+
+                  <!-- Phishing & e‑mails -->
+                  <details>
+                    <summary>🎣 Phishing & e‑mails</summary>
+                    <div class="qs">
+                      <div class="q">
+                        <div>
+                          <strong
+                            >Vous vérifiez l’expéditeur et l’URL avant de
+                            cliquer</strong
+                          >
+                        </div>
+                        <label class="opt"
+                          ><input
+                            type="checkbox"
+                            name="phish_check"
+                            value="1" />
+                          Oui</label
+                        >
+                      </div>
+                      <div class="q">
+                        <div>
+                          <strong
+                            >Vous signalez les e‑mails suspects à l’IT</strong
+                          >
+                        </div>
+                        <label class="opt"
+                          ><input
+                            type="checkbox"
+                            name="phish_report"
+                            value="1" />
+                          Oui</label
+                        >
+                      </div>
+                      <div class="q">
+                        <div>
+                          <strong
+                            >Vous confirmez les demandes inhabituelles par un
+                            autre canal</strong
+                          >
+                        </div>
+                        <label class="opt"
+                          ><input
+                            type="checkbox"
+                            name="phish_verify"
+                            value="1" />
+                          Oui</label
+                        >
+                      </div>
+                    </div>
+                  </details>
+
+                  <!-- Postes & mises à jour -->
+                  <details>
+                    <summary>💻 Postes & mises à jour</summary>
+                    <div class="qs">
+                      <div class="q">
+                        <div>
+                          <strong
+                            >Votre système et vos applis se mettent à jour
+                            automatiquement</strong
+                          >
+                        </div>
+                        <label class="opt"
+                          ><input type="checkbox" name="upd_auto" value="1" />
+                          Oui</label
+                        >
+                      </div>
+                      <div class="q">
+                        <div>
+                          <strong
+                            >Votre session se verrouille automatiquement après
+                            inactivité</strong
+                          >
+                        </div>
+                        <label class="opt"
+                          ><input type="checkbox" name="lock_auto" value="1" />
+                          Oui</label
+                        >
+                      </div>
+                      <div class="q">
+                        <div>
+                          <strong
+                            >Vous n’utilisez pas de clés USB inconnues</strong
+                          >
+                        </div>
+                        <label class="opt"
+                          ><input type="checkbox" name="usb_no" value="1" />
+                          Oui</label
+                        >
+                      </div>
+                    </div>
+                  </details>
+
+                  <!-- Données & partage -->
+                  <details>
+                    <summary>🗂️ Données & partage</summary>
+                    <div class="qs">
+                      <div class="q">
+                        <div>
+                          <strong
+                            >Principe du moindre privilège appliqué</strong
+                          >
+                        </div>
+                        <label class="opt"
+                          ><input type="checkbox" name="least_priv" value="1" />
+                          Oui</label
+                        >
+                      </div>
+                      <div class="q">
+                        <div>
+                          <strong
+                            >Dates d’expiration sur les liens de partage</strong
+                          >
+                        </div>
+                        <label class="opt"
+                          ><input type="checkbox" name="share_exp" value="1" />
+                          Oui</label
+                        >
+                      </div>
+                      <div class="q">
+                        <div>
+                          <strong
+                            >Pas de documents pro envoyés via canaux
+                            personnels</strong
+                          >
+                        </div>
+                        <label class="opt"
+                          ><input type="checkbox" name="shadow_it" value="1" />
+                          Oui</label
+                        >
+                      </div>
+                    </div>
+                  </details>
+
+                  <!-- Mobilité & Wi‑Fi -->
+                  <details>
+                    <summary>📶 Mobilité & Wi‑Fi</summary>
+                    <div class="qs">
+                      <div class="q">
+                        <div>
+                          <strong
+                            >VPN en Wi‑Fi public / attendre un réseau de
+                            confiance</strong
+                          >
+                        </div>
+                        <label class="opt"
+                          ><input type="checkbox" name="wifi_vpn" value="1" />
+                          Oui</label
+                        >
+                      </div>
+                      <div class="q">
+                        <div>
+                          <strong
+                            >Mobiles chiffrés + protégés par
+                            code/biométrie</strong
+                          >
+                        </div>
+                        <label class="opt"
+                          ><input
+                            type="checkbox"
+                            name="mobile_secure"
+                            value="1" />
+                          Oui</label
+                        >
+                      </div>
+                    </div>
+                  </details>
+
+                  <!-- Sauvegardes & continuité -->
+                  <details>
+                    <summary>💾 Sauvegardes & continuité</summary>
+                    <div class="qs">
+                      <div class="q">
+                        <div>
+                          <strong
+                            >Sauvegardes des données critiques (3‑2‑1)</strong
+                          >
+                        </div>
+                        <label class="opt"
+                          ><input type="checkbox" name="backup" value="1" />
+                          Oui</label
+                        >
+                      </div>
+                      <div class="q">
+                        <div>
+                          <strong
+                            >Vous connaissez le plan en cas d’incident</strong
+                          >
+                        </div>
+                        <label class="opt"
+                          ><input type="checkbox" name="ir_plan" value="1" />
+                          Oui</label
+                        >
+                      </div>
+                    </div>
+                  </details>
+
+                  <div class="btn-row" style="margin-top: 10px">
+                    <button type="button" class="btn" id="awReset">
+                      Réinitialiser
+                    </button>
+                    <button type="button" class="btn primary" id="awScoreBtn">
+                      Calculer mon score
+                    </button>
+                  </div>
+                </form>
+              </div>
+
+              <aside>
+                <div class="panel" style="margin-bottom: 12px">
+                  <div class="panel-b">
+                    <div class="gauge" aria-live="polite">
+                      <svg viewBox="0 0 120 120">
+                        <circle
+                          cx="60"
+                          cy="60"
+                          r="52"
+                          fill="none"
+                          stroke="rgba(0,0,0,.1)"
+                          stroke-width="12" />
+                        <circle
+                          id="awArc"
+                          cx="60"
+                          cy="60"
+                          r="52"
+                          fill="none"
+                          stroke="url(#awGrad)"
+                          stroke-width="12"
+                          stroke-linecap="round"
+                          stroke-dasharray="326"
+                          stroke-dashoffset="326"
+                          transform="rotate(-90 60 60)" />
+                        <defs>
+                          <linearGradient
+                            id="awGrad"
+                            x1="0"
+                            y1="0"
+                            x2="1"
+                            y2="1">
+                            <stop offset="0%" stop-color="#ef4444" />
+                            <stop offset="50%" stop-color="#f59e0b" />
+                            <stop offset="100%" stop-color="#22c55e" />
+                          </linearGradient>
+                        </defs>
+                      </svg>
+                      <div class="value" id="awGaugeValue">0</div>
+                      <div class="label" id="awGaugeLabel">
+                        Score de conscience
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="panel result" id="awResultBox">
+                  <div class="panel-b">
+                    <h3 id="awTierTitle" class="r-bad" style="margin-top: 0">
+                      Résultat
+                    </h3>
+                    <p id="awTierText" class="hint" style="margin-top: 0"></p>
+                    <div class="rec-card">
+                      <strong
+                        >✅ Priorités d’amélioration personnalisées</strong
+                      >
+                      <ul id="awRecs" style="margin: 8px 0 0 18px"></ul>
+                    </div>
+                    <div class="btn-row" style="margin-top: 10px">
+                      <button class="btn" id="awExport">
+                        Exporter le rapport (HTML)
+                      </button>
+                      <button class="btn" id="awShare">Copier un résumé</button>
+                    </div>
+                  </div>
+                </div>
+              </aside>
+            </div>
+          </header>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container foot">
+        <div>© <span id="year"></span> · singularity</div>
+      </div>
+    </footer>
+    <script>
+      (() => {
+        const $ = (s, r = document) => r.querySelector(s);
+        const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+        const form = $("#awForm");
+        const scoreBtn = $("#awScoreBtn");
+        const resetBtn = $("#awReset");
+        const arc = $("#awArc");
+        const gaugeValue = $("#awGaugeValue");
+        const gaugeLabel = $("#awGaugeLabel");
+        const resultBox = $("#awResultBox");
+        const tierTitle = $("#awTierTitle");
+        const tierText = $("#awTierText");
+        const recs = $("#awRecs");
+        const exportBtn = $("#awExport");
+        const shareBtn = $("#awShare");
+
+        // Modèle de scoring (pondérations par item)
+        const model = {
+          groups: {
+            pwd: {
+              label: "Mots de passe",
+              items: {
+                pwd_mgr: { type: "radio", max: 2, weight: 8 },
+                pwd_len: { type: "check", max: 1, weight: 7 },
+                pwd_2fa: { type: "check", max: 1, weight: 10 },
+              },
+            },
+            phish: {
+              label: "Phishing & e-mails",
+              items: {
+                phish_check: { type: "check", max: 1, weight: 8 },
+                phish_report: { type: "check", max: 1, weight: 6 },
+                phish_verify: { type: "check", max: 1, weight: 8 },
+              },
+            },
+            device: {
+              label: "Postes & MAJ",
+              items: {
+                upd_auto: { type: "check", max: 1, weight: 9 },
+                lock_auto: { type: "check", max: 1, weight: 5 },
+                usb_no: { type: "check", max: 1, weight: 5 },
+              },
+            },
+            data: {
+              label: "Données & partage",
+              items: {
+                least_priv: { type: "check", max: 1, weight: 7 },
+                share_exp: { type: "check", max: 1, weight: 5 },
+                shadow_it: { type: "check", max: 1, weight: 7 },
+              },
+            },
+            mobile: {
+              label: "Mobilité & Wi‑Fi",
+              items: {
+                wifi_vpn: { type: "check", max: 1, weight: 7 },
+                mobile_secure: { type: "check", max: 1, weight: 6 },
+              },
+            },
+            backup: {
+              label: "Sauvegardes",
+              items: {
+                backup: { type: "check", max: 1, weight: 9 },
+                ir_plan: { type: "check", max: 1, weight: 5 },
+              },
+            },
+          },
+        };
+
+        function readValue(name, type) {
+          if (type === "check") {
+            return form.elements[name]?.checked ? 1 : 0;
+          }
+          if (type === "radio") {
+            const els = $$('input[name="' + name + '"]', form);
+            const on = els.find((e) => e.checked);
+            return on ? Number(on.value) : 0;
+          }
+          return 0;
+        }
+
+        function compute() {
+          let points = 0,
+            max = 0;
+          const byGroup = {};
+          for (const [gKey, g] of Object.entries(model.groups)) {
+            let gPts = 0,
+              gMax = 0;
+            for (const [name, meta] of Object.entries(g.items)) {
+              const v = readValue(name, meta.type);
+              const w = meta.weight;
+              const m = meta.max;
+              gPts += (v / m) * w;
+              gMax += w;
+            }
+            byGroup[gKey] = {
+              label: g.label,
+              pts: gPts,
+              max: gMax,
+              ratio: gPts / gMax,
+            };
+            points += gPts;
+            max += gMax;
+          }
+          const score = Math.round((points / max) * 100);
+          return { score, byGroup };
+        }
+
+        function animateGauge(percent) {
+          const circ = 2 * Math.PI * 52;
+          const target = circ * (1 - percent / 100);
+          arc.style.transition = "stroke-dashoffset .8s ease";
+          arc.style.strokeDashoffset = String(target);
+          gaugeValue.textContent = percent;
+          gaugeLabel.textContent = "Score de conscience";
+        }
+
+        function tierInfo(score) {
+          if (score >= 80)
+            return {
+              cls: "r-good",
+              title: "Excellent niveau 👑",
+              text: "Pratiques matures. Continuez et aidez vos collègues à progresser.",
+            };
+          if (score >= 60)
+            return {
+              cls: "r-warn",
+              title: "Solide mais perfectible 🛡️",
+              text: "Quelques failles à combler : traitez les priorités ci‑dessous.",
+            };
+          return {
+            cls: "r-bad",
+            title: "Risque élevé ⚠️",
+            text: "Suivez les priorités proposées pour réduire rapidement la surface d’attaque.",
+          };
+        }
+
+        function buildRecommendations(byGroup) {
+          const worst = Object.values(byGroup)
+            .sort((a, b) => a.ratio - b.ratio)
+            .slice(0, 3);
+          const items = worst.map((g) => {
+            let tip = "";
+            switch (g.label) {
+              case "Mots de passe":
+                tip =
+                  "Installez un gestionnaire, activez 2FA, remplacez les mots de passe réutilisés.";
+                break;
+              case "Phishing & e-mails":
+                tip =
+                  "Vérifiez expéditeur/URL, signalez les messages suspects, confirmez par téléphone.";
+                break;
+              case "Postes & MAJ":
+                tip =
+                  "Activez MAJ auto et verrouillage, bannissez les USB inconnues.";
+                break;
+              case "Données & partage":
+                tip =
+                  "Partage minimal, date d’expiration, évitez les canaux personnels.";
+                break;
+              case "Mobilité & Wi‑Fi":
+                tip = "VPN en public, appareils chiffrés/protégés.";
+                break;
+              case "Sauvegardes":
+                tip = "Règle 3‑2‑1 et exercices du plan incident.";
+                break;
+            }
+            const pct = Math.round(g.ratio * 100);
+            return `<li><strong>${g.label}</strong> – ${pct}% · <span class="hint">${tip}</span></li>`;
+          });
+          recs.innerHTML = items.join("");
+        }
+
+        function showResult() {
+          const { score, byGroup } = compute();
+          animateGauge(score);
+          const t = tierInfo(score);
+          tierTitle.className = t.cls;
+          tierTitle.textContent = `${t.title} (${score}%)`;
+          tierText.textContent = t.text;
+          buildRecommendations(byGroup);
+          resultBox.style.display = "block";
+          try {
+            localStorage.setItem(
+              "awareness_last",
+              JSON.stringify({ at: Date.now(), score, byGroup })
+            );
+          } catch (e) {}
+        }
+
+        function resetForm() {
+          form.reset();
+          animateGauge(0);
+          resultBox.style.display = "none";
+        }
+
+        function exportReport() {
+          const { score, byGroup } = compute();
+          const rows = Object.values(byGroup)
+            .map(
+              (g) =>
+                `<tr><td>${g.label}</td><td>${Math.round(g.pts)}/${Math.round(
+                  g.max
+                )}</td><td>${Math.round(g.ratio * 100)}%</td></tr>`
+            )
+            .join("");
+          const html = `<!doctype html><meta charset="utf-8"><title>Rapport – Score de conscience numérique</title>
+      <style>body{font-family:Inter,Arial,system-ui;margin:20px}h1{margin:0 0 6px}table{border-collapse:collapse;width:100%}th,td{padding:8px 10px;border:1px solid #ddd;text-align:left}</style>
+      <h1>Rapport – Score de conscience numérique</h1>
+      <p>Date: ${new Date().toLocaleString("fr-FR")}</p>
+      <h2>Score global: ${score}%</h2>
+      <table><thead><tr><th>Catégorie</th><th>Points</th><th>%</th></tr></thead><tbody>${rows}</tbody></table>
+      <p>Recommandations clés: ${
+        $("#awRecs").innerText || "Voir application"
+      }.</p>`;
+          const blob = new Blob([html], { type: "text/html" });
+          const a = document.createElement("a");
+          a.href = URL.createObjectURL(blob);
+          a.download = "rapport-score-conscience.html";
+          a.click();
+        }
+
+        function shareSummary() {
+          const { score, byGroup } = compute();
+          const worst = Object.values(byGroup)
+            .sort((a, b) => a.ratio - b.ratio)
+            .slice(0, 3)
+            .map((g) => g.label)
+            .join(", ");
+          const text = `Mon score de conscience numérique: ${score}% – Axes à renforcer: ${worst}.`;
+          if (navigator.clipboard) {
+            navigator.clipboard
+              .writeText(text)
+              .then(() => alert("Résumé copié dans le presse-papiers."));
+          } else {
+            prompt("Copiez le texte:", text);
+          }
+        }
+
+        // Événements
+        scoreBtn.addEventListener("click", showResult);
+        resetBtn.addEventListener("click", resetForm);
+        exportBtn.addEventListener("click", exportReport);
+        shareBtn.addEventListener("click", shareSummary);
+
+        // Init
+        animateGauge(0);
+      })();
+    </script>
+  </body>
+</html>
