@@ -1,5 +1,14 @@
 window.BLOG_POSTS = [
   {
+    title: "Je sais qui vous êtes",
+    date: "2025-08-21",
+    url: "blog/je-sais-qui-vous-etes/21082025.html",
+    type: "article",
+    tags: ["dev", "ia", "blog", "société"],
+    excerpt: "Enquête OSINT.",
+    thumb: "blog/thumbs/je-sais-qui-vous-etes.png",
+  },
+  {
     title: "GPT-5",
     date: "2025-08-14",
     url: "blog/gpt-5/14082025.html",
