@@ -1,5 +1,14 @@
 window.BLOG_POSTS = [
   {
+    title: "Renommer des fichiers avec Filebot",
+    date: "2025-08-24",
+    url: "blog/renommer-des-fichiers-avec-filebot/24082025.html",
+    type: "article",
+    tags: ["tutoriel", "windows"],
+    excerpt: "Automatiser le renommage de fichiers.",
+    thumb: "blog/thumbs/renommer-des-fichiers-avec-filebot.png",
+  },
+  {
     title: "Je sais qui vous êtes",
     date: "2025-08-21",
     url: "blog/je-sais-qui-vous-etes/21082025.html",
@@ -40,7 +49,7 @@ window.BLOG_POSTS = [
     date: "2025-06-27",
     url: "blog/reverse-engineering/27062025.html",
     type: "article",
-    tags: ["reverse"],
+    tags: ["reverse", "tutoriel"],
     excerpt: "Démarrer vite: outils et méthodo.",
     thumb: "blog/thumbs/reverse-engineering.jpg",
   },
@@ -67,7 +76,7 @@ window.BLOG_POSTS = [
     date: "2025-03-27",
     url: "blog/rubber-ducky-key/27032025.html",
     type: "article",
-    tags: ["usb"],
+    tags: ["usb", "tutoriel"],
     excerpt: "Scripts, payloads et OPSEC.",
     thumb: "blog/thumbs/rubber-ducky-key.webp",
   },

@@ -109,7 +109,7 @@ header {
   display: grid;
   place-items: center;
   color: #fff;
-  background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+  background: linear-gradient(90deg, #0f172a, #0ea5e9, #22d3ee);
   box-shadow: var(--shadow);
 }
 .btn-theme {
@@ -194,7 +194,7 @@ header {
   color: var(--text);
 }
 .toggle.active {
-  background: linear-gradient(135deg, var(--accent-2), var(--accent-1));
+  background: linear-gradient(90deg, #0f172a, #0ea5e9, #22d3ee);
   color: #fff;
   border-color: transparent;
 }

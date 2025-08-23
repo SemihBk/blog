@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Filebot - singularity</title>
+    <meta name="description" content="Article du blog singularity : GPT-5" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet" />
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <script src="../../assets/js/script.js" defer></script>
+  </head>
+  <body>
+    <div class="bg-decor" aria-hidden="true"></div>
+    <div class="progress" id="progress"></div>
+
+    <header>
+      <div class="container nav">
+        <div class="brand">
+          <div class="logo" aria-hidden="true">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="m4 17 6-6-6-6" />
+              <path d="M12 19h8" />
+            </svg>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px">
+            <a
+              href="../../blog.html"
+              style="text-decoration: none; color: inherit"
+              >Blog</a
+            >
+            <span
+              class="btn"
+              style="padding: 4px 8px; border-radius: 8px; font-size: 12px"
+              >Article</span
+            >
+          </div>
+        </div>
+        <button class="btn-theme" id="themeBtn" title="Changer le thème">
+          <span class="icon-sun" aria-hidden="true">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round">
+              <circle cx="12" cy="12" r="4" />
+              <path
+                d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+            </svg>
+          </span>
+          <span class="icon-moon" aria-hidden="true" style="display: none">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+            </svg>
+          </span>
+          <span id="themeLabel">Clair</span>
+        </button>
+      </div>
+    </header>
+
+    <main class="container">
+      <aside class="infobar">
+        <h3>Blog</h3>
+        <p>Publié le : 24 août 2025</p>
+        <p class="muted">Temps de lecture : <span id="reading">—</span></p>
+        <div class="toc">
+          <h4>Sommaire</h4>
+          <nav id="toc"></nav>
+        </div>
+      </aside>
+
+      <article id="article">
+        <h2 class="main-title">Renommer des fichiers avec Filebot</h2>
+        <figure>
+          <img src="img/filebot.png" alt="Thumbnail" />
+        </figure>
+
+        <h3 class="secondary-title">Filebot</h3>
+
+        <p>
+          Qui ne s’est jamais retrouvé avec des noms de fichiers du style
+          S05xE12 ? Pour les gens un peu maniaques comme moi (🙋‍♂️), passer des
+          heures à tout renommer à la main, c’est juste hors de question.
+          Heureusement, j’ai trouvé un outil qui fait tout ça automatiquement :
+          Filebot.
+        </p>
+
+        <p>
+          <em
+            >⚠️ Petite précision : les dernières versions de Filebot demandent
+            une licence payante. Pour avoir le renommage gratuit, il faudra donc
+            passer par une ancienne version (<a
+              href="https://github.com/mobeigi/filebot"
+              target="_blank"
+              >toujours dispo ici sur Github</a
+            >)</em
+          >
+        </p>
+
+        <p>
+          Pour l’exemple, j’ai pris des fichiers d’épisodes des Simpson (saison
+          25)… mais en polonais 😅. L’objectif : les renommer automatiquement
+          avec les titres officiels en français (mais vous pourriez le faire
+          dans n’importe quelle langue).
+        </p>
+
+        <figure>
+          <img src="img/simpsonpolonais.png" alt="Les Simpson en polonais" />
+        </figure>
+
+        <h3 class="secondary-title">Étape 1</h3>
+
+        <p>
+          Il faut sélectionner tous les épisodes et les glisser dans l’encadré
+          gauche de Filebot.
+        </p>
+
+        <figure>
+          <img src="img/filebot_1.png" alt="Logiciel Filebot" />
+        </figure>
+
+        <figure>
+          <img src="img/filebot1.png" alt="Étape 1" />
+        </figure>
+
+        <h3 class="secondary-title">Étape 2</h3>
+
+        <p>
+          Ensuite, un clic droit dans l’encadré droit permet de : <br />
+          → choisir la langue souhaitée (anglais par défaut, mais dispo en FR et
+          bien d’autres) <br />
+          → puis de sélectionner la source dans laquelle Filebot va chercher les
+          titres officiels.
+        </p>
+
+        <figure>
+          <img src="img/filebot2.png" alt="Étape 2" />
+        </figure>
+
+        <p>
+          Si jamais la source ne trouve pas la série automatiquement, il faudra
+          simplement l’aider en tapant son nom (dans mon cas : Les Simpson).
+        </p>
+
+        <figure>
+          <img src="img/filebot3.png" alt="Étape 2 bis" />
+        </figure>
+
+        <h3 class="secondary-title">Étape 3</h3>
+
+        <p>
+          Et c'est tout ! Les fichiers sont renommés avec les bons titres. Il ne
+          reste plus qu’à cliquer sur Rename. Vous pouvez ensuite vérifier les
+          noms des épisodes, par exemple directement sur Wikipedia.
+        </p>
+
+        <figure>
+          <img src="img/traduction.png" alt="Traduction" />
+        </figure>
+      </article>
+    </main>
+
+    <div class="container article-nav">
+      <a class="btn" href="../../blog.html">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round">
+          <path d="m15 18-6-6 6-6" />
+        </svg>
+        Retour au blog
+      </a>
+    </div>
+
+    <footer>
+      <div class="container foot">
+        <div>© <span id="year"></span> · singularity</div>
+      </div>
+    </footer>
+  </body>
+</html>
