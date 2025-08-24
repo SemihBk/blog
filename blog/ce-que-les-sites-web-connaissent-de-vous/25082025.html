@@ -34,6 +34,10 @@
         background: rgba(255, 107, 107, 0.18);
         color: #7a1e1e;
       }
+
+      .btn {
+        cursor: pointer;
+      }
     </style>
   </head>
   <body>
@@ -114,7 +118,52 @@
       <article id="article">
         <h2 class="main-title">Ce que les sites web connaissent de vous</h2>
 
-        <h3>Identité du navigateur</h3>
+        <h3 class="secondary-title">Préambule</h3>
+        <p>
+          On navigue sur internet, on ouvre des onglets, on lit des articles, on
+          ferme, on oublie. Mais on ne se rend pas toujours compte de ce qu’un
+          site peut voir de nous quand on le visite.
+        </p>
+        <p>
+          Quand j’étais plus jeune, je suivais un site qui s’appelait
+          <a href="https://www.leblogduhacker.fr/" target="_blank"
+            >Le Blog du Hacker</a
+          >, créé par Michel Kartner. Je me souviens d’une page assez simple qui
+          listait toutes les infos qu’un site web pouvait récupérer sur ses
+          visiteurs. Ça m’avait marqué.
+        </p>
+        <p>
+          Je me suis dit que ce serait intéressant de refaire ça aujourd’hui,
+          version 2025. Juste pour montrer ce qu’un simple développeur peut
+          obtenir sans aucun effort particulier.
+        </p>
+        <p>
+          Ce que vous voyez ici, c’est une liste non exhaustive de ce qu’on peut
+          récupérer côté front. Et encore, j’ai été gentil. Il y a sûrement
+          d’autres trucs possibles que je n’ai pas (encore) pris le temps
+          d’explorer. Je voulais que l’article reste lisible.
+        </p>
+        <p>
+          Ce n’est pas forcément “grave” en soi, certaines données sont
+          utilisées pour que les sites fonctionnent correctement, ou pour
+          améliorer les performances. Mais ça vaut le coup d’en prendre
+          conscience. Parce que, même sans cookies ou traqueurs, on laisse des
+          traces.
+        </p>
+        <p>
+          À l’époque, il existait même une faille CSS qui permettait de deviner
+          l’historique de navigation d’un utilisateur (que Michel Kartner avait
+          mis en avant). Elle a été corrigée depuis, mais je m’en souviens
+          encore.
+        </p>
+
+        <p>
+          Alors voilà ce que n'importe quel site pourrait récupérer de vous
+          (n'hésitez pas à tester sur plusieurs navigateurs (Chrome, Firefox,
+          Brave, Safari, ...), certains sont plus privacy-friendly) :
+        </p>
+
+        <h3 class="secondary-title">Identité du navigateur</h3>
         <table>
           <tbody>
             <tr>
@@ -144,7 +193,41 @@
           </tbody>
         </table>
 
-        <h3>Affichage</h3>
+        <p>
+          <strong>Navigateur (legacy UA)</strong><br />
+          Ancienne façon dont un navigateur se présente aux sites web. Il
+          balance plein d’infos : système, version, moteur, …
+        </p>
+
+        <p>
+          <strong>UA‑Client Hints</strong><br />
+          Nouvelle méthode plus propre pour filer des infos sur l'appareil et le
+          navigateur. Ici, le site doit demander ce qu’il veut savoir, et le
+          navigateur décide ce qu’il accepte de donner.
+        </p>
+
+        <p>
+          <strong>Plateforme</strong><br />
+          Sur quel système le navigateur tourne (Windows, Linux, Android, etc).
+        </p>
+
+        <p>
+          <strong>Langues</strong><br />
+          Liste des langues que le navigateur préfère.
+        </p>
+
+        <p>
+          <strong>Fuseau horaire</strong><br />
+          Le fuseau utilisé par l’appareil.
+        </p>
+
+        <p>
+          <strong>Heure locale</strong><br />
+          L’heure réglée sur la machine. Si elle est décalée du fuseau, c’est
+          peut être parce qu'on utilise un VPN ou des machines virtuelles.
+        </p>
+
+        <h3 class="secondary-title">Affichage</h3>
         <table>
           <tbody>
             <tr>
@@ -177,8 +260,51 @@
             </tr>
           </tbody>
         </table>
+        <p>
+          <strong>Écran (CSS)</strong><br />
+          C’est la taille “logique” que les sites voient via le CSS. Ça peut
+          être plus petit que la vraie taille de l’écran à cause du zoom, du
+          scaling, etc.
+        </p>
 
-        <h3>Système</h3>
+        <p>
+          <strong>Écran (physique)</strong><br />
+          La vraie résolution de l'écran en pixels. Là on parle de la taille
+          brute, ce que l'écran peut vraiment afficher.
+        </p>
+
+        <p>
+          <strong>Viewport (CSS)</strong><br />
+          La zone visible d’un site web, hors barres d’outils et autres éléments
+          du navigateur. C’est ce que le site peut réellement utiliser pour
+          s’afficher.
+        </p>
+
+        <p>
+          <strong>DPR (Device Pixel Ratio)</strong><br />
+          Ratio entre les pixels physiques et les pixels CSS. (Par exemple,
+          1920/1.25=1536)
+        </p>
+
+        <p>
+          <strong>Couleurs</strong><br />
+          Profondeur de couleur supportée. En gros, combien de nuances l'écran
+          peut afficher. (En général, on a tous 8 bit par canal (RVB), donc 24
+          bit au total)
+        </p>
+
+        <p>
+          <strong>Préférences</strong><br />
+          Préférences système déclarées par le navigateur. Mode sombre, clair,
+          animations réduites.
+        </p>
+
+        <p>
+          <strong>Rafraîchissement (estimé)</strong><br />
+          Fréquence à laquelle l’écran se met à jour (en Hz).
+        </p>
+
+        <h3 class="secondary-title">Système</h3>
         <table>
           <tbody>
             <tr>
@@ -207,8 +333,50 @@
             </tr>
           </tbody>
         </table>
+        <p>
+          <strong>Cœurs logiques</strong><br />
+          Nombre de threads que le processeur peut exécuter en parallèle. Plus
+          ce chiffre est élevé, plus la machine est capable de traiter plusieurs
+          tâches à la fois.
+        </p>
 
-        <h3>Réseau</h3>
+        <p>
+          <strong>Mémoire (approx)</strong><br />
+          Estimation de la mémoire vive (RAM) disponible pour le système. Cela
+          donne une idée de la capacité globale de la machine à gérer des
+          applications.
+        </p>
+
+        <p>
+          <strong>Heap JS (limite)</strong><br />
+          Limite maximale de mémoire allouée pour exécuter du JavaScript.
+          Dépasser cette limite peut entraîner des lenteurs ou des plantages
+          dans certains cas.
+        </p>
+
+        <p>
+          <strong>Cookies</strong><br />
+          Indique si le navigateur accepte les cookies.
+        </p>
+
+        <p>
+          <strong>Do Not Track</strong><br />
+          Option envoyée par le navigateur pour signaler qu’aucun suivi
+          publicitaire ou comportemental n’est souhaité. (<a
+            href="https://www.cookieyes.com/knowledge-base/cookies-101/what-is-do-not-track/#:~:text=It%20is%20a%20way%20the,and%20not%20a%20legal%20requirement."
+            target="_blank"
+            >Intéressant</a
+          >)
+        </p>
+
+        <p>
+          <strong>Onglet actif</strong><br />
+          Indique si la page est actuellement visible à l’écran. Cela permet
+          notamment aux sites de mettre en pause certaines opérations lorsqu’ils
+          ne sont pas consultés.
+        </p>
+
+        <h3 class="secondary-title">Réseau</h3>
         <table>
           <tbody>
             <tr>
@@ -241,8 +409,46 @@
             </tr>
           </tbody>
         </table>
+        <p>
+          <strong>État</strong><br />
+          Indique si une connexion réseau est active au moment du test. En ligne
+          ou hors ligne, selon que l'appareil a accès à Internet.
+        </p>
 
-        <h3>Permissions & presse‑papiers</h3>
+        <p>
+          <strong>Qualité estimée</strong><br />
+          Donne une idée du type de connexion (wifi, 4g…), du débit descendant
+          approximatif, et du RTT (temps de réponse moyen). Ces données sont
+          basées sur des mesures du navigateur et peuvent varier. (pas forcément
+          ultra précis, ça peut dire 4g alors qu'on est en wifi)
+        </p>
+
+        <p>
+          <strong>Référent</strong><br />
+          Montre l’adresse de la page précédente, c’est-à-dire celle qui a mené
+          jusqu’à celle-ci. C’est une information que les navigateurs partagent
+          par défaut, sauf si elle est bloquée ou modifiée.
+        </p>
+
+        <p>
+          <strong>IP publique</strong><br />
+          Adresse visible depuis l’extérieur, attribuée par le fournisseur
+          d’accès. Elle permet notamment de situer approximativement un
+          utilisateur dans le monde. (<a
+            href="https://whatismyipaddress.com/ip-lookup"
+            target="_blank"
+            >Faites le test ;-)</a
+          >)
+        </p>
+
+        <p>
+          <strong>Position géographique</strong><br />
+          Si l'utilisateur accepte, le navigateur peut partager une position
+          géographique estimée (ou la position exacte..). C’est ce qui permet
+          aux sites d’offrir des services géolocalisés.
+        </p>
+
+        <h3 class="secondary-title">Permissions & presse‑papiers</h3>
         <table>
           <tbody>
             <tr>
@@ -282,8 +488,46 @@
             </tr>
           </tbody>
         </table>
+        <p>
+          Ici, on peut voir les permissions et leur état (en fonction de ce
+          qu'on a accepté ou non).
+        </p>
+        <p>
+          <strong>Géolocalisation</strong><br />
+          Donne accès à la position géographique estimée de l'appareil. Peut
+          être activée manuellement par l'utilisateur, ou déjà autorisée selon
+          les réglages du navigateur.
+        </p>
 
-        <h3>Rendu & matériel graphique</h3>
+        <p>
+          <strong>Notifications</strong><br />
+          Permet aux sites d’envoyer des alertes (même quand l’onglet est
+          fermé), comme le fait YouTube ou Gmail. Ça nécessite généralement une
+          autorisation explicite.
+        </p>
+
+        <p>
+          <strong>Caméra / Micro</strong><br />
+          Accès potentiel aux périphériques audio/vidéo. Très encadré par les
+          navigateurs modernes : une autorisation est toujours demandée, et
+          l’accès est temporaire ou visible.
+        </p>
+
+        <p>
+          <strong>Presse-papiers (lecture)</strong><br />
+          Permet à une page de lire ce qui est copié dans le presse-papiers
+          (texte, images, etc.). C’est puissant, donc encadré et souvent soumis
+          à une action utilisateur. (ça peut d'ailleurs être utilisé en hacking)
+        </p>
+
+        <p>
+          <strong>Presse-papiers (écriture)</strong><br />
+          Permet à une page d’écrire directement dans le presse-papiers (ex :
+          copier du texte sans interaction). Très utile pour des boutons
+          “copier” par exemple.
+        </p>
+
+        <h3 class="secondary-title">Rendu & matériel graphique</h3>
         <table>
           <tbody>
             <tr>
@@ -309,7 +553,41 @@
           </tbody>
         </table>
 
-        <h3>Stockage</h3>
+        <p>
+          <strong>WebGL</strong><br />
+          Une techno qui permet de faire du rendu 3D ou 2D dans le navigateur,
+          sans plugin. Si c’est activé, ça veut dire que le navigateur peut
+          afficher des animations, jeux ou visualisations complexes directement
+          via le GPU.
+        </p>
+
+        <p>
+          <strong>GPU</strong><br />
+          C’est le processeur graphique utilisé par le navigateur pour le rendu.
+          L’info peut être partielle ou masquée, mais elle donne souvent un
+          indice sur le matériel réel (ou la couche logicielle utilisée).
+        </p>
+
+        <p>
+          <strong>Vendor</strong><br />
+          Le fournisseur de la puce graphique.
+        </p>
+
+        <p>
+          <strong>Version WebGL</strong><br />
+          Indique la version de WebGL supportée. Plus elle est récente, plus les
+          effets graphiques peuvent être riches (et plus les infos sont
+          précises).
+        </p>
+
+        <p>
+          <strong>GLSL</strong><br />
+          Le langage utilisé pour écrire les shaders (petits programmes de
+          rendu) dans WebGL. Un peu technique, mais ça fait partie de
+          l’empreinte unique que peut générer un navigateur.
+        </p>
+
+        <h3 class="secondary-title">Stockage</h3>
         <table>
           <tbody>
             <tr>
@@ -338,8 +616,35 @@
             </tr>
           </tbody>
         </table>
+        <p>
+          <strong>Quota total</strong><br />
+          C’est la quantité d’espace que le navigateur accepte de réserver pour
+          stocker des données en local (fichiers, bases de données, cache…) (en
+          général, c'est souvent bloqué très en dessous (2Go ou 5Go), c'est
+          vraiment pour dire que ça peut aller jusque là).
+        </p>
 
-        <h3>Empreinte Canvas</h3>
+        <p>
+          <strong>Utilisé</strong><br />
+          La place effectivement utilisée à ce moment-là par les sites web pour
+          stocker leurs données (cookies, indexDB, localStorage, etc.).
+        </p>
+
+        <p>
+          <strong>Disponible (approx)</strong><br />
+          Une estimation de l’espace libre encore accessible par le navigateur
+          pour du stockage local. Ce n’est pas l’espace disque complet, mais
+          celui que le navigateur est prêt à allouer.
+        </p>
+
+        <p>
+          <strong>Persistance</strong><br />
+          Si c’est activé, ça veut dire que les données locales ne seront pas
+          supprimées automatiquement (même en cas de manque d’espace). Si c’est
+          désactivé, tout peut sauter à tout moment.
+        </p>
+
+        <h3 class="secondary-title">Empreinte Canvas</h3>
         <table>
           <tbody>
             <tr>
@@ -352,8 +657,27 @@
             </tr>
           </tbody>
         </table>
+        <p>
+          Le <strong>Canvas Fingerprint</strong> est une méthode d’empreinte
+          numérique assez redoutable. Elle consiste à dessiner (comme ici) un
+          texte ou une forme dans un élément canvas HTML. Ensuite, le navigateur
+          va générer une image que l'on peut transformer en une sorte de "hash"
+          unique.
+        </p>
 
-        <h3>Fenêtre & intégration</h3>
+        <p>
+          Ce hash dépend de nombreux paramètres : le navigateur, la carte
+          graphique, les polices, le moteur de rendu, etc.
+        </p>
+
+        <p>
+          Résultat ? Deux utilisateurs sur deux machines différentes auront
+          (souvent) un fingerprint différent, même avec le même OS et
+          navigateur. C’est discret, difficile à contrer, et utilisé pour du
+          tracking avancé, souvent sans cookies.
+        </p>
+
+        <h3 class="secondary-title">Fenêtre & intégration</h3>
         <table>
           <tbody>
             <tr>
@@ -382,8 +706,56 @@
             </tr>
           </tbody>
         </table>
+        <p>
+          <strong>Plein écran</strong><br />
+          Indique si la page est affichée en plein écran. C’est souvent utilisé
+          pour les vidéos, les jeux, ou certaines applis web immersives. (F11
+          sur pc pour tester en direct)
+        </p>
 
-        <h3>Performance (navigateur)</h3>
+        <p>
+          <strong>Dans un iFrame</strong><br />
+          Signale si la page est chargée à l’intérieur d’un cadre (iframe), ce
+          qui peut limiter certaines fonctionnalités ou modifier le comportement
+          du site. (un iframe, c'est par exemple quand j'intègre une vidéo
+          youtube dans mon article, je le fais via un iframe)
+        </p>
+
+        <p>
+          <strong>Fenêtre externe</strong><br />
+          Correspond à la taille réelle de la fenêtre du navigateur visible à
+          l’écran. Elle peut changer si l’utilisateur redimensionne ou passe en
+          mode mobile.
+        </p>
+
+        <p>
+          <strong>Orientation</strong><br />
+          Décrit l’orientation principale de l’écran : “landscape” pour
+          horizontal, “portrait” pour vertical. C’est particulièrement utile sur
+          mobile.
+        </p>
+
+        <p>
+          <strong>Display-mode</strong><br />
+          Précise le mode d’affichage voulu par le site : en navigateur
+          classique, en mode appli (standalone), ou carrément en plein écran. Ce
+          paramètre vient du
+          <a
+            href="https://developer.mozilla.org/fr/docs/Web/Progressive_web_apps/Manifest"
+            target="_blank"
+            >manifeste web (PWA)</a
+          >
+          .
+        </p>
+
+        <p>
+          <strong>Autres onglets ouverts</strong><br />
+          Certains navigateurs permettent de savoir si plusieurs onglets ouverts
+          appartiennent au même site. Ça peut être utilisé pour synchroniser des
+          actions entre eux. (testez en dupliquant l'onglet :-))
+        </p>
+
+        <h3 class="secondary-title">Performance (navigateur)</h3>
         <table>
           <tbody>
             <tr>
@@ -408,12 +780,46 @@
             </tr>
           </tbody>
         </table>
+        <p>
+          <strong>DOM prêt</strong><br />
+          Temps écoulé avant que le navigateur considère que la structure HTML
+          est entièrement analysée. En gros, le squelette de la page est prêt.
+        </p>
 
-        <p class="quote">
-          ⚠️ Les valeurs ci‑dessus sont celles que votre navigateur
-          <em>expose</em> au site : certaines sont des estimations (réseau,
-          perf), d’autres sont “bucketisées” pour limiter le pistage (mémoire).
-          Rien n’est envoyé à un serveur : tout est calculé localement.
+        <p>
+          <strong>Chargement total</strong><br />
+          Moment où toutes les ressources sont considérées comme complètement
+          chargées (images, scripts, CSS, etc.). C’est le point final du
+          chargement.
+        </p>
+
+        <p>
+          <strong>LCP (approx)</strong><br />
+          Le <em>Largest Contentful Paint</em> mesure le temps nécessaire à
+          l’affichage de l’élément principal visible à l’écran (image ou texte).
+          C’est un indicateur clé pour juger si un site semble rapide.
+        </p>
+
+        <p>
+          <strong>Heap JS utilisé</strong><br />
+          Quantité de mémoire actuellement utilisée par JavaScript. C’est une
+          façon de voir si une page consomme beaucoup de ressources en cours
+          d’usage.
+        </p>
+
+        <p>
+          <strong>Heap JS (limite)</strong><br />
+          Quantité maximale de mémoire autorisée pour JavaScript. Ça dépend du
+          navigateur, du système d’exploitation et de la machine.
+        </p>
+
+        <p>
+          <em>
+            ⚠️ Les valeurs ci‑dessus sont celles que votre navigateur expose au
+            site : certaines sont des estimations (réseau, perf), d’autres sont
+            “bucketisées” pour limiter le pistage (mémoire). Rien n’est envoyé à
+            un serveur : tout est calculé localement.
+          </em>
         </p>
       </article>
     </main>
