@@ -219,14 +219,58 @@ const txt = (id, v) => {
 
   txt("referrer", document.referrer || "—");
 
+  // IP + FAI (avec fallback)
   $("btn-ip")?.addEventListener("click", async () => {
     txt("ip", "…");
+    txt("isp", "…");
+
+    // helper pour afficher le combo ISP/ASN proprement
+    const showIsp = (ip, isp, org, asn) => {
+      if (ip) txt("ip", ip);
+      const parts = [];
+      if (isp) parts.push(isp);
+      if (org && org !== isp) parts.push(org);
+      if (asn) parts.push("AS" + String(asn).replace(/^AS/i, ""));
+      txt("isp", parts.length ? parts.join(" — ") : "—");
+    };
+
     try {
-      const r = await fetch("https://api.ipify.org?format=json");
-      const j = await r.json();
-      txt("ip", j.ip || "—");
-    } catch {
-      txt("ip", "échec");
+      // 1) ipwho.is (HTTPS, CORS ok, pas de clé)
+      const r1 = await fetch("https://ipwho.is/?fields=ip,success,connection");
+      const j1 = await r1.json();
+      if (j1 && j1.success !== false) {
+        const c = j1.connection || {};
+        showIsp(j1.ip, c.isp, c.org, c.asn);
+        return;
+      }
+      throw new Error("ipwho.is failed");
+    } catch (e1) {
+      try {
+        // 2) ipapi.co (fallback, sans clé)
+        const r2 = await fetch("https://ipapi.co/json/");
+        const j2 = await r2.json();
+        // ipapi.co renvoie souvent org = "AS12345 Exemple ISP"
+        let isp = j2.org || "";
+        let asn = "";
+        const m = isp.match(/\bAS(\d+)\b/i);
+        if (m) {
+          asn = m[1];
+          isp = isp.replace(/\bAS\d+\b\s*/i, "").trim();
+        }
+        showIsp(j2.ip, isp, "", asn);
+        return;
+      } catch (e2) {
+        try {
+          // 3) ipify pour au moins afficher l’IP
+          const r3 = await fetch("https://api.ipify.org?format=json");
+          const j3 = await r3.json();
+          txt("ip", j3.ip || "—");
+          txt("isp", "indisponible");
+        } catch {
+          txt("ip", "échec");
+          txt("isp", "échec");
+        }
+      }
     }
   });
 
