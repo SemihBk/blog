@@ -107,6 +107,7 @@ window.RESOURCES = [
       ["phrack", "https://phrack.org/"],
       ["ciechanow.ski", "https://ciechanow.ski/"],
       ["kaci-amaouche", "https://kaci-amaouche.onrender.com/"],
+      ["mustafa-suleyman", "https://mustafa-suleyman.ai/"],
     ],
   },
   {
