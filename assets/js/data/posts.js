@@ -1,5 +1,15 @@
 window.BLOG_POSTS = [
   {
+    title: "Ce que vos visites laissent aux sites web",
+    date: "2025-08-25",
+    url: "blog/ce-que-vos-visites-laissent-aux-sites-web/25082025.html",
+    type: "article",
+    tags: ["dev", "cookie", "tracking"],
+    excerpt:
+      "Les sites web peuvent récupérer plus d'informations qu'on ne le pense.",
+    thumb: "blog/thumbs/ce-que-vos-visites-laissent-aux-sites-web.png",
+  },
+  {
     title: "Renommer des fichiers avec Filebot",
     date: "2025-08-24",
     url: "blog/renommer-des-fichiers-avec-filebot/24082025.html",
