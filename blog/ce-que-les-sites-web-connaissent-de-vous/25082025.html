@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ce que les sites web connaissent de vous - singularity</title>
+    <meta
+      name="description"
+      content="Article du blog singularity : Ce que les sites web connaissent de vous" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet" />
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <script src="../../assets/js/script.js" defer></script>
+    <script src="../../assets/js/web.js" defer></script>
+
+    <style>
+      .badge {
+        font-size: 12px;
+        padding: 2px 8px;
+        border-radius: 999px;
+      }
+      .badge.ok {
+        background: rgba(98, 211, 148, 0.18);
+        color: #1b6b3b;
+      }
+      .badge.warn {
+        background: rgba(242, 193, 78, 0.18);
+        color: #7a5a00;
+      }
+      .badge.bad {
+        background: rgba(255, 107, 107, 0.18);
+        color: #7a1e1e;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bg-decor" aria-hidden="true"></div>
+    <div class="progress" id="progress"></div>
+
+    <header>
+      <div class="container nav">
+        <div class="brand">
+          <div class="logo" aria-hidden="true">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="m4 17 6-6-6-6" />
+              <path d="M12 19h8" />
+            </svg>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px">
+            <a
+              href="../../blog.html"
+              style="text-decoration: none; color: inherit"
+              >Blog</a
+            >
+            <span
+              class="btn"
+              style="padding: 4px 8px; border-radius: 8px; font-size: 12px"
+              >Article</span
+            >
+          </div>
+        </div>
+        <button class="btn-theme" id="themeBtn" title="Changer le thème">
+          <span class="icon-sun" aria-hidden="true">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round">
+              <circle cx="12" cy="12" r="4" />
+              <path
+                d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+            </svg>
+          </span>
+          <span class="icon-moon" aria-hidden="true" style="display: none">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+            </svg>
+          </span>
+          <span id="themeLabel">Clair</span>
+        </button>
+      </div>
+    </header>
+
+    <main class="container">
+      <aside class="infobar">
+        <h3>Blog</h3>
+        <p>Publié le : 24 août 2025</p>
+        <p class="muted">Temps de lecture : <span id="reading">—</span></p>
+        <div class="toc">
+          <h4>Sommaire</h4>
+          <nav id="toc"></nav>
+        </div>
+      </aside>
+
+      <article id="article">
+        <h2 class="main-title">Ce que les sites web connaissent de vous</h2>
+
+        <h3>Identité du navigateur</h3>
+        <table>
+          <tbody>
+            <tr>
+              <td>Navigateur (legacy UA)</td>
+              <td id="ua">—</td>
+            </tr>
+            <tr>
+              <td>UA‑Client Hints</td>
+              <td id="uach">—</td>
+            </tr>
+            <tr>
+              <td>Plateforme</td>
+              <td id="platform">—</td>
+            </tr>
+            <tr>
+              <td>Langues</td>
+              <td id="langs">—</td>
+            </tr>
+            <tr>
+              <td>Fuseau horaire</td>
+              <td id="tz">—</td>
+            </tr>
+            <tr>
+              <td>Heure locale</td>
+              <td id="localtime">—</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Affichage</h3>
+        <table>
+          <tbody>
+            <tr>
+              <td>Écran (CSS)</td>
+              <td id="screenCss">—</td>
+            </tr>
+            <tr>
+              <td>Écran (physique)</td>
+              <td id="screenPhys">—</td>
+            </tr>
+            <tr>
+              <td>Viewport (CSS)</td>
+              <td id="viewport">—</td>
+            </tr>
+            <tr>
+              <td>DPR</td>
+              <td id="dpr">—</td>
+            </tr>
+            <tr>
+              <td>Couleurs</td>
+              <td id="colors">—</td>
+            </tr>
+            <tr>
+              <td>Préférences</td>
+              <td id="prefers">—</td>
+            </tr>
+            <tr>
+              <td>Rafraîchissement (estimé)</td>
+              <td id="hz">—</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Système</h3>
+        <table>
+          <tbody>
+            <tr>
+              <td>Cœurs logiques</td>
+              <td id="cores">—</td>
+            </tr>
+            <tr>
+              <td>Mémoire (approx)</td>
+              <td id="ram">—</td>
+            </tr>
+            <tr>
+              <td>Heap JS (limite)</td>
+              <td id="heap">—</td>
+            </tr>
+            <tr>
+              <td>Cookies</td>
+              <td id="cookies">—</td>
+            </tr>
+            <tr>
+              <td>Do Not Track</td>
+              <td id="dnt">—</td>
+            </tr>
+            <tr>
+              <td>Onglet actif</td>
+              <td id="visibility">—</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Réseau</h3>
+        <table>
+          <tbody>
+            <tr>
+              <td>État</td>
+              <td id="online">—</td>
+            </tr>
+            <tr>
+              <td>Qualité estimée</td>
+              <td id="net">—</td>
+            </tr>
+            <tr>
+              <td>Référent</td>
+              <td id="referrer">—</td>
+            </tr>
+            <tr>
+              <td>
+                <button class="btn" id="btn-ip" style="padding: 6px 10px">
+                  Afficher mon IP publique
+                </button>
+              </td>
+              <td id="ip">—</td>
+            </tr>
+            <tr>
+              <td>
+                <button class="btn" id="btn-geo" style="padding: 6px 10px">
+                  Partager ma position
+                </button>
+              </td>
+              <td id="geo">—</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Permissions & presse‑papiers</h3>
+        <table>
+          <tbody>
+            <tr>
+              <td>Géolocalisation</td>
+              <td id="perm-geolocation">—</td>
+            </tr>
+            <tr>
+              <td>Notifications</td>
+              <td id="perm-notifications">—</td>
+            </tr>
+            <tr>
+              <td>Caméra</td>
+              <td id="perm-camera">—</td>
+            </tr>
+            <tr>
+              <td>Micro</td>
+              <td id="perm-microphone">—</td>
+            </tr>
+            <tr>
+              <td>Presse‑papiers (lecture)</td>
+              <td id="perm-clipboard-read">—</td>
+            </tr>
+            <tr>
+              <td>Presse‑papiers (écriture)</td>
+              <td id="perm-clipboard-write">—</td>
+            </tr>
+            <tr>
+              <td>
+                <button
+                  class="btn"
+                  id="btn-clipboard-read"
+                  style="padding: 6px 10px">
+                  Lire le presse‑papiers
+                </button>
+              </td>
+              <td id="clipboardContent">—</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Rendu & matériel graphique</h3>
+        <table>
+          <tbody>
+            <tr>
+              <td>WebGL</td>
+              <td id="webgl">—</td>
+            </tr>
+            <tr>
+              <td>GPU</td>
+              <td id="gpuName">—</td>
+            </tr>
+            <tr>
+              <td>Vendor</td>
+              <td id="gpuVendor">—</td>
+            </tr>
+            <tr>
+              <td>Version WebGL</td>
+              <td id="glVersion">—</td>
+            </tr>
+            <tr>
+              <td>GLSL</td>
+              <td id="glsl">—</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Stockage</h3>
+        <table>
+          <tbody>
+            <tr>
+              <td>Quota total</td>
+              <td id="stor-quota">—</td>
+            </tr>
+            <tr>
+              <td>Utilisé</td>
+              <td id="stor-used">—</td>
+            </tr>
+            <tr>
+              <td>Disponible (approx)</td>
+              <td id="stor-free">—</td>
+            </tr>
+            <tr>
+              <td>Persistance</td>
+              <td id="stor-persisted">—</td>
+            </tr>
+            <tr>
+              <td>
+                <button class="btn" id="btn-persist" style="padding: 6px 10px">
+                  Demander stockage persistant
+                </button>
+              </td>
+              <td>—</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Empreinte Canvas</h3>
+        <table>
+          <tbody>
+            <tr>
+              <td>Canvas fingerprint</td>
+              <td id="fp-hash">—</td>
+            </tr>
+            <tr>
+              <td>Aperçu</td>
+              <td id="fp-preview">—</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Fenêtre & intégration</h3>
+        <table>
+          <tbody>
+            <tr>
+              <td>Plein écran</td>
+              <td id="fullscreen">—</td>
+            </tr>
+            <tr>
+              <td>Dans un iFrame</td>
+              <td id="in-iframe">—</td>
+            </tr>
+            <tr>
+              <td>Fenêtre externe</td>
+              <td id="outer">—</td>
+            </tr>
+            <tr>
+              <td>Orientation</td>
+              <td id="orientation">—</td>
+            </tr>
+            <tr>
+              <td>Display‑mode</td>
+              <td id="display-mode">—</td>
+            </tr>
+            <tr>
+              <td>Autres onglets ouverts</td>
+              <td id="tab-count">—</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Performance (navigateur)</h3>
+        <table>
+          <tbody>
+            <tr>
+              <td>DOM prêt</td>
+              <td id="dom-ready">—</td>
+            </tr>
+            <tr>
+              <td>Chargement total</td>
+              <td id="page-load">—</td>
+            </tr>
+            <tr>
+              <td>LCP (approx)</td>
+              <td id="lcp">—</td>
+            </tr>
+            <tr>
+              <td>Heap JS utilisé</td>
+              <td id="heapUsed">—</td>
+            </tr>
+            <tr>
+              <td>Heap JS (limite)</td>
+              <td id="heapLimit">—</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p class="quote">
+          ⚠️ Les valeurs ci‑dessus sont celles que votre navigateur
+          <em>expose</em> au site : certaines sont des estimations (réseau,
+          perf), d’autres sont “bucketisées” pour limiter le pistage (mémoire).
+          Rien n’est envoyé à un serveur : tout est calculé localement.
+        </p>
+      </article>
+    </main>
+
+    <div class="container article-nav">
+      <a class="btn" href="../../blog.html">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round">
+          <path d="m15 18-6-6 6-6" />
+        </svg>
+        Retour au blog
+      </a>
+    </div>
+
+    <footer>
+      <div class="container foot">
+        <div>© <span id="year"></span> · singularity</div>
+      </div>
+    </footer>
+  </body>
+</html>
