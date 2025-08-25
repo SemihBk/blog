@@ -108,6 +108,7 @@ window.RESOURCES = [
       ["ciechanow.ski", "https://ciechanow.ski/"],
       ["kaci-amaouche", "https://kaci-amaouche.onrender.com/"],
       ["mustafa-suleyman", "https://mustafa-suleyman.ai/"],
+      ["Le Blog du Hacker", "https://www.leblogduhacker.fr/"],
     ],
   },
   {
