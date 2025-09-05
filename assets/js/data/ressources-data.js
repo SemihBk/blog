@@ -246,6 +246,8 @@ window.RESOURCES = [
       ["Wireshark", "https://www.wireshark.org/"],
       ["CyberChef", "https://gchq.github.io/CyberChef/"],
       ["bettercap", "https://www.bettercap.org/"],
+      ["XSS.isCTI", "https://github.com/VECERTUSA/XSS.isCTI"],
+
       [
         "Packet Cisco Tracer",
         "https://www.netacad.com/courses/getting-started-cisco-packet-tracer?courseLang=en-US",
