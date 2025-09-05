@@ -378,6 +378,10 @@ window.RESOURCES = [
     scope: "tutorials",
     items: [
       [
+        "PowerShell for Hackers: How to Crash and Burn Windows with Powershell",
+        "https://hackers-arise.com/powershell-for-hackers-how-to-crash-and-burn-windows-with-powershell/",
+      ],
+      [
         "FCFZ: Fully Compatible Flipper Zero",
         "https://www.youtube.com/watch?v=Hxau-bh8gr4",
       ],
