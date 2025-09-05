@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Conseils - singularity</title>
+    <meta
+      name="description"
+      content="Conseils pratiques de sécurité du quotidien : réseaux, appareils, mots de passe, MFA, QR codes, etc." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/pages/conseils.css" />
+    <link rel="stylesheet" href="assets/css/components/nav.css" />
+    <script src="assets/js/data/conseils-data.js" defer></script>
+    <script src="assets/js/pages/conseils.js" defer></script>
+    <script src="assets/js/components/nav.js" defer></script>
+    <style>
+      /* Styles *scopés* pour éviter tout conflit avec ton thème */
+      #rentree-checklist {
+        margin: 16px 0 28px;
+      }
+      #rentree-checklist .panel {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius, 16px);
+        box-shadow: var(--shadow);
+        overflow: clip;
+      }
+      #rentree-checklist .panel-h {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 14px 16px;
+        border-bottom: 1px solid var(--border);
+      }
+      #rentree-checklist .panel-b {
+        padding: 16px;
+      }
+      #rentree-checklist .subtitle {
+        color: var(--muted);
+      }
+
+      #rentree-checklist .layout {
+        display: grid;
+        gap: 14px;
+      }
+      @media (min-width: 940px) {
+        #rentree-checklist .layout {
+          grid-template-columns: 1.25fr 0.85fr;
+          align-items: start;
+        }
+      }
+
+      #rentree-checklist details {
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        background: var(--bg-soft, transparent);
+      }
+      #rentree-checklist summary {
+        list-style: none;
+        cursor: pointer;
+        padding: 12px 14px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      #rentree-checklist details[open] summary {
+        border-bottom: 1px solid var(--border);
+      }
+      #rentree-checklist .qs {
+        padding: 10px 14px;
+      }
+
+      #rentree-checklist .item {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 10px 6px;
+        border-bottom: 1px dashed var(--border);
+      }
+      #rentree-checklist .item:last-child {
+        border-bottom: 0;
+      }
+      #rentree-checklist .pts {
+        font-variant-numeric: tabular-nums;
+        color: var(--muted);
+        font-size: 0.92rem;
+        margin-left: auto;
+      }
+
+      #rentree-checklist .row {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+      }
+      #rentree-checklist .btn.primary {
+        background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+        color: #fff;
+        border-color: transparent;
+        font-weight: 800;
+      }
+
+      /* Score card */
+      #rentree-checklist .scorecard .big {
+        font-size: clamp(28px, 5vw, 44px);
+        margin: 0;
+      }
+      #rentree-checklist .scorecard .muted {
+        color: var(--muted);
+      }
+      #rentree-checklist .bar {
+        height: 12px;
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        overflow: hidden;
+      }
+      #rentree-checklist .bar > span {
+        display: block;
+        height: 100%;
+        width: 0%;
+        transition: width 0.5s ease;
+        background: linear-gradient(90deg, #ef4444, #f59e0b, #22c55e);
+      }
+      #rentree-checklist ul {
+        margin: 8px 0 0 18px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bg-decor" aria-hidden="true"></div>
+
+    <header>
+      <div class="container nav">
+        <div class="brand">
+          <div class="logo" aria-hidden="true">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="m4 17 6-6-6-6" />
+              <path d="M12 19h8" />
+            </svg>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px">
+            <a href="./index.html" style="text-decoration: none; color: inherit"
+              >singularity</a
+            >
+            <span class="pill">Conseils</span>
+          </div>
+        </div>
+
+        <div class="right-actions">
+          <!-- Liens desktop -->
+          <nav class="nav-links">
+            <a href="/blog/blog.html">Blog</a>
+            <a href="/blog/type-d-attaques.html">Types d'attaques</a>
+            <a href="/blog/conseils.html">Conseils</a>
+            <a href="/blog/lexique.html">Lexique</a>
+            <a href="/blog/ressources.html">Ressources</a>
+          </nav>
+
+          <!-- Bouton hamburger -->
+          <button
+            class="btn-icon menu-btn"
+            id="menuBtn"
+            aria-label="Menu"
+            aria-expanded="false"
+            aria-controls="mobileMenu">
+            <svg
+              viewBox="0 0 24 24"
+              width="18"
+              height="18"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M3 6h18M3 12h18M3 18h18" />
+            </svg>
+          </button>
+
+          <!-- Thème -->
+          <button class="btn-theme" id="themeBtn" title="Changer le thème">
+            <span class="icon-sun" aria-hidden="true">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round">
+                <circle cx="12" cy="12" r="4" />
+                <path
+                  d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+              </svg>
+            </span>
+            <span class="icon-moon" aria-hidden="true" style="display: none">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+              </svg>
+            </span>
+            <span id="themeLabel">Clair</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Menu mobile (mêmes liens) -->
+    <div id="menuBackdrop" class="menu-backdrop" hidden></div>
+    <nav id="mobileMenu" class="mobile-menu" hidden>
+      <a href="/blog/index.html">Accueil</a>
+      <a href="/blog/blog.html">Blog</a>
+      <a href="/blog/type-d-attaques.html">Types d'attaques</a>
+      <a href="/blog/conseils.html">Conseils</a>
+      <a href="/blog/lexique.html">Lexique</a>
+      <a href="/blog/ressources.html">Ressources</a>
+    </nav>
+
+    <main class="container">
+      <div class="page-head">
+        <h1 class="page-title">Conseils</h1>
+      </div>
+
+      <section
+        id="rentree-checklist"
+        aria-label="Checklist cybersécurité de rentrée">
+        <div class="container">
+          <header class="panel" style="margin-top: 12px">
+            <div class="panel-h">
+              <div>
+                <h2 style="margin: 0">📋 Checklist cybersécurité de rentrée</h2>
+                <div class="subtitle">
+                  Cochez ce que vous faites réellement. Objectif : le score
+                  parfait.
+                </div>
+              </div>
+              <button class="btn" id="expandAll">Tout ouvrir</button>
+            </div>
+            <div class="panel-b layout">
+              <!-- Colonne gauche : checklist -->
+              <div>
+                <form id="rcForm" class="grid" novalidate>
+                  <!-- Sections rendues par JS -->
+                </form>
+                <div class="row" style="margin-top: 12px">
+                  <button type="button" class="btn" id="resetBtn">
+                    Réinitialiser
+                  </button>
+                  <button type="button" class="btn primary" id="scoreBtn">
+                    Calculer mon score
+                  </button>
+                </div>
+              </div>
+
+              <!-- Colonne droite : score -->
+              <aside>
+                <div class="panel scorecard">
+                  <div class="panel-b">
+                    <p class="muted" style="margin: 0 0 6px">
+                      Score de rentrée
+                    </p>
+                    <h3 class="big" id="scoreBig">0 / 100</h3>
+                    <div class="bar" style="margin: 6px 0 10px">
+                      <span id="scoreBar"></span>
+                    </div>
+                    <p id="scoreTier" class="muted" style="margin: 0 0 6px">
+                      Complétez la checklist pour voir votre niveau.
+                    </p>
+                    <div>
+                      <button class="btn" id="exportBtn">
+                        Exporter (HTML)
+                      </button>
+                      <button class="btn" id="shareBtn">
+                        Copier un résumé
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  class="panel"
+                  id="recoPanel"
+                  style="display: none; margin-top: 12px">
+                  <div class="panel-b">
+                    <strong>🎯 Priorités de la semaine</strong>
+                    <ul id="recoList"></ul>
+                  </div>
+                </div>
+              </aside>
+            </div>
+          </header>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container foot">
+        <div>© <span id="year"></span> · singularity</div>
+      </div>
+    </footer>
+
+    <script>
+      (() => {
+        // Utils
+        const $ = (s, r = document) => r.querySelector(s);
+        const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+
+        // DOM
+        const form = document.getElementById("rcForm");
+        const scoreBig = document.getElementById("scoreBig");
+        const scoreBar = document.getElementById("scoreBar");
+        const tier = document.getElementById("scoreTier");
+        const shareBtn = document.getElementById("shareBtn");
+        const exportBtn = document.getElementById("exportBtn");
+        const scoreBtn = document.getElementById("scoreBtn");
+        const resetBtn = document.getElementById("resetBtn");
+        const recoPanel = document.getElementById("recoPanel");
+        const recoList = document.getElementById("recoList");
+        const expandAll = document.getElementById("expandAll");
+
+        // Modèle : sections/items avec points
+        const MODEL = [
+          {
+            key: "pwd",
+            title: "🔐 Mots de passe & accès",
+            items: [
+              {
+                id: "pwd_mgr",
+                text: "J’utilise un gestionnaire de mots de passe",
+                pts: 5,
+              },
+              {
+                id: "pwd_len",
+                text: "Mes mots de passe font au moins 14 caractères",
+                pts: 3,
+              },
+              {
+                id: "pwd_unique",
+                text: "Aucune réutilisation de mot de passe",
+                pts: 4,
+              },
+              {
+                id: "pwd_2fa",
+                text: "2FA activée sur les comptes pro clés",
+                pts: 8,
+              },
+            ],
+          },
+          {
+            key: "device",
+            title: "💻 Postes & mises à jour",
+            items: [
+              {
+                id: "upd_auto",
+                text: "OS et applis à jour (MAJ auto)",
+                pts: 5,
+              },
+              { id: "lock_auto", text: "Verrouillage auto < 5 min", pts: 3 },
+              { id: "disk_enc", text: "Chiffrement du disque activé", pts: 5 },
+              { id: "no_usb", text: "Jamais de clé USB inconnue", pts: 3 },
+              { id: "edr_ok", text: "Antivirus/EDR actif et à jour", pts: 4 },
+            ],
+          },
+          {
+            key: "phish",
+            title: "🎣 Phishing & e-mails",
+            items: [
+              {
+                id: "phish_check",
+                text: "Je vérifie expéditeur & liens avant clic",
+                pts: 5,
+              },
+              {
+                id: "phish_report",
+                text: "Je signale les e-mails suspects",
+                pts: 5,
+              },
+              {
+                id: "phish_verify",
+                text: "Je confirme par un autre canal les demandes inhabituelles",
+                pts: 5,
+              },
+            ],
+          },
+          {
+            key: "net",
+            title: "📶 Réseaux & mobilité",
+            items: [
+              {
+                id: "wifi_vpn",
+                text: "Sur Wi-Fi public, j’utilise un VPN",
+                pts: 5,
+              },
+              {
+                id: "mobile_lock",
+                text: "Smartphone protégé par code/biométrie",
+                pts: 5,
+              },
+              {
+                id: "home_wifi",
+                text: "Wi-Fi domestique WPA2/WPA3 + mot de passe fort",
+                pts: 5,
+              },
+            ],
+          },
+          {
+            key: "data",
+            title: "🗂️ Données & partage",
+            items: [
+              {
+                id: "least_priv",
+                text: "J’applique le moindre privilège",
+                pts: 5,
+              },
+              {
+                id: "share_exp",
+                text: "J’ajoute des dates d’expiration aux liens",
+                pts: 5,
+              },
+              {
+                id: "no_shadow",
+                text: "Je n’utilise pas de comptes/stockage personnels pour le pro",
+                pts: 5,
+              },
+            ],
+          },
+          {
+            key: "backup",
+            title: "💾 Sauvegardes & continuité",
+            items: [
+              {
+                id: "rule321",
+                text: "Sauvegarde 3-2-1 en place pour mes données critiques",
+                pts: 7,
+              },
+              {
+                id: "ir_contact",
+                text: "Je sais qui contacter en cas d’incident",
+                pts: 4,
+              },
+              {
+                id: "training",
+                text: "Je participe à des formations/exercices cyber",
+                pts: 4,
+              },
+            ],
+          },
+        ];
+
+        // Rendu HTML
+        function render() {
+          form.innerHTML = "";
+          MODEL.forEach((section) => {
+            const det = document.createElement("details");
+            det.innerHTML = `<summary>${section.title}</summary><div class="qs"></div>`;
+            const box = $(".qs", det);
+
+            section.items.forEach((it) => {
+              const row = document.createElement("label");
+              row.className = "item";
+              row.innerHTML = `
+          <input type="checkbox" name="${it.id}">
+          <span>${it.text}</span>
+          <span class="pts">+${it.pts} pts</span>`;
+              box.appendChild(row);
+            });
+
+            form.appendChild(det);
+          });
+        }
+
+        function compute() {
+          let total = 0;
+          const max = MODEL.flatMap((s) => s.items).reduce(
+            (a, b) => a + b.pts,
+            0
+          );
+          MODEL.forEach((section) => {
+            section.items.forEach((it) => {
+              if (form.elements[it.id]?.checked) total += it.pts;
+            });
+          });
+          return { total, max };
+        }
+
+        function buildRecommendations() {
+          // 5 cases non cochées avec le plus de points à gagner
+          const unchecked = MODEL.flatMap((s) =>
+            s.items.map((it) => ({
+              section: s.title.replace(/<[^>]+>/g, ""),
+              ...it,
+            }))
+          )
+            .filter((it) => !form.elements[it.id].checked)
+            .sort((a, b) => b.pts - a.pts)
+            .slice(0, 5);
+
+          if (!unchecked.length) {
+            recoPanel.style.display = "none";
+            return;
+          }
+          recoPanel.style.display = "block";
+          recoList.innerHTML = unchecked
+            .map(
+              (it) =>
+                `<li><strong>${it.section}</strong> — ${it.text} <span class="pts">(+${it.pts} pts)</span></li>`
+            )
+            .join("");
+        }
+
+        function updateScore() {
+          const { total, max } = compute();
+          const pct = Math.round((total / max) * 100);
+
+          scoreBig.textContent = `${total} / ${max}`;
+          scoreBar.style.width = `${pct}%`;
+
+          if (pct >= 80) tier.textContent = "🦸 Cyber-prêt pour la rentrée";
+          else if (pct >= 50)
+            tier.textContent = "🛡 Bien, encore quelques axes à travailler";
+          else
+            tier.textContent =
+              "⚠️ Rentrée fragile : priorisez les points ci-dessous";
+
+          buildRecommendations();
+        }
+
+        function exportHtml() {
+          const { total, max } = compute();
+          const rows = MODEL.map((s) => {
+            return s.items
+              .map(
+                (it) => `
+        <tr>
+          <td>${s.title.replace(/<[^>]+>/g, "")}</td>
+          <td>${it.text}</td>
+          <td>${form.elements[it.id].checked ? "Oui" : "Non"}</td>
+          <td>${it.pts}</td>
+        </tr>`
+              )
+              .join("");
+          }).join("");
+
+          const html = `<!doctype html><meta charset="utf-8">
+      <title>Checklist cybersécurité – Résultats</title>
+      <style>
+        body{font-family:Inter,Arial,system-ui;margin:24px}
+        h1{margin:0 0 10px}
+        table{border-collapse:collapse;width:100%}
+        th,td{padding:8px 10px;border:1px solid #ddd;text-align:left}
+      </style>
+      <h1>Checklist cybersécurité – Résultats</h1>
+      <p>Score: ${total} / ${max} (${Math.round((total / max) * 100)}%)</p>
+      <table>
+        <thead><tr><th>Section</th><th>Item</th><th>OK</th><th>Points</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>`;
+
+          const blob = new Blob([html], { type: "text/html" });
+          const a = document.createElement("a");
+          a.href = URL.createObjectURL(blob);
+          a.download = "checklist-cyber-rentree.html";
+          a.click();
+        }
+
+        function shareSummary() {
+          const { total, max } = compute();
+          const pct = Math.round((total / max) * 100);
+          const topTodos = MODEL.flatMap((s) => s.items)
+            .filter((it) => !form.elements[it.id].checked)
+            .sort((a, b) => b.pts - a.pts)
+            .slice(0, 3)
+            .map((it) => it.text)
+            .join("; ");
+
+          const txt = `Mon score checklist de rentrée: ${total}/${max} (${pct}%). Priorités: ${
+            topTodos || "aucune, tout est coché 🎉"
+          }.`;
+          if (navigator.clipboard) {
+            navigator.clipboard
+              .writeText(txt)
+              .then(() => alert("Résumé copié dans le presse-papiers."));
+          } else {
+            prompt("Copiez le texte:", txt);
+          }
+        }
+
+        // Ouvrir/Fermer toutes les sections
+        let expanded = false;
+        function toggleAll(force) {
+          expanded = typeof force === "boolean" ? force : !expanded;
+          $$("#rentree-checklist details").forEach((d) => (d.open = expanded));
+          expandAll.textContent = expanded ? "Tout fermer" : "Tout ouvrir";
+        }
+
+        // Events
+        scoreBtn.addEventListener("click", updateScore);
+        resetBtn.addEventListener("click", () => {
+          form.reset();
+          updateScore();
+        });
+        exportBtn.addEventListener("click", exportHtml);
+        shareBtn.addEventListener("click", shareSummary);
+        expandAll.addEventListener("click", () => toggleAll());
+
+        // Live update au check
+        form.addEventListener("change", updateScore);
+
+        // Init
+        render();
+        updateScore();
+        toggleAll(false);
+      })();
+    </script>
+  </body>
+</html>

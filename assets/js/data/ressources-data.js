@@ -235,6 +235,7 @@ window.RESOURCES = [
         "https://github.com/Lissy93/personal-security-checklist",
       ],
       ["Reverse Engineering - GPT", "https://github.com/mytechnotalent/RE-GPT"],
+      ["Hackers Arise", "https://hackers-arise.com/"],
       ["David Bombal", "https://www.youtube.com/@davidbombal"],
       ["NetworkChuck", "https://www.youtube.com/@NetworkChuck"],
       ["ici Amy Plant", "https://www.youtube.com/@iciamyplant"],
