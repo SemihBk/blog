@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Un regard sur le monde - singularity</title>
+    <meta
+      name="description"
+      content="Article du blog singularity : Un regard sur le monde" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet" />
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <script src="../../assets/js/script.js" defer></script>
+  </head>
+  <body>
+    <div class="bg-decor" aria-hidden="true"></div>
+    <div class="progress" id="progress"></div>
+
+    <header>
+      <div class="container nav">
+        <div class="brand">
+          <div class="logo" aria-hidden="true">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="m4 17 6-6-6-6" />
+              <path d="M12 19h8" />
+            </svg>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px">
+            <a
+              href="../../blog.html"
+              style="text-decoration: none; color: inherit"
+              >Blog</a
+            >
+            <span
+              class="btn"
+              style="padding: 4px 8px; border-radius: 8px; font-size: 12px"
+              >Article</span
+            >
+          </div>
+        </div>
+        <button class="btn-theme" id="themeBtn" title="Changer le thème">
+          <span class="icon-sun" aria-hidden="true">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round">
+              <circle cx="12" cy="12" r="4" />
+              <path
+                d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+            </svg>
+          </span>
+          <span class="icon-moon" aria-hidden="true" style="display: none">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+            </svg>
+          </span>
+          <span id="themeLabel">Clair</span>
+        </button>
+      </div>
+    </header>
+
+    <main class="container">
+      <aside class="infobar">
+        <h3>Blog</h3>
+        <p>Publié le : 14 août 2025</p>
+        <p class="muted">Temps de lecture : <span id="reading">—</span></p>
+        <div class="toc">
+          <h4>Sommaire</h4>
+          <nav id="toc"></nav>
+        </div>
+      </aside>
+
+      <article id="article">
+        <h2 class="main-title">IA, Spleen & Idéal</h2>
+        <figure>
+          <img src="img/spleen.png" alt="Thumbnail" />
+          <figcaption>
+            Photo inspirée du
+            <a
+              href="https://expositions.bnf.fr/baudelaire/les-fleurs-du-mal/"
+              target="_blank"
+              >Projet de frontispice pour Les Fleurs du Mal</a
+            >, Félix Bracquemond (1833-1914), graveur, 1860 © Bibliothèque
+            nationale de France
+          </figcaption>
+        </figure>
+        <h3 class="secondary-title">Un regard sur le monde</h3>
+
+        <p>
+          Nous vivons actuellement une révolution que nous ne maîtrisons pas.
+        </p>
+        <p>
+          Il y a quelques mois, j’avais écrit une première partie de mes
+          réflexions sur l’IA, que je comparais alors aux <em>Fleurs du Mal</em>
+          modernes. Une référence à la dualité du recueil de Baudelaire, la
+          beauté et l’ombre, la fascination et le malaise.
+        </p>
+
+        <p>
+          J’y exprimais une frustration profonde, l’utilisation intensive de
+          l’intelligence artificielle, en particulier dans le milieu scolaire.
+          Trop vite, elle est devenue un cerveau de substitution, un raccourci
+          dans l’éducation. Et cela m’inquiète, l’apprentissage se transforme
+          peu à peu en apprentissage par assistance, au détriment du
+          développement de la pensée critique.
+        </p>
+
+        <p>
+          Je ne suis pas un expert, seulement un passionné qui observe et vit
+          ces bouleversements technologiques. J’essaie de rester attentif à ce
+          que j’utilise, parce que je veux garder le contrôle, conserver le
+          recul nécessaire pour éviter de sombrer dans un abrutissement
+          confortable.
+        </p>
+
+        <p>
+          Je fais aussi attention à ma vie privée, à ce que je livre à Internet.
+          Parce qu’Internet est un trou noir : il se nourrit de nos données, et
+          sa croissance semble illimitée. Mon propre rythme d’évolution n’est
+          sans doute pas aussi rapide que celui du monde technologique, mais je
+          prends le temps d’observer ce qu’il engloutit.
+        </p>
+
+        <p>
+          LinkedIn est devenu un autre trou noir. Il s’alimente d’informations
+          sur l’IA en continu. Peut-être suis-je bombardé d’articles et de posts
+          sur le sujet parce que je m’y intéresse, mais le flux est devenu
+          étouffant. C’est lassant, au point de saturer complètement mes
+          lectures.
+        </p>
+
+        <p>
+          Elle est désormais au cœur de nos vies. <br />
+          Agents, assistants, voire confidents… je lis de tout. Et plus je lis,
+          plus je constate une chose :
+          <strong>nous ne sommes pas prêts.</strong>
+        </p>
+
+        <h3 class="secondary-title">Les dangers collectifs que je perçois</h3>
+
+        <p>
+          Ce qui me paraît logique ne l’est pas forcément pour un autre. <br />
+          Pendant que je fais attention à la formulation de mes prompts, que
+          j’anonymise mes informations pour éviter des dérives incontrôlées,
+          d’autres parlent à leur assistant comme à un ami. Et ça me questionne.
+        </p>
+
+        <!-- <p>
+          Loin de moi l’idée de paraître hautain. Je le dis avec humilité, je ne
+          suis probablement pas le meilleur exemple en matière de protection des
+          données personnelles. Je n’ai pas toutes les connaissances nécessaires
+          pour l’être, et je crois d’ailleurs qu’il est impossible d’être à 100%
+          sûr de ses actions. L’humain aura toujours des failles…
+        </p> -->
+
+        <p>
+          Loin de moi l’idée de paraître prétentieux, j'étudie dans ce domaine,
+          mais je sais qu’en matière de protection des données, personne ne peut
+          prétendre à une maîtrise absolue. Même avec de l’expertise, il reste
+          toujours une part d’incertitude, parce que l’humain aura toujours des
+          failles.
+        </p>
+
+        <p>
+          Le problème, c’est qu’on n’anticipe pas assez le changement. <br />
+          Parfois ce n’est pas grave, on tombe, on se relève, on apprend. Mais
+          j’ai peur que la complexité du monde dans lequel nous évoluons ne
+          laisse pas toujours cette marge d’erreur. Une chute pourrait avoir
+          bien plus de conséquences.
+        </p>
+
+        <p>
+          Aujourd’hui, il s’agit d’extraire de la connaissance d’un système qui
+          grandit sans cesse. <br />
+          Nous ne sommes plus face à de simples algorithmes déterministes ou
+          statistiques (<em
+            >loin des profils numériques invisibles que les réseaux sociaux
+            dressaient de nous en secret..</em
+          >). Nous sommes passés à la vitesse supérieure avec des modèles
+          prédictifs capables de déduire ce que nous “pensons”, ce que nous
+          “ressentons”, et de s’adapter en fonction de notre comportement.
+        </p>
+
+        <p>
+          Il n’y a pas si longtemps, on s’amusait à demander à Siri de nous
+          faire une blague (qui ne comprenait d'ailleurs qu’une fois sur deux ce
+          qu’on lui disait).
+        </p>
+        <p>
+          Aujourd’hui, nous discutons avec des IA en leur parlant comme à des
+          êtres dotés d’intelligence émotionnelle (<em
+            >« Peux-tu faire ceci stp ? Qu’en penses-tu ? Que me
+            conseillerais-tu ? »</em
+          >)
+        </p>
+
+        <p>C’est fou, non ?</p>
+
+        <p>
+          Et je n'étais pas au bout de mes surprises <br />
+          Quand nos réflexes comportementaux nous trahissent face à l'IA dans
+          notre travail ou dans un moment de doute personnel. D’autres
+          s’enferment dans une relation virtuelle qui peut vite tourner au
+          cauchemar.
+        </p>
+
+        <p>
+          Oui, Internet reste un terrain exceptionnel pour ceux qui savent
+          l’utiliser comme un outil sain, un complément à une vie sociale déjà
+          riche. Mais il y avait déjà, avant, des personnes en grande détresse
+          sociale ou affective, qui trouvaient dans le numérique un refuge
+          confortable.. Mais qui les empêchait d’exister "IRL".
+        </p>
+
+        <p>
+          Aujourd’hui, l’IA va plus loin. Elle remplace peu à peu les relations
+          humaines. <br />
+          On se plaint souvent que l’IA soit trop friendly, qu’elle aille
+          toujours dans notre sens. Mais ne serait-ce pas justement la boîte de
+          Pandore pour celles et ceux qui peinent à s’adapter socialement, que
+          ce soit dans le “réel” ou dans le “virtuel” ?
+        </p>
+
+        <p></p>
+
+        <p>
+          Des personnes développent des relations très intimes avec des agents
+          conversationnels. La réalité s'inspire désormais de la fiction, le
+          film
+          <a href="https://fr.wikipedia.org/wiki/Her_(film)" target="_blank"
+            >Her</a
+          >
+          s'intègre de plus en plus dans nos codes sociaux.
+        </p>
+
+        <p>
+          Et ce phénomène n'est pas isolé... <br />
+          Récemment, j'ai découvert qu'il existait des comptes entiers dédiés
+          aux <em>astuces IA</em>.
+        </p>
+
+        <p>
+          Je n’ai pas de réseaux sociaux personnels, je ne suis pas les
+          tendances. Mais j’ai quelques comptes totalement anonymes, uniquement
+          pour consulter des threads ou accéder à certaines infos. Et c’est là
+          que je suis tombé sur un profil qui enchaînait les contenus astuces
+          IA”… pour absolument TOUT dans la vie.
+        </p>
+
+        <p>
+          Réfléchir, lire, répondre aux messages, modifier ses photos, publier
+          sur ses réseaux, et même discuter avec des agents conversationnels
+          pour (je cite) « te remonter le moral ». On pousse le vice jusqu’au
+          bout.
+        </p>
+
+        <p>
+          Et dans les commentaires, on retrouve de tout, des adultes, mais aussi
+          des enfants et des adolescents. C’est là que je vois un réel danger
+          sociétal et générationnel.
+        </p>
+
+        <p>
+          Parce qu’on ne parle plus seulement d’un usage ponctuel ou réfléchi,
+          mais d’une surconsommation organisée. On incite des foules entières à
+          déléguer chaque geste, chaque réflexion, chaque interaction à des
+          outils automatisés.
+        </p>
+
+        <p>
+          Et sans oublier les données personnelles que tout cela pompe au
+          passage. Car utiliser une dizaine d’IA différentes, c’est multiplier
+          autant de fois le don de nos informations à des plateformes variées,
+          dont on ignore presque tout. C’est une fuite continue, massive, mais
+          banalisée.
+        </p>
+
+        <p>
+          (je note tout de même l'audace de certains de ces créateurs qui,
+          <em>dans leur grande bonté</em>, nous préviennent des IA dont il faut
+          se méfier parce qu'elles prennent "des données")
+        </p>
+
+        <h3 class="secondary-title">Ce qu'il faudra garder en tête</h3>
+
+        <p>
+          Je parle de l'IA de façon brouillonne. <br />
+          Mon objectif n’était pas de travailler le sujet en profondeur, mais
+          simplement de poser mes pensées brutes. Une vision générale autour de
+          ces deux mots devenus si populaires :
+          <strong>Intelligence Artificielle</strong>.
+        </p>
+
+        <p>
+          Pardonnez mon imprécision dans certains termes, j’essaie seulement de
+          dresser un portrait du paysage actuel, de partager mes questionnements
+          et mes ressentis à travers les yeux d’un passionné.
+        </p>
+
+        <p>
+          Mais une chose est sûre :
+          <strong>l’éthique ne doit pas être oubliée.</strong> <br />
+          Nous pourrions très vite basculer dans un monde dystopique, où la
+          frontière entre l’être sensible et l’insensible s’efface.
+        </p>
+
+        <p>
+          Il faudra absolument mettre en place des régulations pour éviter
+          d’entraîner nos sociétés dans un brouillard sans repères.
+        </p>
+
+        <p>Rester structuré est indispensable.</p>
+      </article>
+    </main>
+
+    <div class="container article-nav">
+      <a class="btn" href="../../blog.html">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round">
+          <path d="m15 18-6-6 6-6" />
+        </svg>
+        Retour au blog
+      </a>
+    </div>
+
+    <footer>
+      <div class="container foot">
+        <div>© <span id="year"></span> · singularity</div>
+      </div>
+    </footer>
+  </body>
+</html>

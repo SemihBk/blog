@@ -1,5 +1,15 @@
 window.BLOG_POSTS = [
   {
+    title: "IA, Spleen & Idéal",
+    date: "2025-08-25",
+    url: "blog/ia-spleen-et-ideal/08092025.html",
+    type: "article",
+    tags: ["société", "ia"],
+    excerpt:
+      "Les sites web peuvent récupérer plus d'informations qu'on ne le pense.",
+    thumb: "blog/thumbs/ia-spleen-et-ideal.png",
+  },
+  {
     title: "Ce que vos visites laissent aux sites web",
     date: "2025-08-25",
     url: "blog/ce-que-vos-visites-laissent-aux-sites-web/25082025.html",
