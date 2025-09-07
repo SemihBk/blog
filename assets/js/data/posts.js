@@ -1,7 +1,7 @@
 window.BLOG_POSTS = [
   {
     title: "IA, Spleen & Idéal",
-    date: "2025-08-25",
+    date: "2025-09-08",
     url: "blog/ia-spleen-et-ideal/08092025.html",
     type: "article",
     tags: ["société", "ia"],
