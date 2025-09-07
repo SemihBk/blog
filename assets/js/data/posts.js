@@ -5,8 +5,7 @@ window.BLOG_POSTS = [
     url: "blog/ia-spleen-et-ideal/08092025.html",
     type: "article",
     tags: ["société", "ia"],
-    excerpt:
-      "Les sites web peuvent récupérer plus d'informations qu'on ne le pense.",
+    excerpt: "Pensées brutes sur l'usage des IA et la place de l'humain.",
     thumb: "blog/thumbs/ia-spleen-et-ideal.png",
   },
   {
