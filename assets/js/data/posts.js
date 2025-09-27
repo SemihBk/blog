@@ -1,5 +1,14 @@
 window.BLOG_POSTS = [
   {
+    title: "APT",
+    date: "2025-09-27",
+    url: "blog/APT/27092025.html",
+    type: "article",
+    tags: ["APT", "Titan Rain", "cyberguerre", "USA", "Chine"],
+    excerpt: "Qu'est-ce qu'une APT ? Exemple concret.",
+    thumb: "blog/thumbs/apt.jpg",
+  },
+  {
     title: "IA, Spleen & Idéal",
     date: "2025-09-08",
     url: "blog/ia-spleen-et-ideal/08092025.html",

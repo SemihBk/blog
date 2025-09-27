@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>APT - singularity</title>
+    <meta name="description" content="Article du blog singularity : APT" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet" />
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <script src="../../assets/js/script.js" defer></script>
+  </head>
+  <body>
+    <div class="bg-decor" aria-hidden="true"></div>
+    <div class="progress" id="progress"></div>
+
+    <header>
+      <div class="container nav">
+        <div class="brand">
+          <div class="logo" aria-hidden="true">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="m4 17 6-6-6-6" />
+              <path d="M12 19h8" />
+            </svg>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px">
+            <a
+              href="../../blog.html"
+              style="text-decoration: none; color: inherit"
+              >Blog</a
+            >
+            <span
+              class="btn"
+              style="padding: 4px 8px; border-radius: 8px; font-size: 12px"
+              >Article</span
+            >
+          </div>
+        </div>
+        <button class="btn-theme" id="themeBtn" title="Changer le thème">
+          <span class="icon-sun" aria-hidden="true">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round">
+              <circle cx="12" cy="12" r="4" />
+              <path
+                d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+            </svg>
+          </span>
+          <span class="icon-moon" aria-hidden="true" style="display: none">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+            </svg>
+          </span>
+          <span id="themeLabel">Clair</span>
+        </button>
+      </div>
+    </header>
+
+    <main class="container">
+      <aside class="infobar">
+        <h3>Blog</h3>
+        <p>Publié le : 27 septembre 2025</p>
+        <p class="muted">Temps de lecture : <span id="reading">—</span></p>
+        <div class="toc">
+          <h4>Sommaire</h4>
+          <nav id="toc"></nav>
+        </div>
+      </aside>
+
+      <article id="article">
+        <h2 class="main-title">APT</h2>
+
+        <figure>
+          <img src="img/apt.jpg" alt="Thumbnail" />
+          <figcaption>
+            Image tirée de ce site :
+            <a
+              href="https://www.bankinfosecurity.com/apt-group-wages-5-year-cyber-espionage-campaign-report-a-14252"
+              >APT Group Wages 5-Year Cyber-Espionage Campaign: Report</a
+            >
+          </figcaption>
+        </figure>
+
+        <h3 class="secondary-title">Introduction</h3>
+        <p>
+          Je remarque que mes cours me prennent un temps monstrueux sur mon
+          blog. La rentrée remonte à deux semaines, et je n’ai toujours pas
+          publié de nouvel article… alors que les idées ne manquent pas.
+        </p>
+
+        <p>
+          Mais là, en bossant sur un exercice autour des APT, je me suis dit que
+          j’allais joindre l’utile à l’agréable. Il est 7h du matin, un samedi,
+          café en main, parfait pour faire un petit pont entre ce que j’apprends
+          en cours et ce que je partage ici.
+        </p>
+
+        <p>
+          On entend souvent parler d’APT dans le cadre de cyberattaques. Et vu
+          la manière dont c’est présenté, j’ai longtemps pensé que c’était juste
+          des noms de groupes. En réalité, c’est un peu plus technique que ça.
+          Alors dans cet article, je vais décortiquer un peu ce que ça veut
+          dire, comparer avec une cyberattaque “classique”, et présenter un
+          exemple concret d’APT (c'est une partie du devoir que je dois rendre
+          🤓).
+        </p>
+
+        <h3 class="secondary-title">C'est quoi une APT ?</h3>
+
+        <p>
+          APT, ça veut dire <strong>Advanced Persistent Threat</strong> (<em
+            >menace persistante avancée en français</em
+          >). On utilise ce terme pour désigner un type d’attaque qui est
+          <strong>ciblée, discrète et qui s’inscrit dans la durée</strong>. Le
+          but, ce n’est pas de faire du bruit ou de tout casser, mais plutôt de
+          s’introduire dans un système, d’y rester, et de récolter des infos
+          stratégiques.
+        </p>
+
+        <p>
+          Si on doit donner quelques caractéristiques d’une APT, les sources
+          s'accordent pour :
+        </p>
+        <ul>
+          <li>
+            <strong>Un ciblage précis</strong> : on vise une organisation ou un
+            secteur spécifique, pas des gens au hasard.
+          </li>
+          <li>
+            <strong>Une persistance</strong> : l’attaquant reste longtemps dans
+            le système, en essayant de ne pas se faire repérer.
+          </li>
+          <li>
+            <strong>Des moyens techniques</strong> : outils sur mesure,
+            techniques d’évasion, utilisation d’outils légitimes pour passer
+            inaperçu.
+          </li>
+          <li>
+            <strong>Un objectif stratégique</strong> : souvent l’espionnage, le
+            vol de données sensibles, parfois même du sabotage.
+          </li>
+        </ul>
+
+        <p>
+          Attention, une APT, ce n’est pas juste un "virus compliqué". C’est
+          surtout <strong>une campagne organisée</strong>, menée par un acteur
+          bien structuré (groupe, agence, parfois soutenu par un État), avec des
+          moyens humains, techniques et financiers.
+        </p>
+
+        <h4 class="subtitle">Le cycle de vie d’une APT</h4>
+
+        <p>
+          Certaines équipes ont étudié le déroulement type d’une attaque APT, et
+          en 2013, Dell SecureWorks a proposé un cycle de vie en cinq grandes
+          étapes. Je trouve ça utile pour visualiser comment ce genre de
+          campagne s’installe, agit et persiste dans un système cible :
+        </p>
+
+        <ul>
+          <li>
+            <strong>Reconnaissance</strong> : collecte d’infos sur la cible, ses
+            failles, ses utilisateurs, son organisation. Ça peut passer par des
+            recherches OSINT, du social engineering, du phishing, ou même un
+            accès physique ou interne.
+          </li>
+          <li>
+            <strong>Infiltration</strong> : phase d’intrusion initiale dans le
+            système (via credentials volés, vulnérabilités réseau, etc.).
+            L’attaquant cherche à entrer sans se faire repérer.
+          </li>
+          <li>
+            <strong>Implantation</strong> : installation de malwares, escalade
+            de privilèges, déplacement latéral dans le réseau. Le groupe cherche
+            à consolider sa présence discrète.
+          </li>
+          <li>
+            <strong>Extraction</strong> : collecte et exfiltration des données
+            sensibles, souvent de manière chiffrée ou cachée pour éviter la
+            détection.
+          </li>
+          <li>
+            <strong>Maintien</strong> : nettoyage des traces, mise en place de
+            mécanismes pour revenir plus tard, et parfois maintien silencieux
+            dans l’infrastructure pour d’éventuelles futures actions.
+          </li>
+        </ul>
+
+        <h4 class="subtitle">Les noms</h4>
+
+        <p>
+          Comment on nomme ce type de campagne&nbsp;? Il n’y a pas une seule
+          entité internationale qui s’en occupe. C’est souvent les grands
+          éditeurs de cybersécurité ou des équipes de recherche spécialisées qui
+          attribuent des noms en fonction de leurs propres conventions.
+        </p>
+
+        <p>Par exemple&nbsp;:</p>
+        <ul>
+          <li>
+            <strong>Mandiant</strong> est à l’origine du format
+            <code>APTxx</code> (ex. APT28, APT29…)
+          </li>
+          <li>
+            <strong>CrowdStrike</strong> utilise des noms d’animaux (ex. Fancy
+            Bear, Cozy Bear…)
+          </li>
+          <li>
+            <strong>Microsoft</strong> préfère les éléments chimiques ou
+            naturels (ex. Strontium, Nobelium…)
+          </li>
+          <li>
+            <strong>Kaspersky</strong> utilise parfois des noms uniques (ex.
+            Lazarus, Equation Group…)
+          </li>
+        </ul>
+
+        <p>
+          Il n’existe donc pas de base de données officielle et centralisée à
+          l’échelle internationale. Chaque acteur peut avoir ses propres noms et
+          classifications, ce qui explique pourquoi un même groupe peut avoir
+          plusieurs alias selon les sources.
+        </p>
+
+        <p>
+          Heureusement, la base de données
+          <a
+            href="https://attack.mitre.org/groups/"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><strong>MITRE ATT&amp;CK</strong></a
+          >
+          regroupe une grande partie des groupes APT connus. Elle fait le lien
+          entre les différents noms, détaille les techniques utilisées, et reste
+          aujourd’hui l’une des références les plus fiables du domaine.
+        </p>
+
+        <p>
+          <em
+            ><strong>À savoir :</strong> les noms comme <code>APT28</code> sont
+            propres à Mandiant. Les autres acteurs évitent d’utiliser ce format
+            pour ne pas créer de confusion. Et même si ce n’est pas parfaitement
+            coordonné à l’échelle mondiale, les gros éditeurs se surveillent
+            entre eux, ce qui limite les doublons.</em
+          >
+        </p>
+
+        <h3 class="secondary-title">
+          Différences entre une APT et une cyberattaque classique ?
+        </h3>
+
+        <p>
+          On parle souvent d’APT comme si c’était “juste une cyberattaque un peu
+          plus technique”, mais en réalité, la différence est bien plus
+          profonde. C’est pas forcément une question de complexité, mais plutôt
+          de stratégie, de durée, et d’intention. Voilà quelques éléments pour
+          mieux comprendre ce qui distingue une APT d’une attaque plus
+          classique.
+        </p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Critère</th>
+              <th>APT</th>
+              <th>Cyberattaque classique</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Objectif</strong></td>
+              <td>
+                Stratégique : espionnage, vol de données sensibles, sabotage,
+                influence
+              </td>
+              <td>
+                Souvent financier ou opportuniste : ransomware, phishing, vol de
+                comptes
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Durée</strong></td>
+              <td>Long terme (mois, années)</td>
+              <td>Court terme (intrusion rapide, action directe)</td>
+            </tr>
+            <tr>
+              <td><strong>Persistance</strong></td>
+              <td>
+                Maintien de l’accès, discrétion, retour possible après détection
+              </td>
+              <td>Souvent éphémère ou jetable</td>
+            </tr>
+            <tr>
+              <td><strong>Ressources</strong></td>
+              <td>
+                Groupes organisés, avec des moyens humains, techniques et
+                financiers
+              </td>
+              <td>Acteurs isolés ou groupes moins structurés</td>
+            </tr>
+            <tr>
+              <td><strong>Techniques</strong></td>
+              <td>
+                Chaînes d’attaque complètes, techniques de contournement,
+                “living off the land”
+              </td>
+              <td>Outils plus bruyants ou automatisés</td>
+            </tr>
+            <tr>
+              <td><strong>Ciblage</strong></td>
+              <td>
+                Très ciblé (gouvernements, entreprises clés, secteurs sensibles)
+              </td>
+              <td>Massif ou semi-aléatoire (campagnes larges)</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p>
+          La différence principale, c’est que l’APT joue sur le long terme, avec
+          une vraie logique d’infiltration, de persistance et d’impact
+          stratégique. Là où une attaque classique va droit au but, souvent pour
+          un gain rapide, l’APT prend son temps, s’adapte, et reste cachée.
+        </p>
+
+        <h3 class="secondary-title">Exemple : Titan Rain</h3>
+
+        <h4 class="subtitle">Qui ?</h4>
+        <p>
+          Les attaques ont été attribuées par les États-Unis à la Chine, plus
+          précisément à l’<strong>Armée Populaire de Libération</strong>
+          (probablement l’unité 61398, également liée à d’autres opérations
+          majeures par la suite).
+        </p>
+
+        <p>
+          Côté cibles, c’est large,on parle d’un véritable pillage numérique
+          contre des institutions stratégiques :
+        </p>
+        <ul>
+          <li>
+            <strong>États-Unis</strong> :
+            <ul>
+              <li>Département d’État</li>
+              <li>Département de la Défense</li>
+              <li>Département de la Sécurité intérieure</li>
+              <li>Département de l’Énergie</li>
+              <li>NASA</li>
+            </ul>
+          </li>
+          <li>
+            <strong>Royaume-Uni</strong> :
+            <ul>
+              <li>Ministère de la Défense</li>
+              <li>Ministère des Affaires étrangères</li>
+              <li>Chambre des communes</li>
+            </ul>
+          </li>
+          <li>
+            <strong
+              >On parle aussi de la Russie dans certaines sources..</strong
+            >
+          </li>
+        </ul>
+
+        <h4 class="subtitle">Quand ?</h4>
+        <p>
+          Les attaques ont eu lieu entre
+          <strong>2003 et 2006</strong> (certaines sources évoquent même 2007).
+          L’opération a été rendue publique en août 2005. C’est l’une des
+          premières campagnes de ce type à avoir été exposée aussi clairement.
+        </p>
+
+        <h4 class="subtitle">Pourquoi ?</h4>
+        <p>
+          Objectif principal : <strong>cyberespionnage</strong>. <br />
+          Des données sensibles liées à des programmes militaires, aérospatiaux
+          et gouvernementaux auraient été exfiltrées. Titan Rain a marqué un
+          tournant dans la perception de la Chine comme acteur cyber.
+        </p>
+
+        <h4 class="subtitle">
+          Comment ? <em>L’histoire de Shawn Carpenter</em>
+        </h4>
+        <p>
+          L’opération est considérée comme l’une des
+          <strong>campagnes de cyberespionnage les plus étendues</strong> jamais
+          subies par les États-Unis à l’époque.
+        </p>
+
+        <p>
+          Tout commence en 2003,
+          <a
+            href="https://en.wikipedia.org/wiki/Shawn_Carpenter"
+            target="_blank"
+            >Shawn Carpenter</a
+          >, analyste au <em>Sandia National Laboratories</em>, est envoyé
+          enquêter sur des anomalies chez Lockheed Martin (qui est un
+          sous-traitant de la Défense qui se plaignait de problèmes
+          informatiques). Des ordinateurs s’éteignent sans raison. Rapidement,
+          il découvre des <strong>rootkits</strong> qui permettent un accès
+          distant et exfiltrent des données vers la Chine.
+        </p>
+
+        <p>
+          Ses supérieurs refusent d’aller plus loin. Mais Shawn décide de
+          <strong>continuer l’enquête seul</strong>. Il installe un
+          <strong>honeypot</strong> et suit la trace des attaquants pendant près
+          de 10 mois, de la Corée du Sud jusqu’à la Chine.
+        </p>
+
+        <p>
+          Il met la main sur des fichiers volés provenant de Lockheed Martin, de
+          l’armée américaine et de la NASA. Il devient alors informateur pour le
+          FBI, tout en gardant ses activités secrètes vis-à-vis de son
+          employeur.
+        </p>
+
+        <p>
+          Pendant qu’il partageait ses découvertes avec le FBI, une enquête
+          était discrètement menée contre lui. Quelques mois plus tard, le FBI
+          coupe tout contact et le dénonce à son employeur, qui l’accuse de
+          faute professionnelle et le licencie.
+        </p>
+
+        <p>
+          Shawn Carpenter décide de porter plainte pour licenciement abusif et
+          diffamation. En 2007, il remporte son procès et obtient
+          <a
+            href="https://www.computerworld.com/article/1643241/reverse-hacker-wins-4-3m-in-suit-against-sandia-labs.html"
+            target="_blank"
+            >4 millions de dollars</a
+          >
+          de dommages et intérêts. Le jury le reconnaît comme un lanceur
+          d’alerte ayant agi dans l’intérêt national.
+        </p>
+
+        <p>
+          Titan Rain a clairement changé la donne. Jusqu’ici, la Chine n’était
+          pas perçue comme un acteur cyber de premier plan. Après ça, plus
+          personne n’en doutait vraiment.
+        </p>
+
+        <h3 class="secondary-title">Sources</h3>
+        <h4 class="subtitle">Article entier</h4>
+        <ul class="sources">
+          <li>
+            <a
+              href="https://www.oracle.com/fr/security/apt-menace-persistante-avancee/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >https://www.oracle.com/fr/security/apt-menace-persistante-avancee/</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://www.fortinet.com/fr/resources/cyberglossary/advanced-persistent-threat"
+              target="_blank"
+              rel="noopener noreferrer"
+              >https://www.fortinet.com/fr/resources/cyberglossary/advanced-persistent-threat</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://www.sailpoint.com/fr/identity-library/advanced-persistent-threat"
+              target="_blank"
+              rel="noopener noreferrer"
+              >https://www.sailpoint.com/fr/identity-library/advanced-persistent-threat</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://www.threatdown.com/fr/glossaire/what-is-apt/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >https://www.threatdown.com/fr/glossaire/what-is-apt/</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://www.smalsresearch.be/download/research_reports/research_note/APT-research-note-final-version.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              >https://www.smalsresearch.be/download/research_reports/research_note/APT-research-note-final-version.pdf</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://www.nexa.fr/post/definition-advanced-persistent-threat"
+              target="_blank"
+              rel="noopener noreferrer"
+              >https://www.nexa.fr/post/definition-advanced-persistent-threat</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://www.secureworks.com/research/chasing-apt"
+              target="_blank"
+              rel="noopener noreferrer"
+              >https://www.secureworks.com/research/chasing-apt</a
+            >
+          </li>
+        </ul>
+
+        <h4 class="subtitle">Titus Rain</h4>
+
+        <ul class="sources">
+          <li>
+            <a
+              href="https://www.cfr.org/cyber-operations/titan-rain"
+              target="_blank"
+              rel="noopener noreferrer"
+              >https://www.cfr.org/cyber-operations/titan-rain</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://en.wikipedia.org/wiki/Titan_Rain"
+              target="_blank"
+              rel="noopener noreferrer"
+              >https://en.wikipedia.org/wiki/Titan_Rain</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://www.theguardian.com/technology/2007/sep/04/news.internet"
+              target="_blank"
+              rel="noopener noreferrer"
+              >https://www.theguardian.com/technology/2007/sep/04/news.internet</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://www.washingtonpost.com/wp-dyn/content/article/2005/08/24/AR2005082402318.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              >https://www.washingtonpost.com/wp-dyn/content/article/2005/08/24/AR2005082402318.html</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://medium.com/@tahirbalarabe2/%EF%B8%8F-titan-rain-how-cybercriminals-hacked-the-united-states-cyberspace-8add64ca512f"
+              target="_blank"
+              rel="noopener noreferrer"
+              >https://medium.com/@tahirbalarabe2/%EF%B8%8F-titan-rain-how-cybercriminals-hacked-the-united-states-cyberspace-8add64ca512f</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://en.wikipedia.org/wiki/Shawn_Carpenter"
+              target="_blank"
+              rel="noopener noreferrer"
+              >https://en.wikipedia.org/wiki/Shawn_Carpenter</a
+            >
+          </li>
+          <li>
+            <a href="https://www.youtube.com/watch?v=dFPlDOry6-Q"
+              >https://www.youtube.com/watch?v=dFPlDOry6-Q</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://abcbyd.substack.com/p/titan-rain-the-chinese-nation-state"
+              target="_blank"
+              >https://abcbyd.substack.com/p/titan-rain-the-chinese-nation-state</a
+            >
+          </li>
+        </ul>
+      </article>
+    </main>
+
+    <div class="container article-nav">
+      <a class="btn" href="../../blog.html">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round">
+          <path d="m15 18-6-6 6-6" />
+        </svg>
+        Retour au blog
+      </a>
+    </div>
+
+    <footer>
+      <div class="container foot">
+        <div>© <span id="year"></span> · singularity</div>
+      </div>
+    </footer>
+  </body>
+</html>
