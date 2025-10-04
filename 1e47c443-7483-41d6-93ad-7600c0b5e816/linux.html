@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Terminal Linux</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: #000;
+        color: #fff;
+        font-family: "Courier New", monospace;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      .terminal {
+        height: 100vh;
+        padding: 20px;
+        box-sizing: border-box;
+        overflow-y: auto;
+      }
+
+      .terminal-line {
+        margin-bottom: 5px;
+      }
+
+      .prompt {
+        color: #00ff00;
+      }
+
+      .prompt.root {
+        color: #ff0000;
+      }
+
+      .input-line {
+        display: flex;
+        align-items: center;
+      }
+
+      .command-input {
+        background: transparent;
+        border: none;
+        color: #fff;
+        font-family: "Courier New", monospace;
+        font-size: 14px;
+        outline: none;
+        flex: 1;
+        margin-left: 5px;
+      }
+
+      .cursor {
+        background-color: #fff;
+        width: 8px;
+        height: 16px;
+        display: inline-block;
+        animation: blink 1s infinite;
+      }
+
+      @keyframes blink {
+        0%,
+        50% {
+          opacity: 1;
+        }
+        51%,
+        100% {
+          opacity: 0;
+        }
+      }
+
+      .output {
+        color: #fff;
+        white-space: pre-wrap;
+      }
+
+      .error {
+        color: #ff4444;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="terminal" id="terminal">
+      <div class="terminal-line">
+        <span class="output">Linux Terminal</span>
+      </div>
+      <div class="terminal-line">
+        <span class="output">Tapez vos commandes ci-dessous...</span>
+      </div>
+      <div class="terminal-line">
+        <span class="output"></span>
+      </div>
+      <div class="input-line">
+        <span class="prompt" id="promptText">user@linux:~$</span>
+        <input type="text" class="command-input" id="commandInput" autofocus />
+      </div>
+    </div>
+
+    <script>
+      const terminal = document.getElementById("terminal");
+      const commandInput = document.getElementById("commandInput");
+      const promptText = document.getElementById("promptText");
+      let isRoot = false;
+
+      function updatePrompt() {
+        if (isRoot) {
+          promptText.textContent = "root@linux:~#";
+          promptText.classList.add("root");
+        } else {
+          promptText.textContent = "user@linux:~$";
+          promptText.classList.remove("root");
+        }
+      }
+
+      function addOutput(text, className = "output") {
+        const line = document.createElement("div");
+        line.className = "terminal-line";
+        const span = document.createElement("span");
+        span.className = className;
+        span.textContent = text;
+        line.appendChild(span);
+
+        const inputLine = document.querySelector(".input-line");
+        terminal.insertBefore(line, inputLine);
+
+        terminal.scrollTop = terminal.scrollHeight;
+      }
+
+      function executeCommand(command) {
+        const currentPrompt = isRoot ? "root@linux:~#" : "user@linux:~$";
+        addOutput(
+          `${currentPrompt} ${command}`,
+          isRoot ? "prompt root" : "prompt"
+        );
+
+        const cmd = command.trim();
+        const inputLine = document.querySelector(".input-line");
+
+        if (cmd === "sudo su") {
+          inputLine.style.display = "none";
+
+          (async () => {
+            addOutput("Password: Root");
+            await new Promise((r) => setTimeout(r, 800));
+
+            isRoot = true;
+            updatePrompt();
+
+            addOutput("Switched to root user.");
+            await new Promise((r) => setTimeout(r, 300));
+
+            inputLine.style.display = "flex";
+            commandInput.focus();
+          })();
+
+          return;
+        }
+
+        if (cmd === "exit" && isRoot) {
+          inputLine.style.display = "none";
+
+          (async () => {
+            addOutput("Logging out from root...");
+            await new Promise((r) => setTimeout(r, 300));
+
+            isRoot = false;
+            updatePrompt();
+
+            inputLine.style.display = "flex";
+            commandInput.focus();
+          })();
+
+          return;
+        }
+
+        if (cmd === "nmap -sn 192.168.0.1/24") {
+          inputLine.style.display = "none";
+
+          (async () => {
+            addOutput(
+              "Starting Nmap 7.93 ( https://nmap.org ) at 2025-09-28 12:34 CEST"
+            );
+            await new Promise((r) => setTimeout(r, 400));
+
+            addOutput("Nmap scan report for 192.168.0.1");
+            await new Promise((r) => setTimeout(r, 300));
+            addOutput("Host is up (0.00062s latency).");
+            await new Promise((r) => setTimeout(r, 600));
+
+            addOutput("Nmap scan report for 192.168.0.10");
+            await new Promise((r) => setTimeout(r, 700));
+            addOutput("Host is up (0.00102s latency).");
+            await new Promise((r) => setTimeout(r, 600));
+
+            addOutput("Nmap scan report for 192.168.0.42");
+            await new Promise((r) => setTimeout(r, 700));
+            addOutput("Host is up (0.00311s latency).");
+            await new Promise((r) => setTimeout(r, 500));
+
+            addOutput("Nmap scan report for 192.168.0.97");
+            await new Promise((r) => setTimeout(r, 400));
+            addOutput("Host is up (0.00215s latency).");
+            await new Promise((r) => setTimeout(r, 500));
+
+            addOutput("Nmap scan report for 192.168.0.117");
+            await new Promise((r) => setTimeout(r, 500));
+            addOutput("Host is up (0.00188s latency).");
+            await new Promise((r) => setTimeout(r, 500));
+
+            addOutput("Nmap scan report for 192.168.0.197");
+            await new Promise((r) => setTimeout(r, 450));
+            addOutput("Host is up (0.00267s latency).");
+            await new Promise((r) => setTimeout(r, 500));
+
+            addOutput("Nmap scan report for 192.168.0.242");
+            await new Promise((r) => setTimeout(r, 480));
+            addOutput("Host is up (0.00133s latency).");
+            await new Promise((r) => setTimeout(r, 500));
+
+            addOutput("");
+            addOutput(
+              "Nmap done: 256 IP addresses (7 hosts up) scanned in 3.12 seconds"
+            );
+
+            inputLine.style.display = "flex";
+            commandInput.focus();
+          })();
+
+          return;
+        }
+
+        if (cmd === "nmap -sS 192.168.0.117") {
+          inputLine.style.display = "none";
+
+          (async () => {
+            addOutput(
+              "Starting Nmap 7.93 ( https://nmap.org ) at 2025-09-29 09:12 CEST"
+            );
+            await new Promise((r) => setTimeout(r, 400));
+
+            addOutput("Nmap scan report for 192.168.0.117");
+            await new Promise((r) => setTimeout(r, 300));
+            addOutput("Host is up (0.00042s latency).");
+            await new Promise((r) => setTimeout(r, 500));
+
+            addOutput("Not shown: 996 closed ports");
+            await new Promise((r) => setTimeout(r, 300));
+
+            addOutput("PORT     STATE    SERVICE");
+            await new Promise((r) => setTimeout(r, 250));
+
+            addOutput("22/tcp   filtered   ssh");
+            await new Promise((r) => setTimeout(r, 350));
+
+            addOutput("80/tcp   filtered   http");
+            await new Promise((r) => setTimeout(r, 350));
+
+            addOutput("117/tcp  open       love-gateway");
+            await new Promise((r) => setTimeout(r, 500));
+
+            addOutput("443/tcp  filtered   https");
+            await new Promise((r) => setTimeout(r, 300));
+
+            addOutput("");
+            addOutput(
+              "Nmap done: 1 IP address (1 host up) scanned in 1.45 seconds"
+            );
+
+            inputLine.style.display = "flex";
+            commandInput.focus();
+          })();
+
+          return;
+        }
+
+        if (cmd.startsWith("nmap -sS 192.168.0.")) {
+          const targetIp = cmd.replace("nmap -sS ", "").trim();
+
+          if (targetIp !== "192.168.0.117") {
+            inputLine.style.display = "none";
+
+            (async () => {
+              addOutput(
+                `Starting Nmap 7.93 ( https://nmap.org ) at 2025-09-29 09:13 CEST`
+              );
+              await new Promise((r) => setTimeout(r, 400));
+
+              addOutput(`Nmap scan report for ${targetIp}`);
+              await new Promise((r) => setTimeout(r, 300));
+              addOutput("Host is up (0.00112s latency).");
+              await new Promise((r) => setTimeout(r, 400));
+
+              addOutput("Not shown: 999 closed ports");
+              await new Promise((r) => setTimeout(r, 300));
+
+              addOutput("PORT     STATE    SERVICE");
+              await new Promise((r) => setTimeout(r, 250));
+
+              addOutput("22/tcp   filtered   ssh");
+              await new Promise((r) => setTimeout(r, 200));
+
+              addOutput("80/tcp   filtered   http");
+              await new Promise((r) => setTimeout(r, 200));
+
+              const randomPort =
+                Math.floor(Math.random() * (65000 - 1024)) + 1024;
+              addOutput(`${randomPort}/tcp closed   TRY_ANOTHER_ONE_BABY`);
+              await new Promise((r) => setTimeout(r, 300));
+
+              addOutput("");
+              addOutput(
+                "Nmap done: 1 IP address (1 host up) scanned in 0.79 seconds"
+              );
+
+              inputLine.style.display = "flex";
+              commandInput.focus();
+            })();
+
+            return;
+          }
+        }
+
+        if (cmd === "xdg-open http://192.168.0.117:117") {
+          inputLine.style.display = "none";
+
+          (async () => {
+            addOutput("Opening in existing browser session.");
+            await new Promise((r) => setTimeout(r, 300));
+
+            window.open(
+              "https://semihbk.github.io/blog/1e47c443-7483-41d6-93ad-7600c0b5e816/lovecloud.html",
+              "_blank"
+            );
+
+            inputLine.style.display = "flex";
+            commandInput.focus();
+          })();
+
+          return;
+        }
+
+        if (cmd === "smbmap -H 192.168.0.117") {
+          inputLine.style.display = "none";
+
+          (async () => {
+            addOutput(
+              "[+] IP: 192.168.0.117:445    Name: LOVEPC      Status: UP"
+            );
+            await new Promise((r) => setTimeout(r, 400));
+
+            addOutput("[+] Enumerating shares");
+            await new Promise((r) => setTimeout(r, 300));
+
+            addOutput("  \\\\192.168.0.117\\ADMIN$       No Access");
+            await new Promise((r) => setTimeout(r, 200));
+
+            addOutput("  \\\\192.168.0.117\\secrets      Read/Write");
+            await new Promise((r) => setTimeout(r, 200));
+
+            addOutput("  \\\\192.168.0.117\\users        No Access");
+            await new Promise((r) => setTimeout(r, 300));
+
+            inputLine.style.display = "flex";
+            commandInput.focus();
+          })();
+
+          return;
+        }
+
+        if (cmd === "smbmap -H 192.168.0.117 -r secrets") {
+          inputLine.style.display = "none";
+
+          (async () => {
+            addOutput("[+] Found file: password.txt  (48 bytes)");
+            await new Promise((r) => setTimeout(r, 400));
+
+            inputLine.style.display = "flex";
+            commandInput.focus();
+          })();
+
+          return;
+        }
+
+        if (cmd === "smbget smb://192.168.0.117/secrets/password.txt -N") {
+          inputLine.style.display = "none";
+
+          (async () => {
+            addOutput("Using workgroup WORKGROUP, user guest");
+            await new Promise((r) => setTimeout(r, 300));
+
+            addOutput("smb://192.168.0.117/secrets/password.txt");
+            await new Promise((r) => setTimeout(r, 400));
+
+            addOutput("Downloaded 42 bytes");
+            await new Promise((r) => setTimeout(r, 500));
+
+            const link = document.createElement("a");
+            link.href =
+              "/1e47c443-7483-41d6-93ad-7600c0b5e816/files/password.txt";
+            link.download = "password.txt";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            inputLine.style.display = "flex";
+            commandInput.focus();
+          })();
+
+          return;
+        }
+
+        if (cmd === "nmap") {
+          inputLine.style.display = "none";
+
+          (async () => {
+            addOutput("Nmap 7.93 ( https://nmap.org )");
+            await new Promise((r) => setTimeout(r, 200));
+
+            addOutput(
+              "Usage: nmap [Scan Type(s)] [Options] {target specification}"
+            );
+            await new Promise((r) => setTimeout(r, 300));
+
+            addOutput("");
+            addOutput("SCAN TECHNIQUES:");
+            await new Promise((r) => setTimeout(r, 200));
+
+            addOutput(
+              "  -sS/sT/sA/sW/sM: TCP SYN/Connect()/ACK/Window/Maimon scans"
+            );
+            await new Promise((r) => setTimeout(r, 150));
+
+            addOutput("  -sU: UDP Scan");
+            await new Promise((r) => setTimeout(r, 150));
+
+            addOutput("  -sN/sF/sX: TCP Null, FIN, and Xmas scans");
+            await new Promise((r) => setTimeout(r, 150));
+
+            addOutput("  -sn: Ping Scan - disable port scan");
+            await new Promise((r) => setTimeout(r, 200));
+
+            addOutput("");
+            addOutput("EXAMPLES:");
+            await new Promise((r) => setTimeout(r, 200));
+
+            addOutput("  nmap -sn 192.168.0.1/24");
+            await new Promise((r) => setTimeout(r, 150));
+
+            addOutput("  nmap -sS 192.168.0.117");
+            await new Promise((r) => setTimeout(r, 150));
+
+            addOutput("");
+            addOutput(
+              "SEE THE MAN PAGE (https://nmap.org/book/man.html) FOR MORE OPTIONS AND EXAMPLES"
+            );
+            await new Promise((r) => setTimeout(r, 300));
+
+            inputLine.style.display = "flex";
+            commandInput.focus();
+          })();
+
+          return;
+        }
+
+        if (cmd === "117") {
+          inputLine.style.display = "none";
+
+          (async () => {
+            const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+            const intro = [
+              "💖 Initializing LOVE sequence...",
+              "❤️‍🔥 Connecting to heart-core...",
+              "💌 Sending affection packets...",
+              "💕 Channel established",
+              "",
+              "✨✨✨ LOVE STREAM ✨✨✨",
+            ];
+            for (const line of intro) {
+              addOutput(line);
+              await sleep(350);
+            }
+
+            const width = 28;
+            const height = 8;
+            const columns = [2, 6, 10, 14, 18, 22, 26];
+
+            for (let t = 0; t < 20; t++) {
+              let frame = "";
+              for (let r = 0; r < height; r++) {
+                let row = "";
+                for (let c = 0; c <= width; c++) {
+                  const isHeart = columns.some(
+                    (col, i) => c === col && r === (t + i) % height
+                  );
+                  row += isHeart ? "❤" : " ";
+                }
+                frame += row + "\n";
+              }
+              addOutput(frame);
+              await sleep(160);
+            }
+
+            const outro = [
+              "💘 117 💘 117 💘 117 💘 117 💘",
+              "💓 Love is in the air... 💓",
+              "💞 Every port is open when it's 117 💞",
+              "💗💗💗💗💗💗💗💗💗💗💗",
+              "End of LOVE transmission 🌸",
+            ];
+            for (const line of outro) {
+              addOutput(line);
+              await sleep(320);
+            }
+
+            inputLine.style.display = "flex";
+            commandInput.focus();
+          })();
+
+          return;
+        }
+
+        if (cmd !== "") {
+          inputLine.style.display = "none";
+          setTimeout(() => {
+            addOutput(`bash: ${command}: command not found`, "error");
+            inputLine.style.display = "flex";
+            commandInput.focus();
+          }, 50);
+        }
+      }
+
+      commandInput.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") {
+          const command = commandInput.value;
+          executeCommand(command);
+          commandInput.value = "";
+        }
+      });
+
+      terminal.addEventListener("click", function () {
+        commandInput.focus();
+      });
+
+      commandInput.focus();
+    </script>
+  </body>
+</html>

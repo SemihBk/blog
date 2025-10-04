@@ -1,0 +1,2316 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bureau Windows 10</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        user-select: none;
+      }
+
+      body {
+        font-family: "Segoe UI", sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        height: 100vh;
+        overflow: hidden;
+        position: relative;
+      }
+
+      /* Bureau */
+      .desktop {
+        width: 100%;
+        height: calc(100vh - 40px);
+        position: relative;
+        background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><defs><pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+      }
+
+      /* Icônes du bureau */
+      .desktop-icon {
+        position: absolute;
+        width: 70px;
+        height: 90px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        border-radius: 4px;
+        transition: background-color 0.2s;
+      }
+
+      .desktop-icon:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+
+      .desktop-icon.selected {
+        background-color: rgba(0, 120, 215, 0.3);
+        outline: 1px solid rgba(0, 120, 215, 0.8);
+      }
+
+      .desktop-icon img {
+        width: 48px;
+        height: 48px;
+        margin-bottom: 4px;
+      }
+
+      .desktop-icon span {
+        color: white;
+        font-size: 11px;
+        text-align: center;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+        line-height: 1.2;
+      }
+
+      /* Barre des tâches */
+      .taskbar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 40px;
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(20px);
+        display: flex;
+        align-items: center;
+        padding: 0 8px;
+        z-index: 1000;
+      }
+
+      .start-button {
+        width: 40px;
+        height: 32px;
+        background: rgba(255, 255, 255, 0.1);
+        border: none;
+        border-radius: 2px;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 8px;
+        transition: background-color 0.2s;
+      }
+
+      .start-button:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      .taskbar-apps {
+        display: flex;
+        gap: 2px;
+        flex: 1;
+      }
+
+      .taskbar-app {
+        width: 40px;
+        height: 32px;
+        background: rgba(255, 255, 255, 0.1);
+        border: none;
+        border-radius: 2px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s;
+        position: relative;
+      }
+
+      .taskbar-app:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      .taskbar-app.active {
+        background: rgba(255, 255, 255, 0.3);
+      }
+
+      .taskbar-app.active::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 20px;
+        height: 2px;
+        background: #0078d4;
+      }
+
+      .taskbar-app img {
+        width: 20px;
+        height: 20px;
+      }
+
+      .system-tray {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-left: auto;
+        color: white;
+        font-size: 12px;
+      }
+
+      .notification-icon {
+        width: 20px;
+        height: 20px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 2px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* Menu démarrer */
+      .start-menu {
+        position: fixed;
+        bottom: 40px;
+        left: 0;
+        width: 400px;
+        height: 600px;
+        background: rgba(30, 30, 30, 0.95);
+        backdrop-filter: blur(20px);
+        border-radius: 8px 8px 0 0;
+        display: none;
+        flex-direction: column;
+        z-index: 1001;
+        overflow: hidden;
+      }
+
+      .start-menu.show {
+        display: flex;
+      }
+
+      .start-menu-header {
+        padding: 20px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .user-info {
+        display: flex;
+        align-items: center;
+        color: white;
+      }
+
+      .user-avatar {
+        width: 40px;
+        height: 40px;
+        background: #0078d4;
+        border-radius: 50%;
+        margin-right: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+      }
+
+      .start-menu-content {
+        flex: 1;
+        display: flex;
+      }
+
+      .start-menu-left {
+        width: 50%;
+        padding: 20px;
+        border-right: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .start-menu-right {
+        width: 50%;
+        padding: 20px;
+      }
+
+      .menu-section {
+        margin-bottom: 20px;
+      }
+
+      .menu-section h3 {
+        color: white;
+        font-size: 14px;
+        margin-bottom: 10px;
+        opacity: 0.8;
+      }
+
+      .menu-item {
+        display: flex;
+        align-items: center;
+        padding: 8px 12px;
+        color: white;
+        cursor: pointer;
+        border-radius: 4px;
+        transition: background-color 0.2s;
+        margin-bottom: 2px;
+      }
+
+      .menu-item:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .menu-item img {
+        width: 20px;
+        height: 20px;
+        margin-right: 12px;
+      }
+
+      /* Fenêtres */
+      .window {
+        position: absolute;
+        background: white;
+        border-radius: 8px 8px 0 0;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        min-width: 300px;
+        min-height: 200px;
+        display: none;
+        overflow: hidden;
+        resize: both;
+      }
+
+      .window.active {
+        display: block;
+        z-index: 100;
+      }
+
+      .window-header {
+        height: 32px;
+        background: #f0f0f0;
+        display: flex;
+        align-items: center;
+        padding: 0 12px;
+        cursor: move;
+        border-bottom: 1px solid #ddd;
+      }
+
+      .window-title {
+        flex: 1;
+        font-size: 14px;
+        color: #333;
+      }
+
+      .window-controls {
+        display: flex;
+        gap: 1px;
+      }
+
+      .window-control {
+        width: 45px;
+        height: 32px;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 10px;
+        transition: background-color 0.2s;
+      }
+
+      .window-control:hover {
+        background: rgba(0, 0, 0, 0.1);
+      }
+
+      .window-control.close:hover {
+        background: #e81123;
+        color: white;
+      }
+
+      .window-content {
+        padding: 20px;
+        height: calc(100% - 32px);
+        overflow: auto;
+      }
+
+      /* Animations */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: scale(0.9);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      .window.active {
+        animation: fadeIn 0.2s ease-out;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="desktop" id="desktop">
+      <!-- Icônes du bureau -->
+      <div
+        class="desktop-icon"
+        style="top: 20px; left: 20px"
+        data-app="explorer">
+        <img
+          src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23FFA500'><path d='M10 4H4c-1.11 0-2 .89-2 2v12c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2h-8l-2-2z'/></svg>"
+          alt="" />
+        <span>Explorateur<br />de fichiers</span>
+      </div>
+
+      <div
+        class="desktop-icon"
+        style="top: 20px; left: 110px"
+        data-app="chrome">
+        <img
+          src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%234285F4'><circle cx='12' cy='12' r='10'/><circle cx='12' cy='12' r='4' fill='white'/><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z' fill='%23EA4335'/></svg>"
+          alt="" />
+        <span>Google<br />Chrome</span>
+      </div>
+
+      <div
+        class="desktop-icon"
+        style="top: 20px; left: 200px"
+        data-app="notepad">
+        <img
+          src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230078D4'><path d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z'/><path d='M14 2v6h6'/><path d='M16 13H8'/><path d='M16 17H8'/><path d='M10 9H8'/></svg>"
+          alt="" />
+        <span>Bloc-notes</span>
+      </div>
+
+      <div
+        class="desktop-icon"
+        style="top: 130px; left: 20px"
+        data-app="calculator">
+        <img
+          src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23333'><rect x='4' y='2' width='16' height='20' rx='2' fill='%23666'/><rect x='6' y='4' width='12' height='3' fill='%23000'/><rect x='6' y='9' width='2' height='2' fill='%23999'/><rect x='10' y='9' width='2' height='2' fill='%23999'/><rect x='14' y='9' width='2' height='2' fill='%23999'/></svg>"
+          alt="" />
+        <span>Calculatrice</span>
+      </div>
+
+      <div
+        class="desktop-icon"
+        style="top: 130px; left: 110px"
+        data-app="paint">
+        <img
+          src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23E74C3C'><path d='M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z'/></svg>"
+          alt="" />
+        <span>Paint</span>
+      </div>
+
+      <div
+        class="desktop-icon"
+        style="top: 130px; left: 200px"
+        data-app="powershell">
+        <img
+          src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23012456'><rect x='2' y='3' width='20' height='18' rx='2' fill='%23012456'/><path d='M7 8l4 3-4 3v-6z' fill='%23ffffff'/><rect x='12' y='13' width='6' height='1' fill='%23ffffff'/></svg>"
+          alt="" />
+        <span>Windows<br />PowerShell</span>
+      </div>
+
+      <div
+        class="desktop-icon"
+        style="top: 240px; left: 20px"
+        data-app="wireshark">
+        <img
+          src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%231679A7'><circle cx='12' cy='12' r='10' fill='%231679A7'/><path d='M8 8h8v2h-6v6h-2z' fill='white'/><path d='M10 10h6v6h-6z' fill='%2300C0F0'/><circle cx='16' cy='8' r='2' fill='%23FF6B6B'/></svg>"
+          alt="" />
+        <span>Wireshark</span>
+      </div>
+
+      <div
+        class="desktop-icon"
+        style="top: 240px; left: 110px"
+        data-app="onedrive">
+        <img
+          src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M16.8 10.8c.1-.5.2-1 .2-1.5 0-3-2.5-5.5-5.5-5.5-2.4 0-4.4 1.5-5.2 3.6C2.8 7.9 0 11 0 14.8c0 4.1 3.3 7.5 7.5 7.5h8.8c3.5 0 6.3-2.8 6.3-6.3 0-3.3-2.6-6-5.8-6.2z' fill='%230078D4'/></svg>"
+          alt="" />
+        <span>OneDrive</span>
+      </div>
+    </div>
+
+    <!-- Barre des tâches -->
+    <div class="taskbar">
+      <button class="start-button" id="startButton">⊞</button>
+
+      <div class="taskbar-apps">
+        <button class="taskbar-app" data-app="explorer">
+          <img
+            src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23FFA500'><path d='M10 4H4c-1.11 0-2 .89-2 2v12c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2h-8l-2-2z'/></svg>"
+            alt="" />
+        </button>
+        <button class="taskbar-app" data-app="chrome">
+          <img
+            src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%234285F4'><circle cx='12' cy='12' r='10'/></svg>"
+            alt="" />
+        </button>
+        <button class="taskbar-app" data-app="notepad">
+          <img
+            src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230078D4'><path d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z'/></svg>"
+            alt="" />
+        </button>
+        <button class="taskbar-app" data-app="powershell">
+          <img
+            src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23012456'><rect x='2' y='3' width='20' height='18' rx='2' fill='%23012456'/><path d='M7 8l4 3-4 3v-6z' fill='%23ffffff'/></svg>"
+            alt="" />
+        </button>
+        <button class="taskbar-app" data-app="wireshark">
+          <img
+            src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%231679A7'><circle cx='12' cy='12' r='10' fill='%231679A7'/><circle cx='16' cy='8' r='2' fill='%23FF6B6B'/></svg>"
+            alt="" />
+        </button>
+      </div>
+
+      <div class="system-tray">
+        <div class="notification-icon">🔔</div>
+        <div class="notification-icon">🔊</div>
+        <div class="notification-icon">📶</div>
+        <div id="clock">12:00</div>
+      </div>
+    </div>
+
+    <!-- Menu démarrer -->
+    <div class="start-menu" id="startMenu">
+      <div class="start-menu-header">
+        <div class="user-info">
+          <div class="user-avatar">U</div>
+          <div>
+            <div style="font-weight: bold">Utilisateur</div>
+            <div style="font-size: 11px; opacity: 0.7">user@windows10</div>
+          </div>
+        </div>
+      </div>
+      <div class="start-menu-content">
+        <div class="start-menu-left">
+          <div class="menu-section">
+            <h3>Applications récentes</h3>
+            <div class="menu-item" data-app="notepad">
+              <img
+                src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230078D4'><path d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z'/></svg>"
+                alt="" />
+              <span>Bloc-notes</span>
+            </div>
+            <div class="menu-item" data-app="calculator">
+              <img
+                src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23333'><rect x='4' y='2' width='16' height='20' rx='2' fill='%23666'/></svg>"
+                alt="" />
+              <span>Calculatrice</span>
+            </div>
+            <div class="menu-item" data-app="paint">
+              <img
+                src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23E74C3C'><path d='M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z'/></svg>"
+                alt="" />
+              <span>Paint</span>
+            </div>
+            <div class="menu-item" data-app="powershell">
+              <img
+                src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23012456'><rect x='2' y='3' width='20' height='18' rx='2' fill='%23012456'/><path d='M7 8l4 3-4 3v-6z' fill='%23ffffff'/></svg>"
+                alt="" />
+              <span>PowerShell</span>
+            </div>
+            <div class="menu-item" data-app="wireshark">
+              <img
+                src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%231679A7'><circle cx='12' cy='12' r='10' fill='%231679A7'/><circle cx='16' cy='8' r='2' fill='%23FF6B6B'/></svg>"
+                alt="" />
+              <span>Wireshark</span>
+            </div>
+            <div class="menu-item" data-app="notepad">
+              <img
+                src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230078D4'><path d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z'/></svg>"
+                alt="" />
+              <span>Bloc-notes</span>
+            </div>
+          </div>
+          <div class="menu-section">
+            <h3>Système</h3>
+            <div class="menu-item">
+              <img
+                src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23666'><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z'/></svg>"
+                alt="" />
+              <span>Paramètres</span>
+            </div>
+            <div class="menu-item">
+              <img
+                src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23E74C3C'><path d='M16 9v10H8V9h8m-1.5-6h-5l-1 1H5v2h14V4h-3.5l-1-1zM18 7H6v12c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7z'/></svg>"
+                alt="" />
+              <span>Arrêter</span>
+            </div>
+          </div>
+        </div>
+        <div class="start-menu-right">
+          <div class="menu-section">
+            <h3>Applications populaires</h3>
+            <div class="menu-item" data-app="chrome">
+              <img
+                src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%234285F4'><circle cx='12' cy='12' r='10'/></svg>"
+                alt="" />
+              <span>Google Chrome</span>
+            </div>
+            <div class="menu-item" data-app="explorer">
+              <img
+                src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23FFA500'><path d='M10 4H4c-1.11 0-2 .89-2 2v12c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2h-8l-2-2z'/></svg>"
+                alt="" />
+              <span>Explorateur</span>
+            </div>
+          </div>
+          <div class="menu-section">
+            <h3>Raccourcis</h3>
+            <div class="menu-item">
+              <img
+                src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23666'><path d='M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z'/></svg>"
+                alt="" />
+              <span>Documents</span>
+            </div>
+            <div class="menu-item">
+              <img
+                src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23666'><path d='M20 6h-2.18c.11-.31.18-.65.18-1a2.996 2.996 0 0 0-5.5-1.65l-.5.67-.5-.68C10.96 2.54 10 2 10 2 10 2 9 2.54 8.5 3.34l-.5.67-.5-.67C6.96 2.54 6 2 6 2c0 0-1 .54-1.5 1.34L4 4h-2C.9 4 0 4.9 0 6s.9 2 2 2h2l.5.66C5.04 9.46 6 10 6 10s1-.54 1.5-1.34l.5-.66.5.66C8.96 9.46 10 10 10 10s1-.54 1.5-1.34l.5-.66.5.66c.54.8 1.5 1.34 1.5 1.34s1-.54 1.5-1.34L16 8h2c1.1 0 2-.9 2-2s-.9-2-2-2z'/></svg>"
+                alt="" />
+              <span>Images</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fenêtres -->
+    <div
+      class="window"
+      id="explorerWindow"
+      style="width: 800px; height: 600px; top: 50px; left: 100px">
+      <div class="window-header">
+        <div class="window-title">📁 Explorateur de fichiers</div>
+        <div class="window-controls">
+          <button class="window-control minimize">−</button>
+          <button class="window-control maximize">□</button>
+          <button class="window-control close">×</button>
+        </div>
+      </div>
+      <div class="window-content">
+        <h3>📂 Ce PC</h3>
+        <div style="margin-top: 20px">
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              margin-bottom: 15px;
+              padding: 10px;
+              background: #f5f5f5;
+              border-radius: 4px;
+            ">
+            <span style="margin-right: 10px; font-size: 20px">💻</span>
+            <div>
+              <div style="font-weight: bold">Disque local (C:)</div>
+              <div style="font-size: 12px; color: #666">
+                450 Go libres sur 1 To
+              </div>
+            </div>
+          </div>
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              margin-bottom: 15px;
+              padding: 10px;
+              background: #f5f5f5;
+              border-radius: 4px;
+            ">
+            <span style="margin-right: 10px; font-size: 20px">📁</span>
+            <div>
+              <div style="font-weight: bold">Documents</div>
+              <div style="font-size: 12px; color: #666">Dossier personnel</div>
+            </div>
+          </div>
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              margin-bottom: 15px;
+              padding: 10px;
+              background: #f5f5f5;
+              border-radius: 4px;
+            ">
+            <span style="margin-right: 10px; font-size: 20px">🖼️</span>
+            <div>
+              <div style="font-weight: bold">Images</div>
+              <div style="font-size: 12px; color: #666">
+                Photos et captures d'écran
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="window"
+      id="chromeWindow"
+      style="width: 900px; height: 650px; top: 80px; left: 150px">
+      <div class="window-header">
+        <div class="window-title">🌐 Google Chrome</div>
+        <div class="window-controls">
+          <button class="window-control minimize">−</button>
+          <button class="window-control maximize">□</button>
+          <button class="window-control close">×</button>
+        </div>
+      </div>
+      <div class="window-content">
+        <div
+          style="
+            background: #f1f3f4;
+            padding: 10px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+          ">
+          <span style="color: #666"
+            >🔍 Rechercher sur Google ou saisir une URL</span
+          >
+        </div>
+        <div style="text-align: center; margin-top: 50px">
+          <h1 style="font-size: 90px; color: #4285f4; margin-bottom: 20px">
+            Google
+          </h1>
+          <div style="display: flex; justify-content: center; gap: 15px">
+            <button
+              style="
+                background: #f8f9fa;
+                border: 1px solid #f8f9fa;
+                padding: 10px 20px;
+                border-radius: 4px;
+                cursor: pointer;
+              ">
+              Recherche Google
+            </button>
+            <button
+              style="
+                background: #f8f9fa;
+                border: 1px solid #f8f9fa;
+                padding: 10px 20px;
+                border-radius: 4px;
+                cursor: pointer;
+              ">
+              J'ai de la chance
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="window"
+      id="notepadWindow"
+      style="width: 600px; height: 400px; top: 120px; left: 200px">
+      <div class="window-header">
+        <div class="window-title">📝 Bloc-notes - Sans titre</div>
+        <div class="window-controls">
+          <button class="window-control minimize">−</button>
+          <button class="window-control maximize">□</button>
+          <button class="window-control close">×</button>
+        </div>
+      </div>
+      <div class="window-content" style="padding: 0">
+        <textarea
+          style="
+            width: 100%;
+            height: 100%;
+            border: none;
+            resize: none;
+            font-family: 'Consolas', monospace;
+            padding: 10px;
+            outline: none;
+          "
+          placeholder="Tapez votre texte ici..."></textarea>
+      </div>
+    </div>
+
+    <div
+      class="window"
+      id="calculatorWindow"
+      style="width: 320px; height: 500px; top: 100px; left: 300px">
+      <div class="window-header">
+        <div class="window-title">🧮 Calculatrice</div>
+        <div class="window-controls">
+          <button class="window-control minimize">−</button>
+          <button class="window-control maximize">□</button>
+          <button class="window-control close">×</button>
+        </div>
+      </div>
+      <div class="window-content" style="padding: 10px">
+        <div
+          style="
+            background: black;
+            color: white;
+            padding: 20px;
+            font-size: 24px;
+            text-align: right;
+            margin-bottom: 10px;
+            border-radius: 4px;
+          "
+          id="calcDisplay">
+          0
+        </div>
+        <div
+          style="
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 5px;
+          ">
+          <button
+            onclick="clearCalc()"
+            style="
+              background: #666;
+              color: white;
+              border: none;
+              padding: 15px;
+              border-radius: 4px;
+              cursor: pointer;
+              font-size: 16px;
+            ">
+            C
+          </button>
+          <button
+            onclick="calcInput('/')"
+            style="
+              background: #666;
+              color: white;
+              border: none;
+              padding: 15px;
+              border-radius: 4px;
+              cursor: pointer;
+              font-size: 16px;
+            ">
+            ÷
+          </button>
+          <button
+            onclick="calcInput('*')"
+            style="
+              background: #666;
+              color: white;
+              border: none;
+              padding: 15px;
+              border-radius: 4px;
+              cursor: pointer;
+              font-size: 16px;
+            ">
+            ×
+          </button>
+          <button
+            onclick="deleteLast()"
+            style="
+              background: #666;
+              color: white;
+              border: none;
+              padding: 15px;
+              border-radius: 4px;
+              cursor: pointer;
+              font-size: 16px;
+            ">
+            ⌫
+          </button>
+          <button
+            onclick="calcInput('7')"
+            style="
+              background: #333;
+              color: white;
+              border: none;
+              padding: 15px;
+              border-radius: 4px;
+              cursor: pointer;
+              font-size: 16px;
+            ">
+            7
+          </button>
+          <button
+            onclick="calcInput('8')"
+            style="
+              background: #333;
+              color: white;
+              border: none;
+              padding: 15px;
+              border-radius: 4px;
+              cursor: pointer;
+              font-size: 16px;
+            ">
+            8
+          </button>
+          <button
+            onclick="calcInput('9')"
+            style="
+              background: #333;
+              color: white;
+              border: none;
+              padding: 15px;
+              border-radius: 4px;
+              cursor: pointer;
+              font-size: 16px;
+            ">
+            9
+          </button>
+          <button
+            onclick="calcInput('-')"
+            style="
+              background: #666;
+              color: white;
+              border: none;
+              padding: 15px;
+              border-radius: 4px;
+              cursor: pointer;
+              font-size: 16px;
+            ">
+            −
+          </button>
+          <button
+            onclick="calcInput('4')"
+            style="
+              background: #333;
+              color: white;
+              border: none;
+              padding: 15px;
+              border-radius: 4px;
+              cursor: pointer;
+              font-size: 16px;
+            ">
+            4
+          </button>
+          <button
+            onclick="calcInput('5')"
+            style="
+              background: #333;
+              color: white;
+              border: none;
+              padding: 15px;
+              border-radius: 4px;
+              cursor: pointer;
+              font-size: 16px;
+            ">
+            5
+          </button>
+          <button
+            onclick="calcInput('6')"
+            style="
+              background: #333;
+              color: white;
+              border: none;
+              padding: 15px;
+              border-radius: 4px;
+              cursor: pointer;
+              font-size: 16px;
+            ">
+            6
+          </button>
+          <button
+            onclick="calcInput('+')"
+            style="
+              background: #666;
+              color: white;
+              border: none;
+              padding: 15px;
+              border-radius: 4px;
+              cursor: pointer;
+              font-size: 16px;
+            ">
+            +
+          </button>
+          <button
+            onclick="calcInput('1')"
+            style="
+              background: #333;
+              color: white;
+              border: none;
+              padding: 15px;
+              border-radius: 4px;
+              cursor: pointer;
+              font-size: 16px;
+            ">
+            1
+          </button>
+          <button
+            onclick="calcInput('2')"
+            style="
+              background: #333;
+              color: white;
+              border: none;
+              padding: 15px;
+              border-radius: 4px;
+              cursor: pointer;
+              font-size: 16px;
+            ">
+            2
+          </button>
+          <button
+            onclick="calcInput('3')"
+            style="
+              background: #333;
+              color: white;
+              border: none;
+              padding: 15px;
+              border-radius: 4px;
+              cursor: pointer;
+              font-size: 16px;
+            ">
+            3
+          </button>
+          <button
+            onclick="calculate()"
+            style="
+              background: #0078d4;
+              color: white;
+              border: none;
+              padding: 15px;
+              border-radius: 4px;
+              cursor: pointer;
+              font-size: 16px;
+              grid-row: span 2;
+            ">
+            =
+          </button>
+          <button
+            onclick="calcInput('0')"
+            style="
+              background: #333;
+              color: white;
+              border: none;
+              padding: 15px;
+              border-radius: 4px;
+              cursor: pointer;
+              font-size: 16px;
+              grid-column: span 2;
+            ">
+            0
+          </button>
+          <button
+            onclick="calcInput('.')"
+            style="
+              background: #333;
+              color: white;
+              border: none;
+              padding: 15px;
+              border-radius: 4px;
+              cursor: pointer;
+              font-size: 16px;
+            ">
+            .
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="window"
+      id="paintWindow"
+      style="width: 800px; height: 600px; top: 60px; left: 120px">
+      <div class="window-header">
+        <div class="window-title">🎨 Paint</div>
+        <div class="window-controls">
+          <button class="window-control minimize">−</button>
+          <button class="window-control maximize">□</button>
+          <button class="window-control close">×</button>
+        </div>
+      </div>
+      <div class="window-content" style="padding: 10px">
+        <div
+          style="
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            padding: 10px;
+            background: #f0f0f0;
+            border-radius: 4px;
+          ">
+          <button
+            onclick="selectTool('brush')"
+            id="brushTool"
+            style="
+              background: #0078d4;
+              color: white;
+              border: none;
+              padding: 8px 12px;
+              border-radius: 4px;
+              cursor: pointer;
+            ">
+            🖌️ Pinceau
+          </button>
+          <button
+            onclick="selectTool('eraser')"
+            id="eraserTool"
+            style="
+              background: #666;
+              color: white;
+              border: none;
+              padding: 8px 12px;
+              border-radius: 4px;
+              cursor: pointer;
+            ">
+            🧽 Gomme
+          </button>
+          <button
+            onclick="clearCanvas()"
+            style="
+              background: #e74c3c;
+              color: white;
+              border: none;
+              padding: 8px 12px;
+              border-radius: 4px;
+              cursor: pointer;
+            ">
+            🗑️ Effacer
+          </button>
+          <div style="display: flex; align-items: center; gap: 5px">
+            <label>Couleur:</label>
+            <input
+              type="color"
+              id="colorPicker"
+              value="#000000"
+              style="
+                width: 40px;
+                height: 30px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+              " />
+          </div>
+        </div>
+        <canvas
+          id="paintCanvas"
+          width="750"
+          height="450"
+          style="
+            border: 2px solid #ccc;
+            background: white;
+            cursor: crosshair;
+          "></canvas>
+      </div>
+    </div>
+
+    <div
+      class="window"
+      id="powershellWindow"
+      style="width: 800px; height: 500px; top: 100px; left: 200px">
+      <div class="window-header">
+        <div class="window-title">💻 Windows PowerShell</div>
+        <div class="window-controls">
+          <button class="window-control minimize">−</button>
+          <button class="window-control maximize">□</button>
+          <button class="window-control close">×</button>
+        </div>
+      </div>
+      <div
+        class="window-content"
+        style="
+          padding: 0;
+          background: #012456;
+          color: #ffffff;
+          font-family: 'Consolas', 'Courier New', monospace;
+        ">
+        <div
+          id="powershellOutput"
+          style="
+            padding: 10px;
+            height: calc(100% - 40px);
+            overflow-y: auto;
+            font-size: 14px;
+            line-height: 1.4;
+          ">
+          <div style="color: #00ff00">Windows PowerShell</div>
+          <div style="color: #ffff00">
+            Copyright (C) Microsoft Corporation. Tous droits réservés.
+          </div>
+          <div style="margin: 10px 0">
+            Installez la dernière version de PowerShell pour de nouvelles
+            fonctionnalités et améliorations ! https://aka.ms/PSWindows
+          </div>
+          <div style="margin-top: 10px">
+            PS C:\Users\Utilisateur> <span id="currentCommand"></span
+            ><span
+              id="cursor"
+              style="background: #ffffff; animation: blink 1s infinite"
+              >█</span
+            >
+          </div>
+        </div>
+        <div
+          style="
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-top: 1px solid #0078d4;
+          ">
+          <span style="margin-right: 10px">PS C:\Users\Utilisateur></span>
+          <input
+            type="text"
+            id="powershellInput"
+            style="
+              flex: 1;
+              background: transparent;
+              border: none;
+              color: white;
+              outline: none;
+              font-family: 'Consolas', monospace;
+            "
+            placeholder="Tapez une commande..." />
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="window"
+      id="wiresharkWindow"
+      style="width: 1000px; height: 700px; top: 50px; left: 100px">
+      <div class="window-header">
+        <div class="window-title">🦈 Wireshark</div>
+        <div class="window-controls">
+          <button class="window-control minimize">−</button>
+          <button class="window-control maximize">□</button>
+          <button class="window-control close">×</button>
+        </div>
+      </div>
+      <div class="window-content" style="padding: 0; background: #f8f9fa">
+        <!-- Menu et toolbar Wireshark -->
+        <div
+          style="
+            background: #e9ecef;
+            border-bottom: 1px solid #dee2e6;
+            padding: 8px;
+          ">
+          <div
+            style="
+              display: flex;
+              gap: 10px;
+              margin-bottom: 8px;
+              font-size: 12px;
+            ">
+            <button
+              onclick="startCapture()"
+              id="startBtn"
+              style="
+                background: #28a745;
+                color: white;
+                border: none;
+                padding: 6px 12px;
+                border-radius: 3px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                gap: 4px;
+              ">
+              ▶️ Start
+            </button>
+            <button
+              onclick="stopCapture()"
+              id="stopBtn"
+              style="
+                background: #dc3545;
+                color: white;
+                border: none;
+                padding: 6px 12px;
+                border-radius: 3px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                gap: 4px;
+              "
+              disabled>
+              ⏹️ Stop
+            </button>
+            <button
+              onclick="clearCapture()"
+              style="
+                background: #6c757d;
+                color: white;
+                border: none;
+                padding: 6px 12px;
+                border-radius: 3px;
+                cursor: pointer;
+              ">
+              🗑️ Clear
+            </button>
+            <div style="flex: 1"></div>
+            <div style="display: flex; align-items: center; gap: 8px">
+              <span>Interface: </span>
+              <select
+                style="
+                  padding: 4px;
+                  border: 1px solid #ccc;
+                  border-radius: 3px;
+                ">
+                <option>Ethernet</option>
+                <option>Wi-Fi</option>
+                <option>Loopback</option>
+              </select>
+            </div>
+          </div>
+          <div style="display: flex; gap: 8px; align-items: center">
+            <input
+              type="text"
+              placeholder="Filter (e.g. tcp, udp, http)"
+              style="
+                flex: 1;
+                padding: 4px 8px;
+                border: 1px solid #ccc;
+                border-radius: 3px;
+              "
+              id="filterInput" />
+            <button
+              onclick="applyFilter()"
+              style="
+                background: #007bff;
+                color: white;
+                border: none;
+                padding: 4px 12px;
+                border-radius: 3px;
+                cursor: pointer;
+              ">
+              Apply
+            </button>
+          </div>
+        </div>
+
+        <!-- Zone de capture de paquets -->
+        <div
+          style="
+            height: 300px;
+            overflow-y: auto;
+            border-bottom: 1px solid #dee2e6;
+            background: white;
+          ">
+          <table
+            style="
+              width: 100%;
+              border-collapse: collapse;
+              font-size: 12px;
+              font-family: 'Consolas', monospace;
+            ">
+            <thead style="background: #e9ecef; position: sticky; top: 0">
+              <tr>
+                <th
+                  style="
+                    text-align: left;
+                    padding: 6px;
+                    border-right: 1px solid #dee2e6;
+                    min-width: 60px;
+                  ">
+                  No.
+                </th>
+                <th
+                  style="
+                    text-align: left;
+                    padding: 6px;
+                    border-right: 1px solid #dee2e6;
+                    min-width: 80px;
+                  ">
+                  Time
+                </th>
+                <th
+                  style="
+                    text-align: left;
+                    padding: 6px;
+                    border-right: 1px solid #dee2e6;
+                    min-width: 120px;
+                  ">
+                  Source
+                </th>
+                <th
+                  style="
+                    text-align: left;
+                    padding: 6px;
+                    border-right: 1px solid #dee2e6;
+                    min-width: 120px;
+                  ">
+                  Destination
+                </th>
+                <th
+                  style="
+                    text-align: left;
+                    padding: 6px;
+                    border-right: 1px solid #dee2e6;
+                    min-width: 80px;
+                  ">
+                  Protocol
+                </th>
+                <th
+                  style="
+                    text-align: left;
+                    padding: 6px;
+                    border-right: 1px solid #dee2e6;
+                    min-width: 60px;
+                  ">
+                  Length
+                </th>
+                <th style="text-align: left; padding: 6px">Info</th>
+              </tr>
+            </thead>
+            <tbody id="packetTable">
+              <!-- Les paquets capturés apparaîtront ici -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Détails du paquet sélectionné -->
+        <div style="height: 200px; display: flex">
+          <div
+            style="
+              width: 50%;
+              border-right: 1px solid #dee2e6;
+              overflow-y: auto;
+              background: white;
+            ">
+            <div
+              style="
+                background: #e9ecef;
+                padding: 6px;
+                font-weight: bold;
+                font-size: 12px;
+                border-bottom: 1px solid #dee2e6;
+              ">
+              📄 Packet Details
+            </div>
+            <div
+              id="packetDetails"
+              style="
+                padding: 10px;
+                font-size: 11px;
+                font-family: 'Consolas', monospace;
+                line-height: 1.4;
+              ">
+              <div style="color: #666">
+                Sélectionnez un paquet pour voir les détails
+              </div>
+            </div>
+          </div>
+          <div style="width: 50%; overflow-y: auto; background: white">
+            <div
+              style="
+                background: #e9ecef;
+                padding: 6px;
+                font-weight: bold;
+                font-size: 12px;
+                border-bottom: 1px solid #dee2e6;
+              ">
+              🔍 Packet Bytes
+            </div>
+            <div
+              id="packetHex"
+              style="
+                padding: 10px;
+                font-size: 11px;
+                font-family: 'Consolas', monospace;
+                line-height: 1.4;
+              ">
+              <div style="color: #666">
+                Représentation hexadécimale du paquet sélectionné
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Barre de statut -->
+        <div
+          style="
+            background: #e9ecef;
+            border-top: 1px solid #dee2e6;
+            padding: 4px 8px;
+            font-size: 11px;
+            display: flex;
+            justify-content: space-between;
+          ">
+          <div>
+            <span id="captureStatus">Ready to capture</span>
+            <span style="margin-left: 20px"
+              >Packets: <span id="packetCount">0</span></span
+            >
+          </div>
+          <div>
+            <span>Profile: Default</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let currentTool = "brush";
+      let isDrawing = false;
+      let startX, startY;
+      let calcDisplay = "0";
+      let calcExpression = "";
+      let draggedIcon = null;
+      let dragOffset = { x: 0, y: 0 };
+      let draggedWindow = null;
+      let windowOffset = { x: 0, y: 0 };
+      let zIndexCounter = 100;
+
+      // Initialisation
+      document.addEventListener("DOMContentLoaded", function () {
+        updateClock();
+        setInterval(updateClock, 1000);
+        setupEventListeners();
+        setupCanvas();
+      });
+
+      function updateClock() {
+        const now = new Date();
+        const timeString = now.toLocaleTimeString("fr-FR", {
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: false,
+        });
+        document.getElementById("clock").textContent = timeString;
+      }
+
+      function setupEventListeners() {
+        // Menu démarrer
+        const startButton = document.getElementById("startButton");
+        const startMenu = document.getElementById("startMenu");
+
+        startButton.addEventListener("click", function (e) {
+          e.stopPropagation();
+          startMenu.classList.toggle("show");
+        });
+
+        // Fermer le menu démarrer en cliquant ailleurs
+        document.addEventListener("click", function () {
+          startMenu.classList.remove("show");
+        });
+
+        startMenu.addEventListener("click", function (e) {
+          e.stopPropagation();
+        });
+
+        // Gestion des icônes du bureau
+        const desktopIcons = document.querySelectorAll(".desktop-icon");
+        desktopIcons.forEach((icon) => {
+          icon.addEventListener("click", function () {
+            desktopIcons.forEach((i) => i.classList.remove("selected"));
+            this.classList.add("selected");
+          });
+
+          icon.addEventListener("dblclick", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            const appName = this.dataset.app;
+
+            // Si c'est OneDrive, ouvrir le lien dans un nouvel onglet
+            if (appName === "onedrive") {
+              // REMPLACEZ L'URL CI-DESSOUS PAR VOTRE VRAI LIEN ONEDRIVE
+              const onedriveUrl = "https://google.com";
+              window.open(onedriveUrl, "_blank", "noopener,noreferrer");
+              return;
+            }
+
+            // Pour les autres apps, ouvrir normalement
+            openApp(appName);
+          });
+
+          // Drag and drop pour les icônes
+          icon.addEventListener("mousedown", function (e) {
+            if (e.button === 0 && !e.detail === 2) {
+              // Click gauche simple
+              draggedIcon = this;
+              const rect = this.getBoundingClientRect();
+              dragOffset.x = e.clientX - rect.left;
+              dragOffset.y = e.clientY - rect.top;
+              this.style.zIndex = "999";
+            }
+          });
+        });
+
+        // Gestion du drag des icônes
+        document.addEventListener("mousemove", function (e) {
+          if (draggedIcon) {
+            const desktop = document.getElementById("desktop");
+            const desktopRect = desktop.getBoundingClientRect();
+
+            let x = e.clientX - desktopRect.left - dragOffset.x;
+            let y = e.clientY - desktopRect.top - dragOffset.y;
+
+            // Contraintes pour rester dans le bureau
+            x = Math.max(0, Math.min(x, desktopRect.width - 70));
+            y = Math.max(0, Math.min(y, desktopRect.height - 90));
+
+            draggedIcon.style.left = x + "px";
+            draggedIcon.style.top = y + "px";
+          }
+
+          if (draggedWindow) {
+            let x = e.clientX - windowOffset.x;
+            let y = e.clientY - windowOffset.y;
+
+            // Contraintes pour rester visible
+            x = Math.max(0, Math.min(x, window.innerWidth - 100));
+            y = Math.max(0, Math.min(y, window.innerHeight - 100));
+
+            draggedWindow.style.left = x + "px";
+            draggedWindow.style.top = y + "px";
+          }
+        });
+
+        document.addEventListener("mouseup", function () {
+          if (draggedIcon) {
+            draggedIcon.style.zIndex = "";
+            draggedIcon = null;
+          }
+          if (draggedWindow) {
+            draggedWindow = null;
+          }
+        });
+
+        // Gestion des applications dans la barre des tâches
+        const taskbarApps = document.querySelectorAll(".taskbar-app");
+        taskbarApps.forEach((app) => {
+          app.addEventListener("click", function () {
+            const appName = this.dataset.app;
+            const window = document.getElementById(appName + "Window");
+
+            if (window.classList.contains("active")) {
+              // Minimiser si déjà ouvert
+              window.classList.remove("active");
+              this.classList.remove("active");
+            } else {
+              openApp(appName);
+            }
+          });
+        });
+
+        // Gestion des éléments du menu démarrer
+        const menuItems = document.querySelectorAll(".menu-item[data-app]");
+        menuItems.forEach((item) => {
+          item.addEventListener("click", function () {
+            openApp(this.dataset.app);
+            startMenu.classList.remove("show");
+          });
+        });
+
+        // Gestion des contrôles de fenêtres
+        const windowControls = document.querySelectorAll(".window-control");
+        windowControls.forEach((control) => {
+          control.addEventListener("click", function () {
+            const window = this.closest(".window");
+            const windowId = window.id;
+            const appName = windowId.replace("Window", "");
+
+            if (this.classList.contains("close")) {
+              closeApp(appName);
+            } else if (this.classList.contains("minimize")) {
+              minimizeApp(appName);
+            } else if (this.classList.contains("maximize")) {
+              // Toggle maximize/restore
+              if (window.style.width === "100vw") {
+                window.style.width = "800px";
+                window.style.height = "600px";
+                window.style.top = "50px";
+                window.style.left = "100px";
+              } else {
+                window.style.width = "100vw";
+                window.style.height = "calc(100vh - 40px)";
+                window.style.top = "0";
+                window.style.left = "0";
+              }
+            }
+          });
+        });
+
+        // Drag des fenêtres
+        const windowHeaders = document.querySelectorAll(".window-header");
+        windowHeaders.forEach((header) => {
+          header.addEventListener("mousedown", function (e) {
+            if (e.target.classList.contains("window-control")) return;
+
+            draggedWindow = this.closest(".window");
+            const rect = draggedWindow.getBoundingClientRect();
+            windowOffset.x = e.clientX - rect.left;
+            windowOffset.y = e.clientY - rect.top;
+
+            // Mettre la fenêtre au premier plan
+            draggedWindow.style.zIndex = ++zIndexCounter;
+          });
+        });
+
+        // Clic sur les fenêtres pour les mettre au premier plan
+        const windows = document.querySelectorAll(".window");
+        windows.forEach((window) => {
+          window.addEventListener("mousedown", function () {
+            this.style.zIndex = ++zIndexCounter;
+          });
+        });
+      }
+
+      function openApp(appName) {
+        const window = document.getElementById(appName + "Window");
+        const taskbarApp = document.querySelector(
+          `.taskbar-app[data-app="${appName}"]`
+        );
+
+        if (window) {
+          window.classList.add("active");
+          window.style.zIndex = ++zIndexCounter;
+          if (taskbarApp) {
+            taskbarApp.classList.add("active");
+          }
+        }
+      }
+
+      function closeApp(appName) {
+        const window = document.getElementById(appName + "Window");
+        const taskbarApp = document.querySelector(
+          `.taskbar-app[data-app="${appName}"]`
+        );
+
+        if (window) {
+          window.classList.remove("active");
+          if (taskbarApp) {
+            taskbarApp.classList.remove("active");
+          }
+        }
+      }
+
+      function minimizeApp(appName) {
+        const window = document.getElementById(appName + "Window");
+        const taskbarApp = document.querySelector(
+          `.taskbar-app[data-app="${appName}"]`
+        );
+
+        if (window) {
+          window.classList.remove("active");
+          if (taskbarApp) {
+            taskbarApp.classList.remove("active");
+          }
+        }
+      }
+
+      // Fonctions de la calculatrice
+      function calcInput(value) {
+        const display = document.getElementById("calcDisplay");
+        if (calcDisplay === "0" || calcDisplay === "Erreur") {
+          calcDisplay = value;
+        } else {
+          calcDisplay += value;
+        }
+        display.textContent = calcDisplay;
+      }
+
+      function clearCalc() {
+        calcDisplay = "0";
+        calcExpression = "";
+        document.getElementById("calcDisplay").textContent = calcDisplay;
+      }
+
+      function deleteLast() {
+        const display = document.getElementById("calcDisplay");
+        if (calcDisplay.length > 1) {
+          calcDisplay = calcDisplay.slice(0, -1);
+        } else {
+          calcDisplay = "0";
+        }
+        display.textContent = calcDisplay;
+      }
+
+      function calculate() {
+        const display = document.getElementById("calcDisplay");
+        try {
+          const result = eval(calcDisplay.replace("×", "*").replace("÷", "/"));
+          calcDisplay = result.toString();
+          display.textContent = calcDisplay;
+        } catch (error) {
+          calcDisplay = "Erreur";
+          display.textContent = calcDisplay;
+        }
+      }
+
+      // Fonctions de Paint
+      function setupCanvas() {
+        const canvas = document.getElementById("paintCanvas");
+        const ctx = canvas.getContext("2d");
+
+        canvas.addEventListener("mousedown", function (e) {
+          if (currentTool === "brush" || currentTool === "eraser") {
+            isDrawing = true;
+            const rect = canvas.getBoundingClientRect();
+            startX = e.clientX - rect.left;
+            startY = e.clientY - rect.top;
+
+            ctx.beginPath();
+            ctx.moveTo(startX, startY);
+          }
+        });
+
+        canvas.addEventListener("mousemove", function (e) {
+          if (isDrawing) {
+            const rect = canvas.getBoundingClientRect();
+            const currentX = e.clientX - rect.left;
+            const currentY = e.clientY - rect.top;
+
+            ctx.lineTo(currentX, currentY);
+            ctx.lineWidth = currentTool === "eraser" ? 20 : 3;
+            ctx.lineCap = "round";
+
+            if (currentTool === "eraser") {
+              ctx.globalCompositeOperation = "destination-out";
+            } else {
+              ctx.globalCompositeOperation = "source-over";
+              ctx.strokeStyle = document.getElementById("colorPicker").value;
+            }
+
+            ctx.stroke();
+          }
+        });
+
+        canvas.addEventListener("mouseup", function () {
+          isDrawing = false;
+        });
+
+        canvas.addEventListener("mouseout", function () {
+          isDrawing = false;
+        });
+      }
+
+      function selectTool(tool) {
+        currentTool = tool;
+        const brushBtn = document.getElementById("brushTool");
+        const eraserBtn = document.getElementById("eraserTool");
+
+        brushBtn.style.background = tool === "brush" ? "#0078d4" : "#666";
+        eraserBtn.style.background = tool === "eraser" ? "#0078d4" : "#666";
+
+        const canvas = document.getElementById("paintCanvas");
+        canvas.style.cursor = tool === "eraser" ? "grab" : "crosshair";
+      }
+
+      function clearCanvas() {
+        const canvas = document.getElementById("paintCanvas");
+        const ctx = canvas.getContext("2d");
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }
+
+      // Fonctions de PowerShell
+      let commandHistory = [];
+      let historyIndex = -1;
+
+      function setupPowerShell() {
+        const input = document.getElementById("powershellInput");
+        const output = document.getElementById("powershellOutput");
+
+        // Animation du curseur
+        const style = document.createElement("style");
+        style.textContent = `
+                @keyframes blink {
+                    0%, 50% { opacity: 1; }
+                    51%, 100% { opacity: 0; }
+                }
+            `;
+        document.head.appendChild(style);
+
+        input.addEventListener("keydown", function (e) {
+          if (e.key === "Enter") {
+            const command = this.value.trim();
+            if (command) {
+              executeCommand(command);
+              commandHistory.push(command);
+              historyIndex = commandHistory.length;
+            }
+            this.value = "";
+          } else if (e.key === "ArrowUp") {
+            e.preventDefault();
+            if (historyIndex > 0) {
+              historyIndex--;
+              this.value = commandHistory[historyIndex];
+            }
+          } else if (e.key === "ArrowDown") {
+            e.preventDefault();
+            if (historyIndex < commandHistory.length - 1) {
+              historyIndex++;
+              this.value = commandHistory[historyIndex];
+            } else {
+              historyIndex = commandHistory.length;
+              this.value = "";
+            }
+          }
+        });
+      }
+
+      function executeCommand(command) {
+        const output = document.getElementById("powershellOutput");
+        const commandLine = document.createElement("div");
+        commandLine.innerHTML = `PS C:\\Users\\Utilisateur> ${command}`;
+        output.insertBefore(commandLine, output.lastElementChild);
+
+        const resultDiv = document.createElement("div");
+        resultDiv.style.marginBottom = "10px";
+
+        // Simulation de commandes PowerShell
+        const cmd = command.toLowerCase();
+        if (cmd === "help" || cmd === "get-help") {
+          resultDiv.innerHTML = `
+                    <div style="color: #00ff00;">Commandes disponibles :</div>
+                    <div>• Get-Date - Affiche la date et l'heure actuelles</div>
+                    <div>• Get-Location - Affiche le répertoire actuel</div>
+                    <div>• Get-Process - Liste les processus en cours</div>
+                    <div>• Get-ComputerInfo - Informations système</div>
+                    <div>• Clear-Host - Efface l'écran</div>
+                    <div>• dir / ls - Liste le contenu du répertoire</div>
+                    <div>• whoami - Affiche l'utilisateur actuel</div>
+                `;
+        } else if (cmd === "get-date") {
+          resultDiv.innerHTML = `<div style="color: #ffff00;">${new Date().toLocaleString(
+            "fr-FR"
+          )}</div>`;
+        } else if (cmd === "get-location" || cmd === "pwd") {
+          resultDiv.innerHTML = `<div style="color: #ffff00;">C:\\Users\\Utilisateur</div>`;
+        } else if (cmd === "whoami") {
+          resultDiv.innerHTML = `<div style="color: #ffff00;">DESKTOP-WINDOWS10\\Utilisateur</div>`;
+        } else if (cmd === "dir" || cmd === "ls") {
+          resultDiv.innerHTML = `
+                    <div style="color: #00ff00;">    Répertoire : C:\\Users\\Utilisateur</div>
+                    <div></div>
+                    <div>Mode                 LastWriteTime         Length Name</div>
+                    <div>----                 -------------         ------ ----</div>
+                    <div>d-----        ${new Date().toLocaleDateString(
+                      "fr-FR"
+                    )}     10:30          Bureau</div>
+                    <div>d-----        ${new Date().toLocaleDateString(
+                      "fr-FR"
+                    )}     10:30          Documents</div>
+                    <div>d-----        ${new Date().toLocaleDateString(
+                      "fr-FR"
+                    )}     10:30          Images</div>
+                    <div>d-----        ${new Date().toLocaleDateString(
+                      "fr-FR"
+                    )}     10:30          Téléchargements</div>
+                `;
+        } else if (cmd === "get-process") {
+          resultDiv.innerHTML = `
+                    <div style="color: #00ff00;">Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName</div>
+                    <div>-------  ------    -----      -----     ------     --  -- -----------</div>
+                    <div>    145       8     2356       4128       0.15   1234   1 chrome</div>
+                    <div>     89       6     1245       2456       0.08   5678   1 notepad</div>
+                    <div>    256      12     3456       6789       1.23   9876   1 explorer</div>
+                `;
+        } else if (cmd === "get-computerinfo") {
+          resultDiv.innerHTML = `
+                    <div style="color: #00ff00;">WindowsProductName    : Windows 10 Pro</div>
+                    <div>WindowsVersion        : 2009</div>
+                    <div>TotalPhysicalMemory   : 16777216000</div>
+                    <div>CsProcessors          : {Intel(R) Core(TM) i7-10700K CPU @ 3.80GHz}</div>
+                    <div>WindowsInstallationType : Client</div>
+                `;
+        } else if (cmd === "clear-host" || cmd === "clear" || cmd === "cls") {
+          output.innerHTML = `
+                    <div style="color: #00ff00;">Windows PowerShell</div>
+                    <div style="color: #ffff00;">Copyright (C) Microsoft Corporation. Tous droits réservés.</div>
+                    <div style="margin: 10px 0;">Installez la dernière version de PowerShell pour de nouvelles fonctionnalités et améliorations ! https://aka.ms/PSWindows</div>
+                    <div style="margin-top: 10px;">PS C:\\Users\\Utilisateur> <span id="currentCommand"></span><span id="cursor" style="background: #ffffff; animation: blink 1s infinite;">█</span></div>
+                `;
+          return;
+        } else if (cmd.startsWith("echo ")) {
+          const text = command.substring(5);
+          resultDiv.innerHTML = `<div style="color: #ffffff;">${text}</div>`;
+        } else if (cmd === "" || cmd === " ") {
+          // Commande vide, pas de résultat
+        } else {
+          resultDiv.innerHTML = `<div style="color: #ff6b6b;">Le terme '${command}' n'est pas reconnu comme une applet de commande, fonction, fichier de script ou programme exécutable.</div>`;
+        }
+
+        if (resultDiv.innerHTML) {
+          output.insertBefore(resultDiv, output.lastElementChild);
+        }
+
+        // Scroll vers le bas
+        output.scrollTop = output.scrollHeight;
+      }
+
+      // Mise à jour de la fonction d'initialisation
+      document.addEventListener("DOMContentLoaded", function () {
+        updateClock();
+        setInterval(updateClock, 1000);
+        setupEventListeners();
+        setupCanvas();
+        setupPowerShell();
+        setupWireshark();
+      });
+
+      // Fonctions de Wireshark
+      let isCapturing = false;
+      let packetCounter = 0;
+      let captureInterval = null;
+      let packets = [];
+
+      function setupWireshark() {
+        // Ajout de paquets prédéfinis au démarrage
+        addInitialPackets();
+      }
+
+      function addInitialPackets() {
+        // Paquet 1 - DNS Query
+        const packet1 = {
+          no: ++packetCounter,
+          time: "10:15:23",
+          source: "192.168.1.100",
+          destination: "8.8.8.8",
+          protocol: "DNS",
+          length: 72,
+          info: "Standard query A onedrive.live.com",
+        };
+        packets.push(packet1);
+        addPacketToTable(packet1);
+
+        // Paquet 2 - TCP SYN
+        const packet2 = {
+          no: ++packetCounter,
+          time: "10:15:24",
+          source: "192.168.1.100",
+          destination: "40.126.31.20",
+          protocol: "TCP",
+          length: 66,
+          info: "54321 → 443 [SYN] Seq=0 Win=65535 Len=0",
+        };
+        packets.push(packet2);
+        addPacketToTable(packet2);
+
+        // Paquet 3 - HTTPS Client Hello
+        const packet3 = {
+          no: ++packetCounter,
+          time: "10:15:25",
+          source: "192.168.1.100",
+          destination: "40.126.31.20",
+          protocol: "HTTPS",
+          length: 517,
+          info: "Client Hello (SNI: onedrive.live.com)",
+        };
+        packets.push(packet3);
+        addPacketToTable(packet3);
+
+        // Paquet 4 - HTTP avec mot de passe OneDrive (en clair!)
+        const packet4 = {
+          no: ++packetCounter,
+          time: "10:15:26",
+          source: "192.168.1.117",
+          destination: "127.0.0.1",
+          protocol: "HTTP",
+          length: 115,
+          info: "POST /api/auth HTTP/1.1 - OneDrive: password=30:21",
+        };
+        packets.push(packet4);
+        addPacketToTable(packet4);
+
+        // Paquet 5 - HTTP Response
+        const packet5 = {
+          no: ++packetCounter,
+          time: "10:15:27",
+          source: "40.126.31.20",
+          destination: "192.168.1.100",
+          protocol: "HTTP",
+          length: 156,
+          info: "HTTP/1.1 200 OK (application/json)",
+        };
+        packets.push(packet5);
+        addPacketToTable(packet5);
+
+        // Paquet 6 - DNS Query Google
+        const packet6 = {
+          no: ++packetCounter,
+          time: "10:15:28",
+          source: "192.168.1.100",
+          destination: "8.8.8.8",
+          protocol: "DNS",
+          length: 68,
+          info: "Standard query A www.google.com",
+        };
+        packets.push(packet6);
+        addPacketToTable(packet6);
+
+        // Paquet 7 - ARP Request
+        const packet7 = {
+          no: ++packetCounter,
+          time: "10:15:29",
+          source: "192.168.1.100",
+          destination: "Broadcast",
+          protocol: "ARP",
+          length: 42,
+          info: "Who has 192.168.1.1? Tell 192.168.1.100",
+        };
+        packets.push(packet7);
+        addPacketToTable(packet7);
+
+        document.getElementById("packetCount").textContent =
+          packetCounter.toString();
+      }
+
+      function startCapture() {
+        isCapturing = true;
+        document.getElementById("startBtn").disabled = true;
+        document.getElementById("stopBtn").disabled = false;
+        document.getElementById("captureStatus").textContent = "Capturing...";
+
+        // Simuler la capture de paquets
+        captureInterval = setInterval(
+          generatePacket,
+          Math.random() * 2000 + 500
+        );
+      }
+
+      function stopCapture() {
+        isCapturing = false;
+        document.getElementById("startBtn").disabled = false;
+        document.getElementById("stopBtn").disabled = true;
+        document.getElementById("captureStatus").textContent =
+          "Capture stopped";
+
+        if (captureInterval) {
+          clearInterval(captureInterval);
+        }
+      }
+
+      function clearCapture() {
+        packetCounter = 0;
+        packets = [];
+        document.getElementById("packetTable").innerHTML = "";
+        document.getElementById("packetCount").textContent = "0";
+        document.getElementById("packetDetails").innerHTML =
+          '<div style="color: #666;">Sélectionnez un paquet pour voir les détails</div>';
+        document.getElementById("packetHex").innerHTML =
+          '<div style="color: #666;">Représentation hexadécimale du paquet sélectionné</div>';
+      }
+
+      function generatePacket() {
+        if (!isCapturing) return;
+
+        packetCounter++;
+        const protocols = ["TCP", "UDP", "HTTP", "HTTPS", "DNS", "ARP", "ICMP"];
+        const sources = [
+          "192.168.1.100",
+          "10.0.0.1",
+          "172.16.0.1",
+          "8.8.8.8",
+          "1.1.1.1",
+        ];
+        const destinations = [
+          "192.168.1.1",
+          "10.0.0.100",
+          "172.16.0.100",
+          "8.8.4.4",
+          "1.0.0.1",
+        ];
+
+        const protocol =
+          protocols[Math.floor(Math.random() * protocols.length)];
+        const source = sources[Math.floor(Math.random() * sources.length)];
+        const destination =
+          destinations[Math.floor(Math.random() * destinations.length)];
+        const length = Math.floor(Math.random() * 1500) + 64;
+        const time = new Date().toLocaleTimeString("fr-FR", { hour12: false });
+
+        let info = "";
+        switch (protocol) {
+          case "HTTP":
+            info = "GET /index.html HTTP/1.1";
+            break;
+          case "HTTPS":
+            info = "Client Hello";
+            break;
+          case "DNS":
+            info = "Standard query A google.com";
+            break;
+          case "TCP":
+            info = `${Math.floor(Math.random() * 65535)} → ${Math.floor(
+              Math.random() * 65535
+            )} [ACK] Seq=${Math.floor(Math.random() * 1000000)}`;
+            break;
+          case "UDP":
+            info = `${Math.floor(Math.random() * 65535)} → ${Math.floor(
+              Math.random() * 65535
+            )} Len=${length}`;
+            break;
+          case "ARP":
+            info = "Who has 192.168.1.1? Tell 192.168.1.100";
+            break;
+          case "ICMP":
+            info = "Echo (ping) request";
+            break;
+        }
+
+        const packet = {
+          no: packetCounter,
+          time: time,
+          source: source,
+          destination: destination,
+          protocol: protocol,
+          length: length,
+          info: info,
+        };
+
+        packets.push(packet);
+        addPacketToTable(packet);
+        document.getElementById("packetCount").textContent =
+          packetCounter.toString();
+      }
+
+      function addPacketToTable(packet) {
+        const table = document.getElementById("packetTable");
+        const row = table.insertRow();
+        row.style.cursor = "pointer";
+        row.onclick = () => selectPacket(packet);
+
+        // Coloration selon le protocole
+        let bgColor = "#ffffff";
+        switch (packet.protocol) {
+          case "HTTP":
+            bgColor = "#e6f3ff";
+            break;
+          case "HTTPS":
+            bgColor = "#e6ffe6";
+            break;
+          case "DNS":
+            bgColor = "#fff0e6";
+            break;
+          case "TCP":
+            bgColor = "#f0f0f0";
+            break;
+          case "UDP":
+            bgColor = "#ffe6f0";
+            break;
+          case "ARP":
+            bgColor = "#ffffe6";
+            break;
+          case "ICMP":
+            bgColor = "#f0e6ff";
+            break;
+        }
+        row.style.backgroundColor = bgColor;
+
+        row.innerHTML = `
+                <td style="padding: 4px 6px; border-right: 1px solid #dee2e6;">${packet.no}</td>
+                <td style="padding: 4px 6px; border-right: 1px solid #dee2e6;">${packet.time}</td>
+                <td style="padding: 4px 6px; border-right: 1px solid #dee2e6;">${packet.source}</td>
+                <td style="padding: 4px 6px; border-right: 1px solid #dee2e6;">${packet.destination}</td>
+                <td style="padding: 4px 6px; border-right: 1px solid #dee2e6; font-weight: bold;">${packet.protocol}</td>
+                <td style="padding: 4px 6px; border-right: 1px solid #dee2e6;">${packet.length}</td>
+                <td style="padding: 4px 6px;">${packet.info}</td>
+            `;
+
+        // Auto-scroll vers le bas
+        const container = table.parentElement;
+        container.scrollTop = container.scrollHeight;
+      }
+
+      function selectPacket(packet) {
+        // Mise à jour des détails du paquet
+        const details = document.getElementById("packetDetails");
+
+        // Détails spéciaux pour le paquet avec le mot de passe
+        if (packet.info.includes("password=30:21")) {
+          details.innerHTML = `
+                    <div style="margin-bottom: 8px;"><strong>📦 Frame ${packet.no}</strong></div>
+                    <div style="margin-left: 15px; margin-bottom: 8px;">
+                        <div>Arrival Time: ${packet.time}</div>
+                        <div>Frame Length: ${packet.length} bytes</div>
+                    </div>
+                    
+                    <div style="margin-bottom: 8px;"><strong>🌐 Internet Protocol Version 4</strong></div>
+                    <div style="margin-left: 15px; margin-bottom: 8px;">
+                        <div>Source: ${packet.source}</div>
+                        <div>Destination: ${packet.destination}</div>
+                        <div>Protocol: ${packet.protocol}</div>
+                    </div>
+                    
+                    <div style="margin-bottom: 8px;"><strong>🔗 Hypertext Transfer Protocol</strong></div>
+                    <div style="margin-left: 15px; margin-bottom: 8px;">
+                        <div>POST /api/auth HTTP/1.1</div>
+                        <div>Host: onedrive.live.com</div>
+                        <div>Content-Type: application/x-www-form-urlencoded</div>
+                        <div>Content-Length: 42</div>
+                    </div>
+                    
+                    <div style="margin-bottom: 8px;"><strong>📄 Form Data</strong></div>
+                    <div style="margin-left: 15px;">
+                        <div>share_id=Ak7mX9pQ2wR</div>
+                        <div style="background: #fff3cd; padding: 4px; border-left: 3px solid #ffc107; margin-top: 4px;">
+                            <strong style="color: #856404;">⚠️ password=30:21</strong>
+                        </div>
+                        <div style="margin-top: 8px; color: #dc3545; font-size: 10px;">
+                            ⚠️ ATTENTION: Mot de passe transmis en clair (HTTP non sécurisé)
+                        </div>
+                    </div>
+                `;
+        } else {
+          details.innerHTML = `
+                    <div style="margin-bottom: 8px;"><strong>📦 Frame ${packet.no}</strong></div>
+                    <div style="margin-left: 15px; margin-bottom: 8px;">
+                        <div>Arrival Time: ${packet.time}</div>
+                        <div>Frame Length: ${packet.length} bytes</div>
+                    </div>
+                    
+                    <div style="margin-bottom: 8px;"><strong>🌐 Internet Protocol Version 4</strong></div>
+                    <div style="margin-left: 15px; margin-bottom: 8px;">
+                        <div>Source: ${packet.source}</div>
+                        <div>Destination: ${packet.destination}</div>
+                        <div>Protocol: ${packet.protocol}</div>
+                    </div>
+                    
+                    <div style="margin-bottom: 8px;"><strong>🔗 ${packet.protocol}</strong></div>
+                    <div style="margin-left: 15px;">
+                        <div>${packet.info}</div>
+                    </div>
+                `;
+        }
+
+        // Génération de données hexadécimales simulées
+        const hex = document.getElementById("packetHex");
+        let hexData = "";
+
+        // Données hex spéciales pour le paquet avec mot de passe
+        if (packet.info.includes("password=30:21")) {
+          hexData = `
+                    <div>0000: 45 00 01 1c 8d 3e 40 00 40 06 6e 91 c0 a8 01 64   E....>@.@.n....d</div>
+                    <div>0010: 28 7e 1f 14 d4 51 01 bb 8a 6c 3f 12 9b 4e 2c a1   (~...Q...l?..N,.</div>
+                    <div>0020: 50 18 ff ff 8c 7d 00 00 50 4f 53 54 20 2f 61 70   P....}..POST /ap</div>
+                    <div>0030: 69 2f 61 75 74 68 20 48 54 54 50 2f 31 2e 31 0d   i/auth HTTP/1.1.</div>
+                    <div>0040: 0a 48 6f 73 74 3a 20 6f 6e 65 64 72 69 76 65 2e   .Host: onedrive.</div>
+                    <div>0050: 6c 69 76 65 2e 63 6f 6d 0d 0a 43 6f 6e 74 65 6e   live.com..Conten</div>
+                    <div>0060: 74 2d 54 79 70 65 3a 20 61 70 70 6c 69 63 61 74   t-Type: applicat</div>
+                    <div>0070: 69 6f 6e 2f 78 2d 77 77 77 2d 66 6f 72 6d 2d 75   ion/x-www-form-u</div>
+                    <div>0080: 72 6c 65 6e 63 6f 64 65 64 0d 0a 0d 0a 73 68 61   rlencoded....sha</div>
+                    <div style="background: #fff3cd;">0090: 72 65 5f 69 64 3d 41 6b 37 6d 58 39 70 51 32 77   re_id=Ak7mX9pQ2w</div>
+                    <div style="background: #fff3cd;">00a0: 52 26 70 61 73 73 77 6f 72 64 3d 33 30 3a 32 31   R&password=30:21</div>
+                    <div>00b0: 0d 0a                                             ..</div>
+                `;
+        } else {
+          for (let i = 0; i < Math.ceil(packet.length / 16); i++) {
+            const offset = (i * 16).toString(16).padStart(4, "0");
+            let hexLine = "";
+            let asciiLine = "";
+
+            for (let j = 0; j < 16 && i * 16 + j < packet.length; j++) {
+              const byte = Math.floor(Math.random() * 256);
+              hexLine += byte.toString(16).padStart(2, "0") + " ";
+              asciiLine +=
+                byte >= 32 && byte < 127 ? String.fromCharCode(byte) : ".";
+            }
+
+            hexData += `<div>${offset}: ${hexLine.padEnd(
+              48
+            )} ${asciiLine}</div>`;
+          }
+        }
+
+        hex.innerHTML = hexData;
+      }
+
+      function applyFilter() {
+        const filter = document
+          .getElementById("filterInput")
+          .value.toLowerCase();
+        const rows = document
+          .getElementById("packetTable")
+          .getElementsByTagName("tr");
+
+        for (let row of rows) {
+          const protocol = row.cells[4]?.textContent.toLowerCase() || "";
+          const info = row.cells[6]?.textContent.toLowerCase() || "";
+
+          if (
+            filter === "" ||
+            protocol.includes(filter) ||
+            info.includes(filter)
+          ) {
+            row.style.display = "";
+          } else {
+            row.style.display = "none";
+          }
+        }
+      }
+    </script>
+  </body>
+</html>

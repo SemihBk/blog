@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mini‑lab Crypto : AES‑GCM dans le navigateur</title>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css" />
+    <style>
+      :root {
+        --bg: #0f1220;
+        --panel: #161a2b;
+        --ink: #e7e9f5;
+        --muted: #a2a8c7;
+        --accent: #7aa2ff;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        font: 16px/1.5 system-ui, Segoe UI, Roboto, Ubuntu, Inter, Arial;
+        background: var(--bg);
+        color: var(--ink);
+      }
+      header {
+        padding: 24px 20px;
+        border-bottom: 1px solid #2a2f4a;
+        background: linear-gradient(180deg, #10142a, #0f1220);
+      }
+      h1 {
+        margin: 0 0 6px;
+        font-size: 22px;
+      }
+      .sub {
+        color: var(--muted);
+        font-size: 14px;
+      }
+      .wrap {
+        display: grid;
+        grid-template-columns: 1fr 420px;
+        gap: 16px;
+        padding: 16px;
+      }
+      .card {
+        background: var(--panel);
+        border: 1px solid #2a2f4a;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+      }
+      .card h2 {
+        font-size: 16px;
+        margin: 0;
+        padding: 12px 14px;
+        border-bottom: 1px solid #2a2f4a;
+        background: #13172a;
+      }
+      .pad {
+        padding: 12px;
+      }
+      #editor {
+        height: 480px;
+      }
+      .controls {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      button {
+        background: var(--accent);
+        color: #0b1220;
+        border: none;
+        border-radius: 12px;
+        padding: 10px 14px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      button.secondary {
+        background: #2a2f4a;
+        color: var(--ink);
+      }
+      .console {
+        height: 480px;
+        overflow: auto;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+          monospace;
+        background: #0c0f1d;
+        border: 1px solid #2a2f4a;
+        border-radius: 12px;
+        padding: 10px;
+      }
+      .log {
+        white-space: pre-wrap;
+      }
+      .muted {
+        color: var(--muted);
+      }
+      footer {
+        padding: 12px 16px;
+        color: var(--muted);
+        font-size: 12px;
+        border-top: 1px solid #2a2f4a;
+      }
+      @media (max-width: 980px) {
+        .wrap {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Mini‑lab Crypto 🧪 – AES‑GCM côté client</h1>
+      <div class="sub">
+        Édite le code puis clique <strong>Run</strong>. Tout s'exécute
+        localement dans ton navigateur via l'API Web Crypto (pas de serveur).
+      </div>
+    </header>
+
+    <div class="wrap">
+      <section class="card">
+        <h2>Éditeur</h2>
+        <div class="pad">
+          <textarea id="editor"></textarea>
+          <div class="controls" style="margin-top: 10px">
+            <button id="runBtn">▶ Run</button>
+            <button id="resetBtn" class="secondary">↺ Reset code</button>
+          </div>
+        </div>
+      </section>
+
+      <aside class="card">
+        <h2>Console</h2>
+        <div class="pad">
+          <div id="console" class="console" aria-live="polite"></div>
+          <p class="muted" style="margin-top: 10px">
+            Astuce : modifie le message ou le mot de passe, observe l'IV, le tag
+            d'authentification et essaye de casser la déchiffrement en changeant
+            un octet.
+          </p>
+        </div>
+      </aside>
+    </div>
+
+    <footer>
+      Ce lab utilise <code>window.crypto.subtle</code> (AES‑GCM) + CodeMirror.
+      Idéal pour un article de blog statique (GitHub Pages).
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+    <script>
+      // --- Helpers UI ---
+      const $console = document.getElementById("console");
+      function log(...args) {
+        const line = document.createElement("div");
+        line.className = "log";
+        line.textContent = args
+          .map((a) => (typeof a === "string" ? a : JSON.stringify(a)))
+          .join(" ");
+        $console.appendChild(line);
+        $console.scrollTop = $console.scrollHeight;
+      }
+      function clearConsole() {
+        $console.innerHTML = "";
+      }
+
+      // --- Crypto utils (AES-GCM) ---
+      const te = new TextEncoder();
+      const td = new TextDecoder();
+
+      function toBase64(buf) {
+        return btoa(String.fromCharCode(...new Uint8Array(buf)));
+      }
+      function fromBase64(b64) {
+        return Uint8Array.from(atob(b64), (c) => c.charCodeAt(0));
+      }
+      function hex(u8) {
+        return [...u8].map((b) => b.toString(16).padStart(2, "0")).join("");
+      }
+
+      async function deriveKeyFromPassword(password, salt) {
+        const keyMaterial = await crypto.subtle.importKey(
+          "raw",
+          te.encode(password),
+          "PBKDF2",
+          false,
+          ["deriveKey"]
+        );
+        return crypto.subtle.deriveKey(
+          { name: "PBKDF2", salt, iterations: 100000, hash: "SHA-256" },
+          keyMaterial,
+          { name: "AES-GCM", length: 256 },
+          false,
+          ["encrypt", "decrypt"]
+        );
+      }
+
+      async function aesGcmEncrypt(plaintext, password) {
+        const iv = crypto.getRandomValues(new Uint8Array(12));
+        const salt = crypto.getRandomValues(new Uint8Array(16));
+        const key = await deriveKeyFromPassword(password, salt);
+        const ctBuf = await crypto.subtle.encrypt(
+          { name: "AES-GCM", iv },
+          key,
+          te.encode(plaintext)
+        );
+        return {
+          iv: toBase64(iv),
+          salt: toBase64(salt),
+          ciphertext: toBase64(ctBuf),
+        };
+      }
+
+      async function aesGcmDecrypt(ciphertextB64, password, ivB64, saltB64) {
+        const iv = fromBase64(ivB64);
+        const salt = fromBase64(saltB64);
+        const key = await deriveKeyFromPassword(password, salt);
+        const ptBuf = await crypto.subtle.decrypt(
+          { name: "AES-GCM", iv },
+          key,
+          fromBase64(ciphertextB64)
+        );
+        return td.decode(ptBuf);
+      }
+
+      // Expose a minimal API to the user code
+      const cryptoLab = {
+        aesGcmEncrypt,
+        aesGcmDecrypt,
+        hex,
+        toBase64,
+        fromBase64,
+      };
+
+      // --- CodeMirror setup ---
+      const defaultCode = `// Démo rapide : AES-GCM avec mot de passe
+// Tu as accès à: cryptoLab.aesGcmEncrypt, cryptoLab.aesGcmDecrypt, console.log
+
+(async () => {
+  const message = 'Bonjour, monde chiffré!';
+  const password = 'correct horse battery staple';
+  console.log('Message clair :', message);
+
+  const enc = await cryptoLab.aesGcmEncrypt(message, password);
+  console.log('IV (b64)  :', enc.iv);
+  console.log('Sel (b64) :', enc.salt);
+  console.log('CT  (b64) :', enc.ciphertext);
+
+  const dec = await cryptoLab.aesGcmDecrypt(enc.ciphertext, password, enc.iv, enc.salt);
+  console.log('Déchiffré  :', dec);
+})();`;
+
+      const editor = CodeMirror.fromTextArea(
+        document.getElementById("editor"),
+        {
+          mode: "javascript",
+          theme: "default",
+          lineNumbers: true,
+          indentUnit: 2,
+          tabSize: 2,
+          viewportMargin: Infinity,
+        }
+      );
+      editor.setValue(defaultCode);
+
+      // --- Runner (sandboxed Function) ---
+      async function runUserCode() {
+        clearConsole();
+        // Proxy console to our UI
+        const proxyConsole = {
+          log: (...args) => log(...args),
+          error: (...args) => log("❌", ...args),
+          warn: (...args) => log("⚠️", ...args),
+        };
+        try {
+          const userCode = editor.getValue();
+          const AsyncFunction = Object.getPrototypeOf(
+            async function () {}
+          ).constructor;
+          const fn = new AsyncFunction("console", "cryptoLab", userCode);
+          await fn(proxyConsole, cryptoLab);
+          log("✅ Terminé.");
+        } catch (e) {
+          log("❌ Exception:", e.message || e);
+        }
+      }
+
+      document.getElementById("runBtn").addEventListener("click", runUserCode);
+      document
+        .getElementById("resetBtn")
+        .addEventListener("click", () => editor.setValue(defaultCode));
+    </script>
+  </body>
+</html>

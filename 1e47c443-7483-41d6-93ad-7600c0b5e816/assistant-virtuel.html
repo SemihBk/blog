@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Messenger Chat</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Helvetica, Arial, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .chat-container {
+        width: 100%;
+        max-width: 500px;
+        height: 90vh;
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      .chat-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 15px 20px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .profile-pic {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        border: 2px solid white;
+      }
+
+      .header-info h3 {
+        font-size: 16px;
+        font-weight: 600;
+      }
+
+      .header-info p {
+        font-size: 12px;
+        opacity: 0.9;
+      }
+
+      .chat-messages {
+        flex: 1;
+        overflow-y: auto;
+        padding: 20px;
+        background: #f0f2f5;
+      }
+
+      .message {
+        margin-bottom: 15px;
+        display: flex;
+        align-items: flex-end;
+        gap: 8px;
+        animation: slideIn 0.3s ease;
+      }
+
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .message.sent {
+        flex-direction: row-reverse;
+      }
+
+      .message-avatar {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 14px;
+        flex-shrink: 0;
+      }
+
+      .message.sent .message-avatar {
+        background: #0084ff;
+      }
+
+      .message-content {
+        max-width: 70%;
+        padding: 10px 15px;
+        border-radius: 18px;
+        font-size: 15px;
+        line-height: 1.4;
+      }
+
+      .message.received .message-content {
+        background: white;
+        color: #050505;
+        border-bottom-left-radius: 4px;
+      }
+
+      .message.sent .message-content {
+        background: #0084ff;
+        color: white;
+        border-bottom-right-radius: 4px;
+      }
+
+      .chat-input {
+        padding: 15px 20px;
+        background: white;
+        border-top: 1px solid #e4e6eb;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .chat-input input {
+        flex: 1;
+        padding: 10px 15px;
+        border: none;
+        background: #f0f2f5;
+        border-radius: 20px;
+        font-size: 15px;
+        outline: none;
+      }
+
+      .chat-input input:focus {
+        background: #e4e6eb;
+      }
+
+      .send-btn {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        transition: transform 0.2s;
+      }
+
+      .send-btn:hover {
+        transform: scale(1.1);
+      }
+
+      .send-btn:active {
+        transform: scale(0.95);
+      }
+
+      .typing-indicator {
+        display: none;
+        padding: 10px 15px;
+        background: white;
+        border-radius: 18px;
+        width: fit-content;
+        margin-bottom: 15px;
+      }
+
+      .typing-indicator.active {
+        display: block;
+      }
+
+      .typing-indicator span {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #90949c;
+        margin: 0 2px;
+        animation: typing 1.4s infinite;
+      }
+
+      .typing-indicator span:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+
+      .typing-indicator span:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+
+      @keyframes typing {
+        0%,
+        60%,
+        100% {
+          transform: translateY(0);
+        }
+        30% {
+          transform: translateY(-10px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="chat-container">
+      <div class="chat-header">
+        <div class="profile-pic">💜</div>
+        <div class="header-info">
+          <h3>Semih ❤️</h3>
+          <p>En ligne</p>
+        </div>
+      </div>
+
+      <div class="chat-messages" id="chatMessages">
+        <div class="typing-indicator" id="typingIndicator">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+
+      <div class="chat-input">
+        <input
+          type="text"
+          id="messageInput"
+          placeholder="Écris un message..." />
+        <button class="send-btn" id="sendBtn">➤</button>
+      </div>
+    </div>
+
+    <script>
+      // ============================================
+      // CONFIGURATION - PERSONNALISE TES CONVERSATIONS ICI
+      // ============================================
+      const CONVERSATION_FLOW = [
+        {
+          // Premier message automatique
+          botMessage:
+            "Bonjour ma chérie 💕 Pour t'aider à récupérer mes données, je t'accompagnerai tout le long... On va le pirater en retour, il ne sait pas à qui il s'est frotté. Tu es prête ?",
+          keywords: ["oui", "go"], // Mots-clés acceptés (en minuscules)
+          correctResponse:
+            "Bien! Je savais que tu étais prête à te battre pour récupérer ton cadeau! 😘 Alors let's go ! Le terminal Linux va être ton outil d'attaque.. ",
+          wrongResponse: "Baby, tu dois me donner le go. 😘",
+        },
+        {
+          botMessage:
+            "Avant toute chose, essaie de te connecter en root sur le terminal Linux. Si le terminal est mal configuré, tu peux essayer 'sudo su', ça devrait fonctionner. Dis-moi quand tu es connectée en root.",
+          keywords: ["oui", "connectée", "root", "suis root", "root"],
+          correctResponse:
+            "On n'est pas sorti de l'auberge avec les mots de passe admin123 ma chérie, même les hackers ne sécurisent pas leurs machines. 😭",
+          wrongResponse:
+            "Tu n'es pas connectée en root ? Le terminal doit devenir rouge. Réessaie la commande askim.",
+        },
+        {
+          botMessage:
+            "Il faut qu'on trouve l'adresse IP du hacker. Pour ça, il faut scanner le réseau. Cherche un 'outil' sur Google pour scannner un réseau et trouver des adresses IP. C'est une commande utilisée sur Kali Linux en général. Tu sais me dire le nom de l'outil que tu as trouvé ?",
+          keywords: ["nmap"],
+          correctResponse:
+            "Excelleeeent ! 😍 Tu es trop forte ! Allez, on continue...",
+          wrongResponse:
+            "Non non mon cœur, ce n'est pas ça... Cherche bien un outil super connu de scan réseau.",
+        },
+        {
+          botMessage:
+            "Essaie de lancer un scan réseau avec nmap. La plupart des réseaux utilisent des adresses IP qui commencent par 192.168.0.x. Donc tu peux essayer de scanner l'adresse en tapant 'nmap -sn 192.168.0.1/24'. Il y a combien d'IP dispo ?",
+          keywords: ["7", "sept"],
+          correctResponse: "Ok, c'est bien, on a trouvé 7 adresses IP.",
+          wrongResponse:
+            "Tu es sûre hayatım ? Recompte bien. Combien d'hôtes tu as trouvé ?",
+        },
+        {
+          botMessage:
+            "Est-ce qu'il y a une adresse IP qui te parle ? Si oui, laquelle ?",
+          keywords: ["192.168.0.117", "117"],
+          correctResponse:
+            "On va faire un scan plus approfondi de cette IP pour trouver les ports ouverts.",
+          wrongResponse:
+            "Ça ne me dit rien. Tu es sûre qu'il n'y a pas une IP qui saute aux yeux ?",
+        },
+        {
+          botMessage:
+            "Tape 'nmap -sS 192.168.0.117', ça nous donnera les ports ouverts sur cette machine. T'as trouvé quoi ?",
+          keywords: ["love-gateway", "117", "amour", "love", "gateway"],
+          correctResponse:
+            "Ouhh, il nous nargue ou quoi ? Le port de l'amour ? 😘 Je rêvais de faire du hacking tous les deux, on va le péter ce fou, baby.",
+          wrongResponse:
+            "Il faut trouver un port ouvert baby. Regarde bien les résultats du scan. Donne-moi le port ou le nom du service.",
+        },
+        {
+          botMessage:
+            "Une adresse IP et un port, on peut souvent s'en servir pour se connnecter à une machine distante ou nous rediriger vers un site web. Essaie de taper 'xdg-open http://192.168.0.117:117' dans le terminal. Ça nous redirigera peut-être vers un site!",
+          keywords: ["lovecloud", "cloud", "love", "login", "fichiers", "mail"],
+          correctResponse:
+            "Ok, nice, on va essayer de trouver le mot de passe sur sa machine, retourne sur le terminal Linux.",
+          wrongResponse: "C'est quoi le nom du service qui s'affiche, babe ?",
+        },
+        {
+          botMessage:
+            "Souvent, il y a un service de partage qu'on oublie souvent de sécuriser sur Windows. Est-ce que tu peux trouver quel est le protocole de partage de fichiers de Windows ? ",
+          keywords: ["samba", "smb", "smbprotocol"],
+          correctResponse:
+            "Quelle belle gosse, j'aime ton intelligence. Ça doit être mon côté sapiosexuel. 😘",
+          wrongResponse:
+            "Cherche sur Google, ma chérie, c'est un protocole très connu.",
+        },
+        {
+          botMessage:
+            "Parfait ! On va essayer de se connecter à son partage de fichiers. Pour ça, essaie de voir si tu peux lister les partages disponibles sur sa machine avec smbmap. Essaie la commande 'smbmap -H 192.168.0.117'. T'as trouvé des partages ?",
+          keywords: ["secret", "secrets"],
+          correctResponse:
+            "Parfait ! On va essayer de se connecter à son partage de fichiers. Le partage 'secrets' a l'air intéressant... On va l'explorer.",
+          wrongResponse:
+            "Cherche sur Google, ma chérie, c'est un protocole très connu.",
+        },
+        {
+          botMessage:
+            "On va exécuter une commande qui fait peur à première vue, mais c'est juste pour lister les fichiers. Tape 'smbmap -H 192.168.0.117 -r secrets'. On trouvera peut-être quelque chose..",
+          keywords: [
+            "mdp",
+            "trouvé",
+            "motdepasse",
+            "password.txt",
+            "credentials",
+          ],
+          correctResponse:
+            "Oh bébé, t'es exceptionnelle ! ❤️❤️❤️ On a probablement trouvé le mot de passe !",
+          wrongResponse:
+            "Retape la commande si tu ne trouves rien. Il y a forcément un fichier qui parle de mot de passe. Comment s'appelle-t-il ?",
+        },
+        {
+          botMessage:
+            "Tape la commande `smbget smb://192.168.0.117/secrets/password.txt -N` pour télécharger le fichier .txt, y a quoi dedans ?",
+          keywords: ["nodata", "orangebleu", "no@data.com"],
+          correctResponse:
+            "😍 On gère tellement. Ça doit être son mot de passe LoveCloud. Connecte-toi et regarde si tu as quelque chose d'intéressant.",
+          wrongResponse: "C'est quoi le mot de passe aşkım ?",
+        },
+        {
+          botMessage:
+            "Qu'est-ce qu'il a dans son cloud ? Tu vois des fichiers intéressants ?",
+          keywords: [
+            "teamviewer",
+            ".txt",
+            "journal",
+            "chiffré",
+            "cryptography",
+            "journal-de-bord-cryptography.txt",
+          ],
+          correctResponse:
+            "Mmh.. Essaie de déchiffrer ce journal de bord. Il a peut-être laissé des indices. Si c'est un amateur, il a peut-être utilisé un bête chiffrement. Essaie de chercher sur Google comment déchiffrer son journal. Je suis sûr que tu vas trouver facilement.",
+          wrongResponse: "Tu n'as rien trouvé d'autres ?",
+        },
+        {
+          botMessage:
+            "Est-ce que tu as réussi à déchiffrer son journal de bord ? C'était quoi sa méthode de chiffrement ?",
+          keywords: ["rot13", "cesar"],
+          correctResponse:
+            "On a affaire à un amateur, il a utilisé un chiffrement par décalage de lettres. A l'époque de César, c'était comme ça qu'on faisait. Aujourd'hui, c'est dépassé. 😘",
+          wrongResponse: "Tu n'as pas le nom de la méthode ?",
+        },
+        {
+          botMessage:
+            "Le mot de passe a l'air assez simple, essaie de te connecter à distance à sa machine Windows avec son fichier TeamViewer. Une fois dans sa machine, fouille un peu partout pour trouver nos données.",
+          keywords: ["30:21", "trouvé"],
+          correctResponse:
+            "ON Y EST PRESQUE ! 😍😍😍 Tu es la meilleure, je t'aime tellement. ❤️❤️❤️",
+          wrongResponse:
+            "Fouille bien Wireshark hayatım, il y a forcément des indices, surtout dans les paquets HTTP.",
+        },
+        {
+          botMessage:
+            "30:21.. C'est son mot de passe Onedrive, mais j'ai l'impression d'avoir déjà lu ça quelque part.. Fais un peu des recherches ?",
+          keywords: ["sourate", "coran", "verset"],
+          correctResponse:
+            "Je t'aime en Allah. ❤️ Tu es merveilleuse. Maintenant, va sur OneDrive, je pense que c'est là qu'il a stocké nos données.",
+          wrongResponse:
+            "Bebegim, tu n'as rien trouvé en cherchant sur Google ? Recherche peut-être juste 30:21 ?",
+        },
+      ];
+
+      // ============================================
+      // CODE DU CHATBOT - NE MODIFIE PAS (sauf si tu veux personnaliser)
+      // ============================================
+      let currentStep = 0;
+      let waitingForResponse = false;
+
+      const chatMessages = document.getElementById("chatMessages");
+      const messageInput = document.getElementById("messageInput");
+      const sendBtn = document.getElementById("sendBtn");
+      const typingIndicator = document.getElementById("typingIndicator");
+
+      // Fonction pour ajouter un message
+      function addMessage(text, type) {
+        const messageDiv = document.createElement("div");
+        messageDiv.className = `message ${type}`;
+
+        const avatar = document.createElement("div");
+        avatar.className = "message-avatar";
+        avatar.textContent = type === "received" ? "💜" : "😊";
+
+        const content = document.createElement("div");
+        content.className = "message-content";
+        content.textContent = text;
+
+        messageDiv.appendChild(avatar);
+        messageDiv.appendChild(content);
+
+        chatMessages.insertBefore(messageDiv, typingIndicator);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+
+      // Fonction pour afficher l'indicateur de frappe
+      function showTyping() {
+        typingIndicator.classList.add("active");
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+
+      function hideTyping() {
+        typingIndicator.classList.remove("active");
+      }
+
+      // Fonction pour envoyer le message du bot avec délai
+      function sendBotMessage(message) {
+        showTyping();
+        setTimeout(() => {
+          hideTyping();
+          addMessage(message, "received");
+          waitingForResponse = true;
+        }, 1500);
+      }
+
+      // Fonction pour vérifier si le message contient un mot-clé
+      function checkKeywords(message, keywords) {
+        const lowerMessage = message.toLowerCase();
+        return keywords.some((keyword) => lowerMessage.includes(keyword));
+      }
+
+      // Fonction pour gérer l'envoi de message
+      function sendMessage() {
+        const message = messageInput.value.trim();
+        if (!message || !waitingForResponse) return;
+
+        addMessage(message, "sent");
+        messageInput.value = "";
+        waitingForResponse = false;
+
+        const currentConversation = CONVERSATION_FLOW[currentStep];
+
+        // Vérifier si le message contient le bon mot-clé
+        if (checkKeywords(message, currentConversation.keywords)) {
+          // Bonne réponse
+          sendBotMessage(currentConversation.correctResponse);
+
+          // Passer à l'étape suivante
+          currentStep++;
+
+          // S'il reste des étapes, envoyer le prochain message
+          if (currentStep < CONVERSATION_FLOW.length) {
+            setTimeout(() => {
+              sendBotMessage(CONVERSATION_FLOW[currentStep].botMessage);
+            }, 3000);
+          }
+        } else {
+          // Mauvaise réponse
+          sendBotMessage(currentConversation.wrongResponse);
+        }
+      }
+
+      // Event listeners
+      sendBtn.addEventListener("click", sendMessage);
+      messageInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+          sendMessage();
+        }
+      });
+
+      // Démarrer la conversation
+      setTimeout(() => {
+        sendBotMessage(CONVERSATION_FLOW[0].botMessage);
+      }, 1000);
+    </script>
+  </body>
+</html>

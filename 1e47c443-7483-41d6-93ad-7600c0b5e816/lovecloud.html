@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LoveCloud - Connexion</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+      }
+
+      .login-container {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        padding: 50px 40px;
+        width: 100%;
+        max-width: 420px;
+        text-align: center;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        margin-bottom: 30px;
+      }
+
+      .logo svg {
+        width: 40px;
+        height: 40px;
+      }
+
+      .logo h1 {
+        font-size: 32px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .subtitle {
+        color: #666;
+        margin-bottom: 40px;
+        font-size: 14px;
+      }
+
+      .form-group {
+        margin-bottom: 25px;
+        text-align: left;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        color: #333;
+        font-weight: 500;
+        font-size: 14px;
+      }
+
+      input {
+        width: 100%;
+        padding: 12px 16px;
+        border: 2px solid #e0e0e0;
+        border-radius: 6px;
+        font-size: 15px;
+        transition: all 0.3s;
+      }
+
+      input:focus {
+        outline: none;
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      }
+
+      .btn {
+        width: 100%;
+        padding: 14px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+      }
+
+      .btn:active {
+        transform: translateY(0);
+      }
+
+      .error {
+        background: #fee;
+        color: #c33;
+        padding: 12px;
+        border-radius: 6px;
+        margin-bottom: 20px;
+        font-size: 14px;
+        display: none;
+      }
+
+      .hint {
+        margin-top: 20px;
+        padding: 15px;
+        background: #f0f4ff;
+        border-left: 4px solid #667eea;
+        border-radius: 4px;
+        font-size: 13px;
+        color: #555;
+        text-align: left;
+      }
+
+      /* Page de fichiers */
+      .files-container {
+        display: none;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        padding: 0;
+        width: 100%;
+        max-width: 800px;
+        overflow: hidden;
+      }
+
+      .header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 20px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .header-logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .header-logo svg {
+        width: 30px;
+        height: 30px;
+      }
+
+      .user-info {
+        font-size: 14px;
+        opacity: 0.9;
+      }
+
+      .files-content {
+        padding: 30px;
+      }
+
+      .breadcrumb {
+        color: #666;
+        font-size: 14px;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+
+      .file-list {
+        list-style: none;
+      }
+
+      .file-item {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 15px;
+        border-bottom: 1px solid #eee;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+
+      .file-item:hover {
+        background: #f8f9ff;
+      }
+
+      .file-icon {
+        width: 40px;
+        height: 40px;
+        background: #f0f4ff;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #667eea;
+      }
+
+      .file-info {
+        flex: 1;
+      }
+
+      .file-name {
+        font-weight: 500;
+        color: #333;
+        margin-bottom: 4px;
+      }
+
+      .file-meta {
+        font-size: 13px;
+        color: #999;
+      }
+
+      .success-message {
+        background: #e8f5e9;
+        color: #2e7d32;
+        padding: 15px;
+        border-radius: 6px;
+        margin-bottom: 20px;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Page de connexion -->
+    <div class="login-container" id="loginPage">
+      <div class="logo">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M20 15C21.6569 15 23 13.6569 23 12C23 10.3431 21.6569 9 20 9C19.7689 9 19.5449 9.02531 19.3293 9.07362C18.9175 6.18615 16.4675 4 13.5 4C11.6303 4 9.97968 4.93503 9 6.34642C8.55964 6.12516 8.06509 6 7.5 6C5.567 6 4 7.567 4 9.5C4 9.73321 4.02351 9.96126 4.06826 10.1816C2.30558 10.9107 1 12.6365 1 14.6667C1 17.2814 3.05066 19.3333 5.66667 19.3333H18.3333C19.8061 19.3333 21 18.1394 21 16.6667C21 16.0742 20.7967 15.5294 20.4526 15.0946"
+            stroke="url(#gradient)"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round" />
+          <defs>
+            <linearGradient
+              id="gradient"
+              x1="1"
+              y1="4"
+              x2="23"
+              y2="19.3333"
+              gradientUnits="userSpaceOnUse">
+              <stop stop-color="#667eea" />
+              <stop offset="1" stop-color="#764ba2" />
+            </linearGradient>
+          </defs>
+        </svg>
+        <h1>LoveCloud</h1>
+      </div>
+      <p class="subtitle">Accédez à vos fichiers en toute sécurité</p>
+
+      <div class="error" id="errorMsg">Mot de passe incorrect. Réessayez !</div>
+
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="username">Nom d'utilisateur</label>
+          <input
+            type="text"
+            id="username"
+            placeholder="Entrez votre adresse e-mail"
+            autofocus />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Mot de passe</label>
+          <input
+            type="password"
+            id="password"
+            placeholder="Entrez votre mot de passe" />
+        </div>
+
+        <button type="submit" class="btn">Se connecter</button>
+      </form>
+    </div>
+
+    <!-- Page de fichiers -->
+    <div class="files-container" id="filesPage">
+      <div class="header">
+        <div class="header-logo">
+          <svg
+            viewBox="0 0 24 24"
+            fill="white"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M20 15C21.6569 15 23 13.6569 23 12C23 10.3431 21.6569 9 20 9C19.7689 9 19.5449 9.02531 19.3293 9.07362C18.9175 6.18615 16.4675 4 13.5 4C11.6303 4 9.97968 4.93503 9 6.34642C8.55964 6.12516 8.06509 6 7.5 6C5.567 6 4 7.567 4 9.5C4 9.73321 4.02351 9.96126 4.06826 10.1816C2.30558 10.9107 1 12.6365 1 14.6667C1 17.2814 3.05066 19.3333 5.66667 19.3333H18.3333C19.8061 19.3333 21 18.1394 21 16.6667C21 16.0742 20.7967 15.5294 20.4526 15.0946"
+              stroke="white"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+          <h2>LoveCloud</h2>
+        </div>
+        <div class="user-info">no@data.com</div>
+      </div>
+
+      <div class="files-content">
+        <div class="success-message">
+          ✅ Connexion réussie ! Bienvenue sur votre espace personnel.
+        </div>
+
+        <div class="breadcrumb">📁 Mes fichiers</div>
+
+        <ul class="file-list">
+          <li class="file-item" onclick="downloadFile('maison.gif')">
+            <div class="file-icon">📦</div>
+            <div class="file-info">
+              <div class="file-name">NON, NE CLIQUE PAS.</div>
+              <div class="file-meta">11.7 MB • Modifié le 30 août</div>
+            </div>
+          </li>
+          <li
+            class="file-item"
+            onclick="downloadFile('journal-de-bord-cryptography.txt')">
+            <div class="file-icon">📝</div>
+            <div class="file-info">
+              <div class="file-name">journal-de-bord-cryptography.txt</div>
+              <div class="file-meta">1.2 KB • Modifié hier</div>
+            </div>
+          </li>
+          <li class="file-item" onclick="downloadFile('SPIDER-maaaan.mp3')">
+            <div class="file-icon">🎵</div>
+            <div class="file-info">
+              <div class="file-name">SPIDER-maaaan.mp3</div>
+              <div class="file-meta">7.2 MB • Modifié il y a 3 jours</div>
+            </div>
+          </li>
+          <li
+            class="file-item"
+            onclick="openInNewTab('http://semihbekki.github.io/blog/1e47c443-7483-41d6-93ad-7600c0b5e816/windows-locked.html')">
+            <div class="file-icon">↔️</div>
+            <div class="file-info">
+              <div class="file-name">TeamViewer</div>
+              <div class="file-meta">144.2 MB • Modifié hier</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <script>
+      // CHANGEZ LE MOT DE PASSE ICI
+      const correctPassword = "orangebleu";
+
+      const loginForm = document.getElementById("loginForm");
+      const errorMsg = document.getElementById("errorMsg");
+      const loginPage = document.getElementById("loginPage");
+      const filesPage = document.getElementById("filesPage");
+      const passwordInput = document.getElementById("password");
+
+      loginForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const password = passwordInput.value;
+
+        if (password === correctPassword) {
+          errorMsg.style.display = "none";
+          loginPage.style.display = "none";
+          filesPage.style.display = "block";
+        } else {
+          errorMsg.style.display = "block";
+          passwordInput.value = "";
+          passwordInput.focus();
+
+          // Animation de secousse
+          loginPage.style.animation = "shake 0.5s";
+          setTimeout(() => {
+            loginPage.style.animation = "";
+          }, 500);
+        }
+      });
+
+      function downloadFile(filename) {
+        const link = document.createElement("a");
+        link.href = "/1e47c443-7483-41d6-93ad-7600c0b5e816/files/" + filename;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+
+      function openInNewTab(url) {
+        window.open(url, "_blank");
+      }
+
+      // Animation de secousse
+      const style = document.createElement("style");
+      style.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                25% { transform: translateX(-10px); }
+                75% { transform: translateX(10px); }
+            }
+        `;
+      document.head.appendChild(style);
+    </script>
+  </body>
+</html>
