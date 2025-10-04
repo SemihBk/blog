@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>terminal — accès restreint</title>
+    <meta
+      name="description"
+      content="Faux écran hacking qui se joue automatiquement et révèle JE TAI EU à la fin." />
+    <meta name="theme-color" content="#021310" />
+    <style>
+      :root {
+        --bg: #050a08; /* noir verdâtre */
+        --grid: #0b2b22; /* quadrillage */
+        --term: #0ef27f; /* vert néon */
+        --term-dim: #0aa85a; /* vert atténué */
+        --accent: #59ffc0; /* menthe */
+        --danger: #ff3864; /* magenta/rouge */
+        --glass: rgba(10, 30, 25, 0.7);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        color: var(--term);
+        background: radial-gradient(
+            1200px 800px at 70% -10%,
+            rgba(0, 255, 170, 0.08),
+            transparent 60%
+          ),
+          radial-gradient(
+            1200px 800px at -10% 90%,
+            rgba(0, 255, 170, 0.06),
+            transparent 60%
+          ),
+          var(--bg);
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+          "Liberation Mono", monospace;
+        display: grid;
+        place-items: center;
+        overflow: hidden;
+      }
+
+      /* quadrillage 3D subtile */
+      .grid::before {
+        content: "";
+        position: fixed;
+        inset: -2px;
+        pointer-events: none;
+        background: linear-gradient(transparent 31px, var(--grid) 32px),
+          linear-gradient(90deg, transparent 31px, var(--grid) 32px);
+        background-size: 32px 32px, 32px 32px;
+        opacity: 0.22;
+        mask: radial-gradient(
+          ellipse at 50% 0%,
+          rgba(0, 0, 0, 0.9) 10%,
+          rgba(0, 0, 0, 0) 70%
+        );
+      }
+
+      /* scanlines CRT */
+      .crt:after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        background: repeating-linear-gradient(
+          0deg,
+          rgba(255, 255, 255, 0.03) 0 1px,
+          transparent 1px 3px
+        );
+        mix-blend-mode: overlay;
+        opacity: 0.35;
+        filter: blur(0.2px);
+      }
+
+      .glow {
+        text-shadow: 0 0 6px rgba(14, 242, 127, 0.6),
+          0 0 24px rgba(14, 242, 127, 0.35);
+      }
+      .dim {
+        color: var(--term-dim);
+      }
+
+      .frame {
+        width: min(980px, 94vw);
+        height: min(600px, 82vh);
+        border: 1px solid rgba(89, 255, 192, 0.25);
+        background: var(--glass);
+        border-radius: 18px;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 30px 120px rgba(0, 255, 170, 0.08),
+          inset 0 0 0 1px rgba(89, 255, 192, 0.08);
+      }
+      .titlebar {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        padding: 0.6rem 0.9rem;
+        border-bottom: 1px solid rgba(89, 255, 192, 0.12);
+        background: rgba(8, 24, 20, 0.6);
+      }
+      .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--grid);
+        box-shadow: 0 0 10px rgba(89, 255, 192, 0.35) inset;
+      }
+      .dot:nth-child(1) {
+        background: #1eeea0;
+      }
+      .dot:nth-child(2) {
+        background: #0ad07f;
+      }
+      .dot:nth-child(3) {
+        background: #08b56c;
+      }
+
+      .screen {
+        position: absolute;
+        inset: 42px 0 0;
+        padding: 18px 18px 24px;
+        overflow: auto;
+        line-height: 1.55;
+        font-size: 15px;
+      }
+      .prompt {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.5rem;
+        white-space: pre-wrap;
+      }
+      .caret {
+        width: 10px;
+        height: 1.1rem;
+        background: var(--term);
+        animation: blink 1s steps(1) infinite;
+      }
+      @keyframes blink {
+        50% {
+          opacity: 0;
+        }
+      }
+
+      /* fond pluie matrix */
+      canvas#rain {
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        opacity: 0.25;
+        filter: blur(0.2px);
+      }
+
+      /* barre de progression */
+      .bar {
+        position: relative;
+        width: 100%;
+        height: 10px;
+        background: rgba(89, 255, 192, 0.1);
+        border: 1px solid rgba(89, 255, 192, 0.2);
+        border-radius: 999px;
+        overflow: hidden;
+        margin: 0.35rem 0 0.8rem;
+      }
+      .bar > i {
+        position: absolute;
+        inset: 0;
+        width: 0%;
+        background: linear-gradient(
+          90deg,
+          rgba(14, 242, 127, 0.2),
+          rgba(14, 242, 127, 0.6)
+        );
+        box-shadow: 0 0 14px rgba(14, 242, 127, 0.4) inset;
+      }
+      .bar .pct {
+        font-size: 0.85em;
+      }
+
+      /* révélation finale */
+      .reveal {
+        font-size: clamp(2.2rem, 6vw, 5rem);
+        text-align: center;
+        margin-top: 22px;
+        letter-spacing: 0.02em;
+        animation: glitch 680ms steps(1) 8;
+      }
+      @keyframes glitch {
+        0%,
+        100% {
+          clip-path: inset(0 0 0 0);
+        }
+        20% {
+          clip-path: inset(6% 0 0 0);
+        }
+        40% {
+          clip-path: inset(0 0 12% 0);
+        }
+        60% {
+          clip-path: inset(18% 0 0 0);
+        }
+        80% {
+          clip-path: inset(0 0 24% 0);
+        }
+      }
+
+      .watermark {
+        position: fixed;
+        bottom: 10px;
+        left: 12px;
+        color: var(--term-dim);
+        font-size: 0.85rem;
+        opacity: 0.8;
+      }
+    </style>
+  </head>
+  <body class="grid crt">
+    <canvas id="rain" aria-hidden="true"></canvas>
+    <div class="frame" role="application" aria-label="terminal factice">
+      <div class="titlebar">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div style="margin-left: 0.5rem" class="dim">
+          /dev/pts/0 — session: <span class="glow">root@localhost</span>
+        </div>
+      </div>
+      <div class="screen" id="screen">
+        <div class="prompt">
+          <span class="dim">[00:00:00] boot</span>
+          <span>initialisation des modules…</span>
+        </div>
+        <div class="prompt">
+          <span class="dim">[00:00:01] net</span>
+          <span>interface eth0 ↑ → 10.42.0.13</span>
+        </div>
+        <div class="prompt">
+          <span class="dim">[00:00:02] auth</span>
+          <span
+            >chargement des clés…
+            <span style="color: var(--danger)">interdit</span></span
+          >
+        </div>
+        <div class="prompt">
+          <span class="dim">$</span> <span id="type"></span
+          ><span class="caret"></span>
+        </div>
+        <div id="log"></div>
+      </div>
+    </div>
+
+    <script>
+      // ===== pluie Matrix en fond =====
+      const canvas = document.getElementById("rain");
+      const ctx = canvas.getContext("2d");
+      let w, h, cols, ypos;
+      function resize() {
+        w = canvas.width = innerWidth;
+        h = canvas.height = innerHeight;
+        cols = Math.floor(w / 20);
+        ypos = Array(cols).fill(0);
+      }
+      addEventListener("resize", resize);
+      resize();
+      (function loop() {
+        ctx.fillStyle = "rgba(0,0,0,0.07)";
+        ctx.fillRect(0, 0, w, h);
+        ctx.fillStyle = "#0ef27f";
+        ctx.font = "16px monospace";
+        ypos.forEach((y, i) => {
+          const text = String.fromCharCode(0x30a0 + Math.random() * 96);
+          ctx.fillText(text, i * 20, y);
+          ypos[i] = y > 100 + Math.random() * 10000 ? 0 : y + 18;
+        });
+        requestAnimationFrame(loop);
+      })();
+
+      // ===== helpers =====
+      const log = document.getElementById("log");
+      const typeEl = document.getElementById("type");
+      const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+      const add = (txt) => {
+        const d = document.createElement("div");
+        d.className = "prompt";
+        const t = document.createElement("span");
+        t.textContent = "$";
+        t.className = "dim";
+        const s = document.createElement("span");
+        s.textContent = " " + txt;
+        d.appendChild(t);
+        d.appendChild(s);
+        log.appendChild(d);
+        log.scrollTop = log.scrollHeight;
+      };
+      const addHTML = (el) => {
+        log.appendChild(el);
+        log.scrollTop = log.scrollHeight;
+      };
+
+      // ===== séquence automatique =====
+      async function play() {
+        // 1) faux typage de commande
+        const cmd = "sudo ./payload --target 10.42.0.13 --force --verbose";
+        for (let i = 1; i <= cmd.length; i++) {
+          typeEl.textContent = cmd.slice(0, i);
+          await wait(24);
+        }
+
+        // 2) logs préparatoires
+        add("[ exploit ] ouverture du socket… OK");
+        await wait(220);
+        add("[ exploit ] négociation TLS…  weak ciphers accepted");
+        await wait(220);
+        add("[ exploit ] handshake…  session-id 0x7F3A");
+        await wait(180);
+
+        // 3) upload progress
+        const wrap = document.createElement("div");
+        const label = document.createElement("div");
+        label.textContent = "[ exploit ] upload du binaire…";
+        const bar = document.createElement("div");
+        bar.className = "bar";
+        const fill = document.createElement("i");
+        const pct = document.createElement("span");
+        pct.className = "pct dim";
+        pct.style.marginLeft = ".5rem";
+        bar.appendChild(fill);
+        wrap.appendChild(label);
+        wrap.appendChild(bar);
+        wrap.appendChild(pct);
+        addHTML(wrap);
+        let p = 0;
+        while (p < 100) {
+          p += Math.ceil(Math.random() * 9);
+          if (p > 100) p = 100;
+          fill.style.width = p + "%";
+          pct.textContent = p + "%";
+          await wait(90 + Math.random() * 110);
+        }
+
+        // 4) suite des logs
+        add("[ exploit ] élévation de privilèges… <root>");
+        await wait(260);
+        add("[ system ] dump des secrets → /tmp/leak.bin");
+        await wait(220);
+        add("[ trace ] effacement des logs…");
+        await wait(220);
+        add("[ ALERT ] brèche détectée sur 10.42.0.13");
+        await wait(240);
+        add("[ ALERT ] contre-mesures contournées");
+        await wait(260);
+        add("[ DONE ] succès: contrôle total acquis");
+        await wait(380);
+
+        // 5) révélation
+        const msg = document.createElement("div");
+        msg.className = "reveal glow";
+        msg.innerHTML = "YOU'VE BEEN HACKED";
+        addHTML(msg);
+        confetti(200);
+      }
+
+      // ===== confettis verts minimalistes =====
+      function confetti(n = 140) {
+        const vw = innerWidth;
+        for (let k = 0; k < n; k++) {
+          const e = document.createElement("i");
+          e.style.position = "fixed";
+          e.style.top = "-8px";
+          e.style.left = Math.random() * vw + "px";
+          e.style.width = "10px";
+          e.style.height = "10px";
+          e.style.background =
+            "hsl(" + (110 + Math.random() * 40) + ", 100%, 60%)";
+          e.style.opacity = 0.9;
+          e.style.pointerEvents = "none";
+          e.style.zIndex = 9;
+          e.style.borderRadius = "2px";
+          e.style.transition =
+            "transform " + (1.4 + Math.random() * 1.6) + "s linear";
+          document.body.appendChild(e);
+          requestAnimationFrame(() => {
+            e.style.transform =
+              "translateY(110vh) rotate(" +
+              (360 + Math.random() * 720) +
+              "deg)";
+          });
+          e.addEventListener("transitionend", () => e.remove());
+        }
+      }
+
+      // démarrage auto après petit délai pour effet dramatique
+      setTimeout(play, 650);
+    </script>
+  </body>
+</html>
