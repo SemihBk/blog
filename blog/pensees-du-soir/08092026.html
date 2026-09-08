@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pensées du soir — singularity</title>
+    <meta
+      name="description"
+      content="Article du blog singularity : Les Fleurs du Mal 2.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet" />
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <script src="../../assets/js/script.js" defer></script>
+  </head>
+  <body>
+    <div class="bg-decor" aria-hidden="true"></div>
+    <div class="progress" id="progress"></div>
+
+    <header>
+      <div class="container nav">
+        <div class="brand">
+          <div class="logo" aria-hidden="true">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="m4 17 6-6-6-6" />
+              <path d="M12 19h8" />
+            </svg>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px">
+            <a
+              href="../../blog.html"
+              style="text-decoration: none; color: inherit"
+              >Blog</a
+            >
+            <span
+              class="btn"
+              style="padding: 4px 8px; border-radius: 8px; font-size: 12px"
+              >Article</span
+            >
+          </div>
+        </div>
+        <button class="btn-theme" id="themeBtn" title="Changer le thème">
+          <span class="icon-sun" aria-hidden="true">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round">
+              <circle cx="12" cy="12" r="4" />
+              <path
+                d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+            </svg>
+          </span>
+          <span class="icon-moon" aria-hidden="true" style="display: none">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+            </svg>
+          </span>
+          <span id="themeLabel">Clair</span>
+        </button>
+      </div>
+    </header>
+
+    <main class="container">
+      <aside class="infobar">
+        <h3>Blog</h3>
+        <p>Publié le : 8 septembre 2026</p>
+        <p class="muted">Temps de lecture : <span id="reading">—</span></p>
+      </aside>
+
+      <article id="article">
+        <h2 class="main-title">Pensées du soir</h2>
+        <figure>
+          <img src="img/relaisferroviaire.png" alt="Thumbnail" />
+        </figure>
+        <p>
+          Un train passe. <br> J’ai envie de savoir tout ce qu’il a fallu pour qu’il passe.
+        </p>
+
+        <p>
+          Jusqu’où faut-il remonter ? <br> 
+          Au signal, à la commande, au réseau, à celui qui l’a conçu, à celle qui l’exploite ? Chaque réponse ouvre quelque chose. On croit tenir un système, on découvre un métier. On cherche une explication, quelqu’un nous raconte une histoire. Et on comprend un peu mieux.
+        </p>
+
+        <p>
+          Depuis février, au sein des CFL, j’ai trouvé de quoi nourrir longtemps cette envie de comprendre.
+        </p>
+
+        <p>
+          Il y a une densité de savoirs dans une entreprise comme celle-ci dont on mesure difficilement l’étendue de l’extérieur. De l’informatique, de la gouvernance, de l’ingénierie, des ouvriers, des électriciens, de l’exploitation. Des personnes qui ne se connaissent parfois pas et dont les compétences se complètent pourtant jusque dans le même trajet.
+        </p>
+
+        <p>
+          J’aime essayer de réunir ces morceaux. Démonter mentalement ce qui fonctionne, chercher le noyau, comprendre pourquoi une pièce est là et ce que son absence changerait. Puis écouter quelqu’un et devoir reprendre une partie du raisonnement, parce que son expérience vient éclairer ce que je n’avais pas vu.
+        </p>
+
+        <p>
+          Ça demande d’accepter que les autres détiennent des pièces auxquelles on n’aurait même pas pensé.
+        </p>
+
+        <p>
+          Ma réflexion en cybersécurité se nourrit de cela. <br> Des connaissances techniques, des exigences, mais aussi de ce que chacun m’apprend à regarder. Comment envisager une protection sans s’intéresser profondément à ce qui doit continuer à vivre, à fonctionner, à servir ?
+        </p>
+
+        <p>
+          L’OT donne à cette question une présence particulière. Au bout du raisonnement, il y a un équipement, un mouvement, des personnes. Il y a ce quotidien auquel on tient et toute l’attention nécessaire pour qu’il reste ordinaire.
+        </p>
+
+        <p>
+          Comprendre et protéger. <br> Je me retrouve dans ces deux élans, et dans la responsabilité qui les relie.
+        </p>
+
+        <p>
+          À la fin de ce stage, je pense aux personnes passionnantes qui ont accompagné mes journées. Aux relations qui se sont nouées, au plaisir de comprendre quelque chose ensemble. J’ai aimé habiter un peu leur univers, apprendre leurs raisons, m’imprégner de leur manière de voir.
+        </p>
+
+        <p>
+          Merci à ceux qui m’en ont ouvert la porte et qui ont fait une place à mes questions.
+        </p>
+
+      </article>
+    </main>
+
+    <div class="container article-nav">
+      <a class="btn" href="../../blog.html">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round">
+          <path d="m15 18-6-6 6-6" />
+        </svg>
+        Retour au blog
+      </a>
+    </div>
+
+    <footer>
+      <div class="container foot">
+        <div>© <span id="year"></span> · singularity</div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,5 +1,14 @@
 window.BLOG_POSTS = [
   {
+    title: "Pensées du soir",
+    date: "2026-09-08",
+    url: "blog/pensees-du-soir/08092026.html",
+    type: "article",
+    tags: ["CFL", "pensées", "OT", "IT", "ferroviaire", "société"],
+    excerpt: "Arborescence.",
+    thumb: "blog/thumbs/relaisferroviaire.png",
+  },
+  {
     title: "APT",
     date: "2025-09-27",
     url: "blog/APT/27092025.html",
